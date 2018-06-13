@@ -1,0 +1,161 @@
+\chapter{Preliminaries}
+\label{chap:preliminaries}
+
+\section{Background}
+
+\subsection{Security and Privacy}
+
+\subsubsection*{Security}
+Security according to the National Institute of Standards and Technology (NIST) \cite{Kissel2013} could be defined as any condition that leads to the creation and maintenance of defensive measures to ensure than an information technology infrastructure continues to perform it basic or critical functions irrespective of the risks posed by the threats to its normal operation.
+
+The major objectives that need to be considered when analyzing the security of any system are Confidentiality, Integrity and Availability. These objectives are to be met completely for any system to be considered secure.
+
+Confidentiality \cite{Kissel2013} assures that only those entities in the system that are authorized have access to data that is either being stored, processed or transferred in the system.
+
+Integrity \cite{Kissel2013} relates to the verification of the authenticity of data. This means ensuring that data has not been manipulated in any form either while in transit or while in storage. This ensures that any unauthorized manipulation of data in the form of addition, deletion or substitution is detected.
+
+Availability \cite{Kissel2013} can simply be described as a measure of the level of accessibility and usability of a particular system upon request by an authorized user. This means that the system should be able to at all times carry out the various functions in order to meet the demands of its users. This also covers the ability of the infrastructure to remain functional even when some individual.
+
+\subsubsection*{Privacy}
+
+Privacy is commonly equated with the concept of confidentiality in error. While confidentiality is mainly concerned with ensuring that only users who are authorized have access to data which is being stored, processed or transferred within a system. Privacy, on the other hand, is concerned with ensuring that users have more control over the collection, use and storage of information that is related to them. Therefore, while maintaining the confidentiality of a system aids in preserving privacy, it does not completely ensure it as an authorized user may abuse that privilege by violating the privacy of user information \cite{pearsonprivacy}.
+
+The range of what is considered private information significantly varies in scope depending on the application area. For instance, in health sector, private information can be regarded as any oral or written information that meets any of the following criteria: relates to the health of the individual, including their family history; relates to health care provision, including the source of care; constitutes as service for individuals who require long term care; relates to payment for health care. More importantly, private information is any information that can be used to identify an individual, either alone or when related to another piece of available information \cite{annpia}.
+
+The privacy of data that is stored in the cloud faces multiple challenges as a result of the different ways in which the data are stored or processed on a machine that is usually owned by a different organization which is usually the CSP. The major issues that exist in this area of privacy relate to trust as users are not completely certain that: their data is not being used for other purposes other than that for which it was collected; that data is destroyed properly in the end; privacy breaches have occurred which may have exposed their information; their information is retained even after they have stopped using a particular service \cite{pearsonprivacy}.
+
+
+
+\subsection{Electronic Medical Records (EMR)}
+
+- EMR standards and their format? Need references for this
+
+- Mention their XML based nature???
+
+- EMRs vs PHRs vs EHRs (focus of research is on EMRs which is owned by hospitals???)
+
+\subsection{Cloud Computing}
+
+Cloud computing as defined by the National Institute of Standards and Technology (NIST) \cite{nist}, defines cloud computing as ''a model for enabling convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction.'' Cloud computing offers considerable advantages to both government and private organizations, which has led to its growth and world wide acceptance in recent years. Some of the advantages offered by the cloud include: easy and fast deployment of IT systems; reduction in the cost of installation and maintenance of infrastructure; easy accessibility; improved flexibility of systems; and a heavy reduction in the responsibilities of the user as most of the traditional tasks will be handled by the provider of the cloud based service.
+
+The different service models for cloud computing as Infrastructure as a Service (IaaS), Platform as a Service (PaaS) and Software as a Service (SaaS). These delivery models are distinct based on what services the CSP is providing and the amount of responsibilities that fall on the side of the user in terms of control and management of resources. The IaaS model gives users more responsibilities as they have control over their operating systems, storage and applications which have been deployed while the SaaS offers the least amount of responsibilities which are limited to some application configuration settings. More detailed information about the different service models can be found at \cite{nist}.
+
+The deployment models available in cloud computing are the private, community, public and hybrid cloud models. These models are based on the number of parties that share the available deployed infrastructure. The private cloud is typically setup for use for a single organization while the community and public cloud models usually involve multiple parties with the former involving parties that share similar interest and requirements while the latter is typically provisioned and available for use by the general public. The hybrid cloud model is basically a combination of the any of the other models and is typically a combination of the private and public models with the aim of benefiting from the strengths of the models while eliminating individual model weaknesses. More detailed information about the different deployment models can be found at \cite{nist}.
+
+The cloud computing deployment model this thesis considers is the public cloud model as this is the model mostly used. Also, users of the private model have more control over their infrastructure and are able, to a certain degree, to ensure that the security and privacy of stored data is assured. \textcolor{red}{review this paragraph and add what service model is being considered}
+
+
+\subsection{Cryptography}
+
+Cryptography\cite{Kissel2013} is the field of study which represents the principles, means and methods used for transforming data in order to hide their original content and prevent unauthorized use or modification. This typically involves the study of several mathematical techniques. Cryptography can be broadly divided into secret key and public key cryptography also known as symmetric and asymmetric schemes.
+
+\subsubsection*{Secret Key Cryptography (Symmetric)} This type of cryptographic systems involve the use of a single secret key which is usually agreed upon by both parties who want to keep their communication secret. This secret key is used to encrypt the original message typically described as the plaintext (i.e encode the plaintext into a ciphertext that cannot be read by a party without the secret key). The receiving party if authorized and in possession of the secret key is able to decrypt the ciphertext and gain access to the original message. Examples of secret key schemes include the ciphers (Caesar, monoalphabetic and polyalphabetic cyphers), Data Encryption Standard (DES) and Advanced Encryption Standard. 
+
+\subsubsection*{Public Key Cryptography (Asymmetric)} This type of cryptographic systems came about due to the challenges that arose as a result of secret key cryptography which include the problem of key management and lack of secure channel for users to exchange keys. Public key cryptography involves the use of two separate keys, a public and private key, which are used to perform complementary operations such as encryption and decryption or signature generation and verification. Examples of public key schemes include the Diffie–Hellman key exchange protocol, RSA, Elgamal and Elliptic Curve Cryptography.
+
+\subsubsection*{\textcolor{red}{Make brief mention of pairing based schemes???}}
+
+\subsubsection*{Cryptographic Adversary Models}
+
+Attacks on cryptographic systems typically carried out by an adversary normally to either recover the plaintext from the ciphertext or recover the secret key used by the system can be classified into four broad categories.
+
+\begin{itemize}
+	\item Ciphertext Only Attack \cite{Menezes1996} - A ciphertext only attack is a class of attacks in which the adversary only has access to only some ciphertext without any knowledge of the corresponding plaintext. This is the weakest type of attack because the adversary has the least amount of information to work with and any encryption scheme vulnerable to this class of attack is considered to be completely insecure.
+	
+	\item Known Ciphertext Attack \cite{Menezes1996} - A known plaintext attack is a class of attacks in which the adversary has access to some plaintext and ciphertext pairs. The  adversary is unable to create more pairs and in only able to gain access to these by eavesdropping on the comunication channel between parties. These types of attacks are only marginally more difficult to mount. 
+	
+	\item Chosen Plaintext Attack (CPA) \cite{Menezes1996} - A chosen plaintext attack is a class of attacks where the adversary is able to select the plaintext and request for the corresponding ciphertexts. This is typically done through the use of a black box system typically called an oracle that is able to produce the corresponding ciphertext when given any plaintext without revealing the key or any information about the plaintext of the original ciphertext that the adversary is trying to decrypt. A variation of this is the adaptive chosen plaintext attack where the adversary chooses the new plaintext based on the ciphertext received for earlier submitted plaintexts.
+	
+	\item Chosen Ciphertext Attack (CCA) \cite{Menezes1996} - A chosen ciphertext attack is a class of attacks where the adversary selects any ciphertext and requests for the corresponding plaintext. This is the direct opposite of the chosen plaintext attack class. This class of attacks are considered to be the strongest model of attacks when classifying encryption schemes based on their level of resistance. An adaptive chosen ciphertext attack just like the adaptive version of CPA involves the adversary deciding on what ciphertext to submit based on the plaintext received for earlier requests.
+	
+\end{itemize}
+
+Note that some of the attack types above are mutually exclusive (for instance, an attack cannot be both chosen plaintext and known plaintext). And also the chosen plaintext/ciphertext attacks are somewhat exclusive to the modern era of cryptography.
+
+
+\subsection{Technical Background}
+
+\subsubsection*{Bilinear Maps}
+
+- importance of bilinear maps
+
+- the characteristics of bilinear maps to use for ABE
+
+- symmetric vs assymmetric
+
+- composite vs prime order groups
+
+\subsubsection*{Secret Sharing Schemes}
+
+Secret sharing schemes which was first created by Shamir in \cite{Shamir1979} allows for the division of data among multiple parties in such a way that the original data can only be reconstructed if a party is in possession of at least a fixed number of division, usually the threshold, and possession of a number of pieces less than the threshold reveals no information about the original data. Other earlier works in secret sharing include works by Barkley \cite{Blakley1979}, Benaloh \cite{Benaloh1988} and Ito, Saito and Nishizeki \cite{Ito1989}. LSSS are secret sharing schemes in which the reconstruction of the original secret is done using a linear function of the available pieces\cite{Beimel1996}.
+
+- purpose of linear secret sharing schemes
+
+- how linear secret sharing schemes work...cite first and earlier papers
+
+
+\subsubsection{Access Structures}
+
+The definitions of access structures and linear secret sharing schemes used in this thesis have been adapted from \cite{Beimel1996}.
+
+\begin{definition}{(Access Structures \cite{Beimel1996})}
+	\textit{Let $\{P_{1},\ldots,P_{n}\}$ be a set of parties. A collection $ \mathbb{A} \subseteq 2^{\{P_{1},\ldots,P_{n}\}} $ is monotone if $ \forall B,C\colon $ if B $ \in \mathbb{A} $ and B $ \subseteq $ C, then C $ \in \mathbb{A} $. An access structure, i.e monotone is a collection $ \mathbb{A} $ of non-empty subsets of $\{P_{1},\ldots,P_{n}\}$ i.e., $ \mathbb{A} \subseteq 2^{\{P_{1},\ldots,P_{n}\}}\setminus\{\} $. The sets in $ \mathbb{A} $ are called the authorized sets, and the sets not in $ \mathbb{A} $ are called the unauthorized sets.}
+\end{definition}
+
+In ABE, attributes play the role of parties in the access structure and the scheme in this thesis only considers access structures that are monotone. Access policies based on monotone access structures could be represented as either a Linear Secret Sharing Scheme (LSSS) Matrix or with the use of monotonic boolean formulas which could be represented as an access tree in which the core nodes are used to represent the AND and OR gates with the attributes represented by the leaf nodes. A monotone boolean formula could be easily converted to a LSSS matrix using techniques described in \textcolor{red}{cite} with the number of rows in the corresponding matrix equal to the number of leaf nodes in the access tree.
+
+\subsubsection*{Boolean Formulas}
+
+boolean formula??
+
+\subsubsection*{Linear Secret Sharing Schemes (LSSS) Matrix}
+
+LSSS Matrix????
+
+
+
+use LSSS Matrix and state that boolean can be easily converted. Refer to appendix for details on that
+
+
+
+
+
+
+
+- refer to appendix for example????
+
+
+
+\subsubsection{Complexity Assumptions}
+
+- state earlier assumptions starting with discrete log
+
+- CDH vs DDH
+
+- decide on providing details of other assumptions of just stating them and referencing papers where they are described???
+
+\subsection{Attribute Based Encryption (ABE)}
+
+ABE is a cryptosystem that was developed based on the original IBE scheme which was proposed by Shamir in 1984 \cite{Shamir1985}. Shamir proposed a scheme which allowed for the encryption and decryption of information between two different users without the need for any exchange of keys between both parties. His proposal assumed the existence of a trusted key generation center similar to Certificate Authorities (CA) which are responsible for registration of users as they join a network and also for subsequent verification of their identity. Personal information unique to several users, such as their address, email address or a combination of this information, was used as the public key in the system. This allowed for the encryption of a message meant for UserB by UserA using the email address of UserB, e.g “userB@gmail.com”. UserB on receiving this message would then contact the CA and, after successful authentication, receives a secret key granting him access to the original message. The scheme proposed by Shamir was further developed and the first practical and secure IBE scheme was presented by Boneh and Franklin in \cite{Boneh2003}, who developed a fully functional IBE scheme which made use of groups for which there existed an efficiently computable bilinear map such as the Weil pairing.
+
+Sahai and Waters in \cite{Sahai2005} were able to develop a new scheme that improved on the existing IBE schemes by creating a system in which the user identity is viewed as a set of descriptive attributes, allowing a user to encrypt a file for all users who have a certain set of attributes. Decryption in this case is only permitted if the identity of a user, and the identity for which the ciphertext was encrypted, were close enough based on their individual attributes. A major restriction to this scheme is the limitation of the access policy to a predetermined threshold of attributes which limits the ability to implement the scheme for more general systems.
+
+Goyal et al. in \cite{Goyal2006} developed an ABE scheme that was more expressive than the original ABE scheme proposed by Sahai and Waters \cite{Sahai2005}. In their scheme, which they called Key-Policy Attribute-Based Encryption (KP-ABE), each ciphertext created by the user contains a set of descriptive attributes. Secret keys of individual users are associated with an access structure which specifies the attributes a ciphertext needs for decryption. The access tree structure could be made up of interior nodes that consist of AND and OR gates with the leaves containing different attributes. For example, if UserA’s key in KP-ABE contains “C AND D” as the access policy, the only ciphertexts he should be able to decrypt are those that contains both attributes C and D. A ciphertext with only attribute C or D could not be decrypted by UserA as the requirements for access would not be satisfied. The keys generated for users in this scheme are also collusion resistant just like the original scheme, meaning that no two users with different attributes could combine their keys to create an overlap of attributes that would give them the ability to decrypt files which they would not normally be able to decrypt.
+
+The authors in \cite{Bethencourt2007} mentioned an alternative to the KP-ABE scheme known as the Ciphertext-Policy Attribute-Based Encryption (CP-ABE) scheme which would be a direct reverse of their scheme. In CP-ABE, the ciphertexts are associated with the access policy while the user keys contain a set of descriptive attributes. This would mean that, for a key to decrypt a particular ciphertext, its attributes need to match the access structure of the access policy of the ciphertext. The authors in \cite{Goyal2006} left this as an open problem which Bethencourt et al. solved in \cite{Bethencourt2007} by developing a CP-ABE scheme. This scheme, unlike the KP-ABE scheme, gives the user encrypting the file more control as the user is able to control who can have access to data being encrypted by making sure the access policy in the ciphertext specifies what attributes need to be possessed for access to be granted. CP-ABE also has a delegation mechanism which allows users with a key for a particular access structure to derive a key for a different access structure as long as the new access structure is more restrictive than the access structure of the original key.
+
+The four basic algorithms of any ABE based system includes the following:
+
+\begin{enumerate}
+	
+	\item Setup -  The setup algorithm is responsible for the selection of the bilinear group and the definition of a bilinear map that has the properties of bilinearity, computability and non-degeneracy. The setup algorithm takes as its input the security parameter which specifies the size of the attribute set and generates a public key (PK) and a master key (MK) as output.
+	
+	\item Keygen - The keygen algorithm takes as its input two parameters, the MK generated during setup and the set of attributes that the user possesses, and generates a secret key (SK) for the user in CP-ABE based schemes. The input for the KP-ABE based scheme include the MK, PK and an access structure (T) and outputs SK.
+	
+	\item Encryption - The encryption algorithm takes as its input PK, a message M, and an access structure (T) for CP-ABE based schemes and produces a ciphertext C. It takes as input PK, M and a set of attributes and produces a ciphertext C for KP-ABE based schemes.
+	
+	\item Decryption - The decryption algorithm takes as input PK, C and SK and, if the attributes of either the ciphertext or the secret key satisfies the access structure of the other, depending on whether the scheme is CP or KP-ABE based, decrypts C and outputs M.
+	
+\end{enumerate}
+
+CP-ABE has an additional algorithm called Delegate which takes as input a secret key SK for a set of attributes S and a set S* which is a subset of S and produces as output a secret key SK* for the set of attributes S*.

@@ -1,0 +1,4 @@
+Yang, Jia - Scheme I modified to get my current scheme
+Green, Hohenberger - Original outsourcing ABE scheme (single authority though)
+Waters - Scheme modified to add outsourcing by Green
+Chow - Another outsourcing scheme (multi authority)
