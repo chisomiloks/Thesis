@@ -7,6 +7,14 @@
 \section{Overview}
 
 \begin{itemize}
+	\item what the chapter will contain: description of the proposed framework for secure storage of data using a combination of attribute and symmetric-based encryption.  details of implementation. Also provide info on the security model for the underlying attribute based encryption scheme. This would highlight the assumptions that was used to verifying the integrity of the proposed scheme. I will summarise the pros and cons of the proposed scheme.
+	
+	\item what are the good things about the model: its more secure than xyz, runs faster. potential drawbacks: ... \textcolor{red}{its own section?}
+	
+	\item what the subsequent sections will contain to provide a clearer image of their content
+\end{itemize}
+
+\begin{itemize}
 	\item General overview of solution at a high level? \textcolor{red}{not exactly sure of the specifics of this at this point}
 \end{itemize}
 
@@ -98,8 +106,13 @@
 		
 		\item Phase 1 - Token Generation
 		
+		
+		This is the first phase of the data encryption component that involves the transformation of the ciphertext into an El Gamal style ciphertext referred to in this framework as a token through partial decryption while the integrity of the original message is preserved.
+		
+		$TK = \prod\limits_{aid_{k} \in I_{A}} \frac{e(C', K_{uid,aid})e(C'', K'_{uid,aid})^{-1}}{\prod\limits_{i \in I_{aid_k}}(e(C_i, GPK_{uid})e(D_i, K_{\rho(i),uid})e(C'_i, K_{uid,aid_k}^{-1})e(g, D'_i)^{-1})^{\omega_{i}n_A}}$
+		
 		\item Phase 2 - Decryption
-	
+		
 	\end{enumerate}
 	
 \end{enumerate}
