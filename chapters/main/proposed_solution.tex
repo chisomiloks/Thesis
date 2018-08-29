@@ -53,17 +53,13 @@
 		\item User Registration
 		
 		This is executed for all users in the system by the CA. Each user is assigned a globally unique $ uid $ and for each $ uid $, the CA generates two random numbers $ u_{uid}, u'_{uid} \in Z_{p} $ as its global secret keys
-		
-		\begin{center}
-			$ GSK_{uid} = u_{uid} $, $ GSK'_{uid} = u'_{uid} $
-		\end{center}
-		
+		\begin{align*}
+			GSK_{uid} = u_{uid}, GSK'_{uid} = u'_{uid}
+		\end{align*}
 		The global public keys for each user is generated as 
-		
-		\begin{center}
-			$ GPK_{uid} = g^{u_{uid}} $, $ GPK'_{uid} = g^{\frac{1}{u'_{uid}}} $
-		\end{center}
-		
+		\begin{align*}
+			GPK_{uid} = g^{u_{uid}}, GPK'_{uid} = g^{\frac{1}{u'_{uid}}}
+		\end{align*}
 		The CA generates a $ Certificate{uid} $ for each user $ uid $ and send $ (GPK_{uid}, GSK'_{uid}, \\ Cerificate(uid)) $ to the user.
 		
 		\item Attribute Authority (AA) Registration
@@ -75,44 +71,63 @@
 	\item AA Setup
 	
 	Let $ X_{aid} $ be the set of all attributes managed by $ AA_{aid} $. The AA chooses three random numbers $ \alpha_{aid}, \beta_{aid}, \gamma_{aid} \in Z_{p} $ as its secret key.
-	
-	$$ SK_{aid} = (\alpha_{aid}, \beta_{aid}, \gamma_{aid}) $$
-	$$ PK_{aid} = (e(g, g)^{\alpha_{aid}}, g^{\beta_{aid}}, g^{\frac{1}{\beta_{aid}}}) $$
-	
+	\begin{align*}
+		SK_{aid} = (\alpha_{aid}, \beta_{aid}, \gamma_{aid}) \\
+		PK_{aid} = (e(g, g)^{\alpha_{aid}}, g^{\beta_{aid}}, g^{\frac{1}{\beta_{aid}}})
+	\end{align*}
 	For each attribute $ x_{aid} \in X_{aid} $, $ AA_{aid} $ generates a public attribute key as $ PK_{x_{aid}} = (PK_{1, x_{aid}} = H(x_{aid})^{v_{x_{aid}}}, PK_{2, x_{aid}} = H(x_{aid})^{v_{x_{aid}}\gamma_{aid}}) $ where $ v_{x_{aid}} $ is the version key of attribute $ x_{aid} $ i.e $ VK_{x_{aid}} = v_{x_{aid}} $.
 	
 	\item Secret Key Generation
 	
 	The Attribute Authority with $ AA_{aid} $ assigns a set of attributes $ S_{uid,aid} $ to user with $ uid $ after authentication and certificate verification. The AA chooses a random number $ t_{uid,aid} \in Z_{p} $ and computes a secret key for the user as
-	
-	$ SK_{uid,aid} = (K_{uid,aid} = g^{\frac{\alpha_{aid}}{u'_{uid}}}g^{au_{uid}}g^{bt_{uid,aid}}, K'_{uid,aid} = g^{t_{uid,aid}}, \\
-	\forall x_{aid} \in S_{uid,aid} \colon K_{x_{aid},uid} = g^{t_{uid,aid}\beta_{aid}}H(x_{aid})^{v_{x_{aid}}\beta_{aid}(u_{uid} + \gamma_{aid})}) $
-	
+	\begin{align*}
+		SK_{uid,aid} = (K_{uid,aid} = g^{\frac{\alpha_{aid}}{u'_{uid}}}g^{au_{uid}}g^{bt_{uid,aid}}, K'_{uid,aid} = g^{t_{uid,aid}}, \\
+		\forall x_{aid} \in S_{uid,aid} \colon K_{x_{aid},uid} = g^{t_{uid,aid}\beta_{aid}}H(x_{aid})^{v_{x_{aid}}\beta_{aid}(u_{uid} + \gamma_{aid})})
+	\end{align*}
 	If the user $ uid $ does not hold any attributes from $ AA_{aid} $, the user secret key $ SK_{uid,aid} $ only contains $ K_{uid,aid} $.
 	
 	\item Data Encryption
 	
 	Data is divided into components based on the level of granularity required for access control i.e $ m = \{m_{i}, \cdots, m_{n}\} $. Data components are encrypted using symmetric encryption keys $ \kappa = \{\kappa_{i}, \cdots, \kappa_{n}\} $. An access structure $ (M_{k}, \rho) $ is defined for each content key $ \kappa_{i} (i = 1, \cdots, n) $ and encrypted using the ABE scheme to produce the corresponding ciphertext. Let M be an $\ell$ x n matrix, where $\ell$ denotes the total number of all the attributes and the function $ \rho $ associates rows of M to attributes. The function $\rho$ is not required to be injective which allows for an attribute to be associated with more than one row of M.
 	
-	To encrypt the content key $\kappa_{i}$, the algorithm chooses a random element $ s \in Z_{p} $ which is used as the random encryption exponent. It then selects a random vector $ \vec{v} = (s, y_{2},\ldots,y_{n}) \in Z_{p} $ where $ y_{2},\ldots,y_{n} $ are used to share the encryption exponent s. It then computes $ \forall 1 \leq i \leq \ell: \lambda_{i} = \vec{v}.M_{i} $ where $ M_{i} $ is the vector corresponding to the i-th row of M. It then randomly selects $ r_{1},r_{2},\ldots,r_{\ell} $ and computes the ciphertext as
-	
-	$ CT_{K_{i}} = (C = K_{i}.(\prod\limits_{aid_{k} \in I_{A}}PK_{aid_{k}})^{s}, C' = g^{s}, C'' = g^{bs},	\forall 1 \leq i \leq \ell, \rho(i) \in X_{aid_{k}} \colon C_{i} = g^{a\lambda_{i}.(PK_{i,\rho(i)})^{-r_{i}}}, C'_{i} = g^{r_{i}},	D_{i} = g^{\frac{r_{i}}{\beta_{aid_k}}}, D'_{i} = (PK_{2,\rho_{(i)}})^{r_{i}}) $
-	
+	To encrypt the content key $\kappa_{i}$, the algorithm chooses a random element $ s \in Z_{p} $ which is used as the random encryption exponent. It then selects a random vector $ \vec{v} = (s, y_{2},\ldots,y_{n}) \in Z_{p} $ where $ y_{2},\ldots,y_{n} $ are used to share the encryption exponent s. It then computes $ \forall 1 \leq i \leq \ell: \lambda_{i} = \vec{v}.M_{i} $ where $ M_{i} $ is the vector corresponding to the i-th row of M. It then randomly selects $ r_{1},r_{2},\ldots,r_{\ell} $ and computes the ciphertext as	
+	\begin{align*}
+		&CT_{K_{i}} = \biggl(C = K_{i}\cdot\Bigl(\prod\limits_{aid_{k} \in I_{A}}PK_{aid_{k}}\Bigl)^{s}, C' = g^{s}, C'' = g^{bs},\\
+		&\forall 1 \leq i \leq \ell, \rho(i) \in X_{aid_{k}} \colon C_{i} = g^{a\lambda_{i}\cdot\bigl(PK_{i,\rho(i)}\bigl)^{-r_{i}}}, C'_{i} = g^{r_{i}},D_{i} = g^{\frac{r_{i}}{\beta_{aid_k}}}, D'_{i} = \Bigl(PK_{2,\rho_{(i)}}\Bigl)^{r_{i}}\biggl)
+	\end{align*}
 	Then the encrypted data is uploaded to the cloud server by the owner.
 	
 	\item Data Decryption
 	$\kappa$
 	\begin{enumerate}
 		
-		\item Phase 1 - Token Generation
-		
-		
+		\item Phase 1 - Token Generation\\
 		This is the first phase of the data encryption component that involves the transformation of the ciphertext into an El Gamal style ciphertext referred to in this framework as a token through partial decryption while the integrity of the original message is preserved.
+		\begin{align*}
+			TK = \prod\limits_{aid_{k} \in I_{A}} \frac{e\Bigl(C', K_{uid,aid}\Bigl)e\Bigl(C'', K'_{uid,aid}\Bigl)^{-1}}{\prod\limits_{i \in I_{aid_k}}\biggl(e\Bigl(C_i, GPK_{uid}\Bigl)e\Bigl(D_i, K_{\rho(i),uid}\Bigl)e\Bigl(C'_i, K_{uid,aid_k}^{-1}\Bigl)e\Bigl(g, D'_i\Bigl)^{-1}\biggl)^{\omega_{i}n_A}}
+		\end{align*}
+		N/B - 
 		
-		$TK = \prod\limits_{aid_{k} \in I_{A}} \frac{e(C', K_{uid,aid})e(C'', K'_{uid,aid})^{-1}}{\prod\limits_{i \in I_{aid_k}}(e(C_i, GPK_{uid})e(D_i, K_{\rho(i),uid})e(C'_i, K_{uid,aid_k}^{-1})e(g, D'_i)^{-1})^{\omega_{i}n_A}}$
+		\textcolor{red}{Look up the description of the process for the generation of the secret share using the shares represented by the attributes that are contained in the key. This technique has something to do with matrices. For potentially more details look up the papers by brent waters or allison lewko? for additional information in a more summarized format. For more intense details look at the PhD thesis of ben lynn which is the main source}
 		
+		$\omega_{i}$ - constant chosen for the reconstruction of encryption exponent s using shares $\lambda_{i}$
+		
+		$n_A$ - number of AAs involved in the ciphertext
+		
+		$\rho(i)$ - mapping of each row of access structure to attribute i
+		\begin{align*}
+			TK = \prod\limits_{aid_{k} \in I_{A}} e\Bigl(g, g\Bigl)^{\frac{s\alpha_{aid}}{u'_{uid}}}
+		\end{align*}
 		\item Phase 2 - Decryption
 		
+		The user does an exponentiation on the token to get the blinding element (BE) \textcolor{red}{[rephrase this later]} for decryption.
+		\begin{align*}
+			BE= TK^{u'_{uid}} = \prod\limits_{aid_{k} \in I_{A}} e\Bigl(g, g\Bigl)^{s\alpha_{aid}}
+		\end{align*}
+		Remember the $C$ element of the ciphertext $= K_i\cdot\bigl(\prod\limits_{aid_{k} \in I_{A}}PK_{aid_{k}}\bigl)^{s}$ where $PK_{aid_{k}} = e\bigl(g, g\bigl)^{\alpha_{aid}}$. Therefore the original message which in this case is the symmetric key is computed as
+		\begin{align*}
+			K = \frac{C}{BE}
+		\end{align*}
 	\end{enumerate}
 	
 \end{enumerate}
