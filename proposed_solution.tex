@@ -104,7 +104,7 @@ The schematic diagram is displayed in figure \ref{fig:sysschem} showing a full p
 	\end{align*}
 	If the user $ uid $ does not hold any attributes from $ AA_{aid} $, the user secret key $ SK_{uid,aid} $ only contains $ K_{uid,aid} $.
 	
-	\item Data Encryption
+	\item Encryption
 	
 	Data is divided into components based on the level of granularity required for access control i.e $ m = \{m_{i}, \cdots, m_{n}\} $. Data components are encrypted using symmetric encryption keys $ \kappa = \{\kappa_{i}, \cdots, \kappa_{n}\} $. An access structure $ (M_{k}, \rho) $ is defined for each content key $ \kappa_{i} (i = 1, \cdots, n) $ and encrypted using the ABE scheme to produce the corresponding ciphertext. Let M be an $\ell$ x n matrix, where $\ell$ denotes the total number of all the attributes and the function $ \rho $ associates rows of M to attributes. The function $\rho$ is not required to be injective which allows for an attribute to be associated with more than one row of M.
 	
@@ -115,15 +115,18 @@ The schematic diagram is displayed in figure \ref{fig:sysschem} showing a full p
 	\end{align*}
 	Then the encrypted data is uploaded to the cloud server by the owner.
 	
-	\item Data Decryption
-	$\kappa$
+	\item Decryption 
+	
+	%$\kappa$
 	\begin{enumerate}
 		
-		\item Phase 1 - Token Generation\\
+		\item Phase 1 - Token Generation (Partial Decryption)\\
 		This is the first phase of the data encryption component that involves the transformation of the ciphertext into an El Gamal style ciphertext referred to in this framework as a token through partial decryption while the integrity of the original message is preserved.
+		
 		\begin{align*}
 			TK = \prod\limits_{aid_{k} \in I_{A}} \frac{e\Bigl(C', K_{uid,aid}\Bigl)e\Bigl(C'', K'_{uid,aid}\Bigl)^{-1}}{\prod\limits_{i \in I_{aid_k}}\biggl(e\Bigl(C_i, GPK_{uid}\Bigl)e\Bigl(D_i, K_{\rho(i),uid}\Bigl)e\Bigl(C'_i, K_{uid,aid_k}^{-1}\Bigl)e\Bigl(g, D'_i\Bigl)^{-1}\biggl)^{\omega_{i}n_A}}
 		\end{align*}
+	
 		N/B - 
 		
 		\textcolor{red}{Look up the description of the process for the generation of the secret share using the shares represented by the attributes that are contained in the key. This technique has something to do with matrices. For potentially more details look up the papers by brent waters or allison lewko? for additional information in a more summarized format. For more intense details look at the PhD thesis of ben lynn which is the main source}
@@ -133,16 +136,22 @@ The schematic diagram is displayed in figure \ref{fig:sysschem} showing a full p
 		$n_A$ - number of AAs involved in the ciphertext
 		
 		$\rho(i)$ - mapping of each row of access structure to attribute i
+		
 		\begin{align*}
 			TK = \prod\limits_{aid_{k} \in I_{A}} e\Bigl(g, g\Bigl)^{\frac{s\alpha_{aid}}{u'_{uid}}}
 		\end{align*}
-		\item Phase 2 - Decryption
+	
+	
+		\item Phase 2 - Data Decryption
 		
 		The user does an exponentiation on the token to get the blinding element (BE) \textcolor{red}{[rephrase this later]} for decryption.
+		
 		\begin{align*}
 			BE= TK^{u'_{uid}} = \prod\limits_{aid_{k} \in I_{A}} e\Bigl(g, g\Bigl)^{s\alpha_{aid}}
 		\end{align*}
+	
 		Remember the $C$ element of the ciphertext $= K_i\cdot\bigl(\prod\limits_{aid_{k} \in I_{A}}PK_{aid_{k}}\bigl)^{s}$ where $PK_{aid_{k}} = e\bigl(g, g\bigl)^{\alpha_{aid}}$. Therefore the original message which in this case is the symmetric key is computed as
+		
 		\begin{align*}
 			K = \frac{C}{BE}
 		\end{align*}
