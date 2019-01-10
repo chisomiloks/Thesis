@@ -3,7 +3,7 @@
 
 \section{Security and Privacy}
 
-\subsection*{Security}
+\subsection{Security}
 Security according to the National Institute of Standards and Technology (NIST) \cite{Kissel2013} could be defined as any condition that leads to the creation and maintenance of defensive measures to ensure than an information technology infrastructure continues to perform it basic or critical functions irrespective of the risks posed by the threats to its normal operation.
 
 The major objectives that need to be considered when analyzing the security of any system are Confidentiality, Integrity and Availability. These objectives are to be met completely for any system to be considered secure.
@@ -14,7 +14,7 @@ Integrity \cite{Kissel2013} relates to the verification of the authenticity of d
 
 Availability \cite{Kissel2013} can simply be described as a measure of the level of accessibility and usability of a particular system upon request by an authorized user. This means that the system should be able to at all times carry out the various functions in order to meet the demands of its users. This also covers the ability of the infrastructure to remain functional even when some individual.
 
-\subsection*{Privacy}
+\subsection{Privacy}
 
 Privacy is commonly equated with the concept of confidentiality although they are both distinct. While confidentiality is mainly concerned with ensuring that only users who are authorized have access to data which is being stored, processed or transferred within a system. Privacy, on the other hand, is concerned with ensuring that users have more control over the collection, use and storage of information that is related to them. Therefore, while maintaining the confidentiality of a system aids in preserving privacy, confidentiality does not completely ensure privacy as an authorized user may abuse that privilege by violating the privacy of user information \cite{pearsonprivacy}.
 
@@ -53,11 +53,11 @@ The cloud computing deployment model this thesis considers is \textcolor{red}{th
 
 Cryptography\cite{Kissel2013} is the field of study which represents the principles, means and methods used for transforming data in order to hide their original content and prevent unauthorized use or modification. This typically involves the study of several mathematical techniques. Cryptography can be broadly divided into secret key and public key cryptography also known as symmetric and asymmetric schemes.
 
-\subsection*{Secret Key Cryptography (Symmetric)} This type of cryptographic systems involve the use of a single secret key which is usually agreed upon by both parties who want to keep their communication secret. This secret key is used to encrypt the original message typically described as the plaintext (i.e encode the plaintext into a ciphertext that cannot be read by a party without the secret key). The receiving party if authorized and in possession of the secret key is able to decrypt the ciphertext and gain access to the original message. Examples of secret key schemes include the Ciphers (Caesar, Monoalphabetic and Polyalphabetic cyphers), Data Encryption Standard (DES) and Advanced Encryption Standard. 
+\subsection{Secret Key Cryptography (Symmetric)} This type of cryptographic systems involve the use of a single secret key which is usually agreed upon by both parties who want to keep their communication secret. This secret key is used to encrypt the original message typically described as the plaintext (i.e encode the plaintext into a ciphertext that cannot be read by a party without the secret key). The receiving party if authorized and in possession of the secret key is able to decrypt the ciphertext and gain access to the original message. Examples of secret key schemes include the Ciphers (Caesar, Monoalphabetic and Polyalphabetic cyphers), Data Encryption Standard (DES) and Advanced Encryption Standard. 
 
-\subsection*{Public Key Cryptography (Asymmetric)} This type of cryptographic systems was developed as a result of the challenges in secret key cryptography which include the problem of key management and lack of secure channel for users to exchange keys. Public key cryptography involves the use of two separate keys, a public and private key, which are used to perform complementary operations such as encryption and decryption or signature generation and verification. Examples of public key schemes include the Diffie–Hellman key exchange protocol, RSA, Elgamal and Elliptic Curve Cryptography.
+\subsection{Public Key Cryptography (Asymmetric)} This type of cryptographic systems was developed as a result of the challenges in secret key cryptography which include the problem of key management and lack of secure channel for users to exchange keys. Public key cryptography involves the use of two separate keys, a public and private key, which are used to perform complementary operations such as encryption and decryption or signature generation and verification. Examples of public key schemes include the Diffie–Hellman key exchange protocol, RSA, Elgamal and Elliptic Curve Cryptography.
 
-\subsection*{Cryptographic Adversary Models}
+\subsection{Cryptographic Adversary Models}
 
 Attacks on cryptographic systems typically carried out by an adversary normally to either recover the plaintext from the ciphertext or recover the secret key used by the system can be classified into four broad categories.
 
@@ -76,7 +76,7 @@ Note that some of the attack types above are mutually exclusive (for instance, a
 
 \section{Technical Preliminaries}
 
-\subsection*{Bilinear Maps}
+\subsection{Bilinear Maps}
 
 The concept of bilinear maps, or pairings, are the foundation of pairing based cryptography which allowed of the creating of cryptosystems with a great variety of functionalities. Cyclic groups with efficiently computable bilinear maps form the basis of bilinear maps.
 
@@ -104,7 +104,7 @@ The type of pairing used in this work is symmetric. Below is a definition of bil
 	
 \end{definition}
 
-\subsection*{Access Structures}
+\subsection{Access Structures}
 
 The definitions of access structures and linear secret sharing schemes used in this thesis have been adapted from \cite{Beimel1996}.
 
@@ -118,11 +118,11 @@ Access policies based on monotone access structures could be represented as eith
 
 Access policies based on monotone access structures could be represented in two different ways for ABE schemes. The two widely used methods are:
 
-\subsection*{Secret Sharing Schemes}
+\subsection{Secret Sharing Schemes}
 
 Secret sharing schemes which was first created by Shamir in \cite{Shamir1979} allows for the division of data among multiple parties in such a way that the original data can only be reconstructed if a party is in possession of at least a fixed number of division, usually the threshold, and possession of a number of pieces less than the threshold reveals no information about the original data. Other earlier works in secret sharing include works by Barkley \cite{Blakley1979}, Benaloh \cite{Benaloh1988} and Ito, Saito and Nishizeki \cite{Ito1989}. LSSS are secret sharing schemes in which the reconstruction of the original secret is done using a linear function of the available pieces \cite{Beimel1996}.
 
-\subsection*{Linear Secret Sharing Schemes}
+\subsection{Linear Secret Sharing Schemes}
 
 \begin{definition}{\textbf{(Linear Secret Sharing Schemes \cite{Beimel1996}\cite{Waters2011})}}
 	A secret sharing scheme $ \prod $ over a set of parties $ \mathcal{P} $ is called linear (over $ Z_{p} $) if
@@ -139,7 +139,7 @@ The linear reconstruction property as described in \cite{Beimel1996} shows that 
 Note that access structures represented as boolean formulas which are typically represented by binary trees can be converted into a LSSS form using the techniques described in \cite{Lewko2011b} with the number of rows in the corresponding matrix equal to the number of leaf nodes in the access tree.
 
 
-\subsection*{Cryptographic Hardness Problems}
+\subsection{Cryptographic Hardness Problems}
 
 Let G be a cyclic group of prime order p. Let g be a generator for G represented as $ G = \langle g \rangle $ and let $ x, y, z \in G $ . The different complexity assumptions used to show the security of the different pairing based schemes have their foundation in the following core hardness problems\cite{Lynn2007}:
 
