@@ -21,10 +21,34 @@
 \section{Proposed System Model}
 
 \begin{itemize}
-	\item describe the different entities that make up the system and the roles they play
+	\item describe the different entities that make up the system and the roles they play (\textcolor{green}{Update: rough draft prepared 10/01/2019})
 	\item show system architecture diagram
 	\item Process diagrams also
 \end{itemize}
+
+
+\subsection{System Entities}
+
+\begin{enumerate}[label=(\arabic*)]
+	\item Data Owner (DO) - The DO is responsible for the generation of data to be stored on the platform and retains ownership of data for the duration of its life cycle. The Data Owner also specifies what requirements are to be met for any user to have access by indicating what attributes they should possess though the policy used for data encryption. \textcolor{red}{may need to indicate real life example....}
+	
+	\item Data User (DU) - The DU represents entities that require access to stored data. They are required to possess the right attributes in order to gain access to stored data on the cloud.
+	
+	\textcolor{red}{N/B: It should be indicated in a real life situation that an individual or organization can play the role of both data owner and user in the system with the main difference being whether the posses ownership rights to the data in question for that specified scenario.}
+	
+	\item Certificate Authority (CA) - The CA plays the central role of assisting with the verification of the identity of the different entities to enable them to securely communicate with one another. It does this by providing the corresponding certificates and public parameters used in the verification process.
+	
+	\item Attribute Authority (AA) - The AA is responsible for providing the appropriate public and private key parameters for the different attributes under their control to the appropriate owners and users for the encryption and decryption of data. 
+	
+	\item Cloud Service Provider (CSP) \textcolor{red}{may need to rename this and also is this really an entity?} - This entity provides the necessary storage facilities for data on the platform and also the processing capabilities for part of the operation related to the decryption of data.
+	
+\end{enumerate}
+
+
+\subsection{System Architecture}
+
+Figure \ref{fig:sysarch} shows the complete architecture of the entire system framework, indicating the various entities and the different ways in which they interact with each other as part of the overall system.
+
 
 \begin{figure}[h]
 	\centering
@@ -33,7 +57,8 @@
 	\label{fig:sysarch}
 \end{figure}
 
-In the figure \ref{fig:sysarch} the different entities that are part of the architecture are displayed with their interactions.
+
+\subsection{System Process}
 
 \begin{figure}[h]
 	\centering
