@@ -27,7 +27,15 @@
 \end{itemize}
 
 
-\subsection{System Entities}
+\subsection{System Architecture}
+
+Figure \ref{fig:sysarch} shows the complete architecture of the entire system framework, indicating the various entities and the different ways in which they interact with each other as part of the overall system.
+
+vs 
+
+\textcolor{red}{The figure shows a representation of the ABE framework representing the security and privacy of the system as a whole.}
+
+\subsection*{System Entities}
 
 \begin{enumerate}[label=(\arabic*)]
 	\item Data Owner (DO) - The DO is responsible for the generation of data to be stored on the platform and retains ownership of data for the duration of its life cycle. The Data Owner also specifies what requirements are to be met for any user to have access by indicating what attributes they should possess though the policy used for data encryption. \textcolor{red}{may need to indicate real life example....}
@@ -43,11 +51,6 @@
 	\item Cloud Service Provider (CSP) \textcolor{red}{may need to rename this and also is this really an entity?} - This entity provides the necessary storage facilities for data on the platform and also the processing capabilities for part of the operation related to the decryption of data.
 	
 \end{enumerate}
-
-
-\subsection{System Architecture}
-
-Figure \ref{fig:sysarch} shows the complete architecture of the entire system framework, indicating the various entities and the different ways in which they interact with each other as part of the overall system.
 
 
 \begin{figure}[h]
@@ -184,10 +187,42 @@ The schematic diagram is displayed in figure \ref{fig:sysschem} showing a full p
 
 	\item User Revocation
 	
+	User revocation which can also be referred to as attribute revocation as used in some of the literature on the subject should achieve two critical criteria. The revoked user should not be able to decrypt new ciphertexts which have been encrypted using the public attribute keys of attributes that the user was previously granted private keys for. This is referred to as Backward Security. Any new user who has the right attributes should be able to decrypt the original ciphertexts that were encrypted using those public parameters. This is referred to a Forward Security. The revocation algorithm used has been gotten from the scheme by Yang et. al in \cite{Yang2014}.
+	
+	\textcolor{red}{to be formatted i.e more info added after clarification}
+	
+	\textcolor{green}{math symbols to be used in this section}
+	
+	$
+	\tilde{x}_{aid'}---\widetilde{PK}_{{x}_{aid'}}---v'_{\tilde{x}_{aid'}}
+	$
+	
 	\begin{enumerate}
-		\item Key Update
-		
-		\item Ciphertext Update
+	\item Update Key Generation
+	
+	In order to revoke an attribute $\tilde{x}_{aid'}$ from a particular user, the attribute authority (AA) responsible $AA_{aid'}$ runs the key update algorithm taking as input the secret key $SK_{aid'}$ of the 
+	attribute authority, the revoked attribute $\tilde{x}_{aid'}$, and its current version key $VK_{\tilde{x}_{aid'}}$.
+	The algorithm generates a new version key $VK'_{\tilde{x}_{aid'}} = v'_{\tilde{x}_{aid'}} (v'_{\tilde{x}_{aid'}} \neq v_{\tilde{x}_{aid'}})$ for the revoked attribute $\tilde{x}_{ai'd}$.
+	
+	The $AA_{aid'}$ then generates a unique update key ${UK}_{s,\tilde{x}_{aid'},uid}$ for secret key update by each non-revoked user $uid$ as
+	\begin{align*}
+		{UK}_{s,\tilde{x}_{aid'},uid} = H(\tilde{x}_{aid'})^{\beta_{aid'}(v'_{\tilde{x}_{aid'}}-v_{\tilde{x}_{aid'}})(u_{uid}+\gamma_{aid'})}
+	\end{align*}
+	and generates the update key ${UK}_{c,\tilde{x}_{aid'},uid}$ for ciphertext update as
+	\begin{align*}
+		{UK}_{c,\tilde{x}_{aid'},uid} =\Bigl( UK_{1,\tilde{x}_{aid'}} = \frac{v'_{\tilde{x}_{aid'}}}{v_{\tilde{x}_{aid'}}}, UK_{2,\tilde{x}_{aid'}} = \frac{v_{\tilde{x}_{aid'}} - v'_{\tilde{x}_{aid'}}}{v_{\tilde{x}_{aid'}}\gamma_{aid'}} \Bigl)
+	\end{align*}
+	The $AA_{aid'}$ sends the ${UK}_{s,\tilde{x}_{aid'},uid}$ to the non-revoked user $uid$ and sends ${UK}_{c,\tilde{x}_{aid'},uid}$ to the cloud server.
+	
+	The $AA_{aid'}$ then updates the public attribute key of the revoked attribute $\tilde{x}_{aid'}$ as
+	\begin{align*}
+		\widetilde{PK}_{\tilde{x}_{aid'}} = ({PK}_{\tilde{x}_{aid'}})^{UK_{1,\tilde{x}_{aid'}}}
+	\end{align*}
+	
+	
+	\item Secret Key Update
+	
+	\item Ciphertext Update
 	\end{enumerate}
 	
 \end{enumerate}
