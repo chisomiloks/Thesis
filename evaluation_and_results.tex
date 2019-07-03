@@ -1,24 +1,59 @@
 \chapter{Evaluation and Results}
 \label{chap:evaluation_and_results}
 
-Discussion of results goes here. Interesting
+This chapter highlights the information about the software and hardware specifications involved in the implementation of the underlying framework and also shows the results of performance tests for the underlying ABE scheme in relation to scalability of computational and storage overhead with regards to the number of attribute authorities and attributes involved in the system for data encryption and decryption.
 
-\section{System Implementation}
+\section{Experimental Setup}
 
-Give explanation of the specifications of my implementation i.e system hardware specs, language and library used, specification of elliptic curve that group is based on, etc
+We evaluated the performance of our system framework by implementing the underlying ABE scheme in an environment using hardware and software tools that will be described below.
+
+\subsection*{Hardware}
+\begin{itemize}
+	\item Linux Server - We used a -- Server running Ubuntu 16.04 LTS with -- RAM size and -- CPU speed.
+\end{itemize}
+
+\subsection*{Software Tools}
+\begin{itemize}
+	\item Python - We wrote our underlying code using Python 3.x as this gave us access to some other effective libraries that played a role in the robustness of our code and evaluation during our experiments.\textcolor{red}{cite python + numpy + matplotlib}
+	
+	\item Charm Crypto Library \textcolor{red}{cite charm-crypto paper} - We used the charm-crypto library for the implementation of the ABE components of our framework. Charm is a library implemented in python that has multiple contibutors in the cryptographic field and as a result gives access to easy to use functionalities related to pairing based public key encryption schemes such as ABE. Our scheme was implemented using a group size of -- and an elliptic curve of type --.
+\end{itemize}
+
+System performance was evaluated through the implementation of the underlying scheme on a linux server and also with the use of different software tools be described below.
+
+\textcolor{red}{Give explanation of the specifications of my implementation i.e system hardware specs, language and library used, specification of elliptic curve that group is based on, etc}
+
+\begin{itemize}
+	\item Software
+	\\- charm crypto library  \textcolor{red}{provide an overview of the charm library...look up the paper published for the library for corresponding details for this section.....is info on setting up the library necessary? can be added as an index section I guess}
+	\\- Details about Group size and other parameters eg code use pairing group SS512 \textcolor{red}{look up this detail and add info eg curve type and size(elliptic curve),}
+	
+	\item Hardware - the framework was implemented on a desktop CPU running  OS with specifications
+	\\- system hardware specs (RAM size, processor type and speed, CPU name)
+\end{itemize}
 
 
 \section{Performance Evaluation}
 
-	How performance was evaluated i.e scalability + speed
-- Computation costs
-- Communication costs
+We evaluated the performance of our system by evaluating the two major operations - encryption and decryption - and how their performance scales in relation to the number of attribute authorities and attributes involved in the operations.
 
-\subsection{Computation Cost}
+Our results for encryption as indicated in \textcolor{red}{figures encryption} show that our encryption system is identical in performance with the encryption algorithm of the adapted scheme for this framework \textcolor{red}{[cite original paper]}.
+
+Our results for decryption show a constant decryption time irrespective of the number of attribute authorities or attributes in comparison with the increase in decryption time of the adapted scheme \textcolor{red}{[cite original paper]}. This can be seen in \textcolor{red}{charles and co}.
+
+These results indicate that the amount of time for decryption involving a single attribute will be the same as that involving a thousand or more attributes, keeping the computational overhead constant and allowing for the use of low computational devices for the decryption process.
 
 
-\subsection{Communication Cost}
+- add charts here showing the performance (i.e how long it took to run)
+\begin{enumerate}
+	\item how encryption and decryption times scale in relation to the number of attribute authorities (use constant number of attributes in this case)  \textcolor{red}{this will be two charts)}
+	\item how the encryption and decryption times scale in relation to the number of attributes involved in encryption and decryption (use constant number of attribute authorities in this case i.e the max number of attribute authorities)  \textcolor{red}{this will be two charts)}
+	\item how revocation scales (i.e key update for users)?
+\end{enumerate}
 
+How performance was evaluated i.e scalability + speed
+\\- Computation costs
+\\- Communication costs
 
 \section{Security Analysis}
 
