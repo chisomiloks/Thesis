@@ -1,5 +1,6 @@
-\chapter{Proposed Solution}
+\chapter{Secure Privacy Preserving Framework for Elctronic Health Records (EHRs)}
 \label{chap:proposed_solution}
+
 
 \renewcommand{\theenumi}{\Alph{enumi}}
 \renewcommand{\theenumii}{\roman{enumii}}
@@ -14,66 +15,14 @@
 	\item what the subsequent sections will contain to provide a clearer image of their content
 \end{itemize}
 
-\begin{itemize}
-	\item General overview of solution at a high level? \textcolor{red}{not exactly sure of the specifics of this at this point}
-\end{itemize}
 
-\section{Proposed System Model}
+\section{Multiple Authority Ciphertext Policy Attribute Based Encryption with Outsourced Decryption}
 
-\begin{itemize}
-	\item describe the different entities that make up the system and the roles they play (\textcolor{green}{Update: rough draft prepared 10/01/2019})
-	\item show system architecture diagram
-	\item Process diagrams also
-\end{itemize}
+\subsection{ABE Scheme Definition}
 
-
-\subsection{System Architecture}
-
-Figure \ref{fig:sysarch} shows the complete architecture of the entire system framework, indicating the various entities and the different ways in which they interact with each other as part of the overall system.
-
-vs 
-
-\textcolor{red}{The figure shows a representation of the ABE framework representing the security and privacy of the system as a whole.}
-
-\subsection*{System Entities}
-
-\begin{enumerate}[label=(\arabic*)]
-	\item Data Owner (DO) - The DO is responsible for the generation of data to be stored on the platform and retains ownership of data for the duration of its life cycle. The Data Owner also specifies what requirements are to be met for any user to have access by indicating what attributes they should possess though the policy used for data encryption. \textcolor{red}{may need to indicate real life example....}
-	
-	\item Data User (DU) - The DU represents entities that require access to stored data. They are required to possess the right attributes in order to gain access to stored data on the cloud.
-	
-	\textcolor{red}{N/B: It should be indicated in a real life situation that an individual or organization can play the role of both data owner and user in the system with the main difference being whether the posses ownership rights to the data in question for that specified scenario.}
-	
-	\item Certificate Authority (CA) - The CA plays the central role of assisting with the verification of the identity of the different entities to enable them to securely communicate with one another. It does this by providing the corresponding certificates and public parameters used in the verification process.
-	
-	\item Attribute Authority (AA) - The AA is responsible for providing the appropriate public and private key parameters for the different attributes under their control to the appropriate owners and users for the encryption and decryption of data. 
-	
-	\item Cloud Service Provider (CSP) - This entity provides the necessary storage facilities for data on the platform and also the processing capabilities for part of the operation related to the decryption of data.
-	
-\end{enumerate}
-
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=.50]{"System Architecture Diagram (Draft 1)"}
-	\caption{System Architecture Diagram}
-	\label{fig:sysarch}
-\end{figure}
-
-
-\subsection{System Process}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth]{"System Sequence Diagram"}
-	\caption{System Sequence Diagram}
-	\label{fig:sysschem}
-\end{figure}
-
-The schematic diagram is displayed in figure \ref{fig:sysschem} showing a full process from system setup to encryption and decryption.
-
-
-\section{Security Model}
+\subsubsection{\textcolor{red}{Security Model/Security Game + Assumptions....to be clarified and determined}}
+- DDH Problem?
+- High level proofs e.g correctness, etc
 
 \begin{itemize}
 	\item Security game? N/B Based on security games and also has to do with interactions to verify security of scheme between an attacker and a challenger. More details from reference materials
@@ -81,8 +30,8 @@ The schematic diagram is displayed in figure \ref{fig:sysschem} showing a full p
 	\item What assumption(s) is from the point of view of security is the system to be analyzed by (\textcolor{red}{to be adopted from original paper + possible outsourcing papers also} and the basic correctness and the completeness high level assessments)
 \end{itemize}
 
+\subsection{ABE Scheme Construction}
 
-\section{Framework Definition}
 
 \begin{enumerate}
 	
@@ -154,7 +103,7 @@ The schematic diagram is displayed in figure \ref{fig:sysschem} showing a full p
 		\begin{align*}
 			TK = \prod\limits_{aid_{k} \in I_{A}} \frac{e\Bigl(C', K_{uid,aid}\Bigl)e\Bigl(C'', K'_{uid,aid}\Bigl)^{-1}}{\prod\limits_{i \in I_{aid_k}}\biggl(e\Bigl(C_i, GPK_{uid}\Bigl)e\Bigl(D_i, K_{\rho(i),uid}\Bigl)e\Bigl(C'_i, K_{uid,aid_k}^{-1}\Bigl)e\Bigl(g, D'_i\Bigl)^{-1}\biggl)^{\omega_{i}n_A}}
 		\end{align*}
-	
+		
 		N/B - 
 		
 		\textcolor{red}{Look up the description of the process for the generation of the secret share using the shares represented by the attributes that are contained in the key. This technique has something to do with matrices. For potentially more details look up the papers by brent waters or allison lewko? for additional information in a more summarized format. For more intense details look at the PhD thesis of ben lynn which is the main source}
@@ -168,8 +117,8 @@ The schematic diagram is displayed in figure \ref{fig:sysschem} showing a full p
 		\begin{align*}
 			TK = \prod\limits_{aid_{k} \in I_{A}} e\Bigl(g, g\Bigl)^{\frac{s\alpha_{aid}}{u'_{uid}}}
 		\end{align*}
-	
-	
+		
+		
 		\item Phase 2 - Data Decryption
 		
 		The user does an exponentiation on the token to get the blinding element (BE) \textcolor{red}{[rephrase this later]} for decryption.
@@ -177,14 +126,14 @@ The schematic diagram is displayed in figure \ref{fig:sysschem} showing a full p
 		\begin{align*}
 			BE= TK^{u'_{uid}} = \prod\limits_{aid_{k} \in I_{A}} e\Bigl(g, g\Bigl)^{s\alpha_{aid}}
 		\end{align*}
-	
+		
 		Remember the $C$ element of the ciphertext $= K_i\cdot\bigl(\prod\limits_{aid_{k} \in I_{A}}PK_{aid_{k}}\bigl)^{s}$ where $PK_{aid_{k}} = e\bigl(g, g\bigl)^{\alpha_{aid}}$. Therefore the original message which in this case is the symmetric key is computed as
 		
 		\begin{align*}
 			K = \frac{C}{BE}
 		\end{align*}
 	\end{enumerate}
-
+	
 	\item User Revocation
 	
 	User revocation which can also be referred to as attribute revocation as used in some of the literature on the subject should achieve two critical criteria. The revoked user should not be able to decrypt new ciphertexts which have been encrypted using the public attribute keys of attributes that the user was previously granted private keys for. This is referred to as Backward Security. Any new user who has the right attributes should be able to decrypt the original ciphertexts that were encrypted using those public parameters. This is referred to a Forward Security. The revocation algorithm used has been gotten from the scheme by Yang et. al in \cite{Yang2014}.
@@ -193,36 +142,103 @@ The schematic diagram is displayed in figure \ref{fig:sysschem} showing a full p
 	
 	\textcolor{green}{math symbols to be used in this section}
 	
+	\begin{enumerate}
+		\item Update Key Generation
+		
+		In order to revoke an attribute $\tilde{x}_{aid'}$ from a particular user, the attribute authority (AA) responsible $AA_{aid'}$ runs the key update algorithm taking as input the secret key $SK_{aid'}$ of the 
+		attribute authority, the revoked attribute $\tilde{x}_{aid'}$, and its current version key $VK_{\tilde{x}_{aid'}}$.
+		The algorithm generates a new version key $VK'_{\tilde{x}_{aid'}} = v'_{\tilde{x}_{aid'}} (v'_{\tilde{x}_{aid'}} \neq v_{\tilde{x}_{aid'}})$ for the revoked attribute $\tilde{x}_{ai'd}$.
+		
+		The $AA_{aid'}$ then generates a unique update key ${UK}_{s,\tilde{x}_{aid'},uid}$ for secret key update by each non-revoked user $uid$ as
+		\begin{align*}
+			{UK}_{s,\tilde{x}_{aid'},uid} = H(\tilde{x}_{aid'})^{\beta_{aid'}(v'_{\tilde{x}_{aid'}}-v_{\tilde{x}_{aid'}})(u_{uid}+\gamma_{aid'})}
+		\end{align*}
+		and generates the update key ${UK}_{c,\tilde{x}_{aid'},uid}$ for ciphertext update as
+		\begin{align*}
+			{UK}_{c,\tilde{x}_{aid'},uid} =\Bigl( UK_{1,\tilde{x}_{aid'}} = \frac{v'_{\tilde{x}_{aid'}}}{v_{\tilde{x}_{aid'}}}, UK_{2,\tilde{x}_{aid'}} = \frac{v_{\tilde{x}_{aid'}} - v'_{\tilde{x}_{aid'}}}{v_{\tilde{x}_{aid'}}\gamma_{aid'}} \Bigl)
+		\end{align*}
+		The $AA_{aid'}$ sends the ${UK}_{s,\tilde{x}_{aid'},uid}$ to the non-revoked user $uid$ and sends ${UK}_{c,\tilde{x}_{aid'},uid}$ to the cloud server.
+		
+		The $AA_{aid'}$ then updates the public attribute key of the revoked attribute $\tilde{x}_{aid'}$ as
+		\begin{align*}
+			\widetilde{PK}_{\tilde{x}_{aid'}} = ({PK}_{\tilde{x}_{aid'}})^{UK_{1,\tilde{x}_{aid'}}}
+		\end{align*}
+		
+		
+		\item Secret Key Update
+		
+		This process is run by the non revoked users in the system. The algorithm produces an updated secret key using the update key ${UK}_{s,\tilde{x}_{aid'},uid}$ for the individual users as
+		\begin{align*}
+			\widetilde{SK}_{uid,aid'} = \Bigl(&\tilde{K}_{uid,aid'} = {K}_{uid,aid'},\tilde{K'}_{uid,aid'} = {K'}_{uid,aid'},\\
+			&\tilde{K}_{\tilde{x}_{aid'},uid} = {K}_{\tilde{x}_{aid'},uid}.{UK}_{s,\tilde{x}_{aid'},uid},\\
+			&\forall x_{aid'} \in S_{uid,aid'} \backslash \{ \tilde{x}_{aid'} \} \colon \tilde{K}_{\tilde{x}_{aid'},uid} = {K}_{\tilde{x}_{aid'},uid}  \Bigl) 
+		\end{align*}
+		
+		\item Ciphertext Update
+	\end{enumerate}
+	
 	$
 	\tilde{x}_{aid'}---\widetilde{PK}_{{x}_{aid'}}---v'_{\tilde{x}_{aid'}}
 	$
 	
-	\begin{enumerate}
-	\item Update Key Generation
+\end{enumerate}
+
+
+
+\section{Secure Privacy Preserving EHR Framework}
+
+\begin{itemize}
+	\item describe the different entities that make up the system and the roles they play (\textcolor{green}{Update: rough draft prepared 10/01/2019})
+	\item show system architecture diagram
+	\item Process diagrams also
+\end{itemize}
+
+
+\subsection{System Architecture/Model}
+
+\subsubsection{System Entities}
+
+\begin{enumerate}[label=(\arabic*)]
+	\item Data Owner (DO) - The DO is responsible for the generation of data to be stored on the platform and retains ownership of data for the duration of its life cycle. The Data Owner also specifies what requirements are to be met for any user to have access by indicating what attributes they should possess though the policy used for data encryption. \textcolor{red}{may need to indicate real life example....}
 	
-	In order to revoke an attribute $\tilde{x}_{aid'}$ from a particular user, the attribute authority (AA) responsible $AA_{aid'}$ runs the key update algorithm taking as input the secret key $SK_{aid'}$ of the 
-	attribute authority, the revoked attribute $\tilde{x}_{aid'}$, and its current version key $VK_{\tilde{x}_{aid'}}$.
-	The algorithm generates a new version key $VK'_{\tilde{x}_{aid'}} = v'_{\tilde{x}_{aid'}} (v'_{\tilde{x}_{aid'}} \neq v_{\tilde{x}_{aid'}})$ for the revoked attribute $\tilde{x}_{ai'd}$.
+	\item Data User (DU) - The DU represents entities that require access to stored data. They are required to possess the right attributes in order to gain access to stored data on the cloud.
 	
-	The $AA_{aid'}$ then generates a unique update key ${UK}_{s,\tilde{x}_{aid'},uid}$ for secret key update by each non-revoked user $uid$ as
-	\begin{align*}
-		{UK}_{s,\tilde{x}_{aid'},uid} = H(\tilde{x}_{aid'})^{\beta_{aid'}(v'_{\tilde{x}_{aid'}}-v_{\tilde{x}_{aid'}})(u_{uid}+\gamma_{aid'})}
-	\end{align*}
-	and generates the update key ${UK}_{c,\tilde{x}_{aid'},uid}$ for ciphertext update as
-	\begin{align*}
-		{UK}_{c,\tilde{x}_{aid'},uid} =\Bigl( UK_{1,\tilde{x}_{aid'}} = \frac{v'_{\tilde{x}_{aid'}}}{v_{\tilde{x}_{aid'}}}, UK_{2,\tilde{x}_{aid'}} = \frac{v_{\tilde{x}_{aid'}} - v'_{\tilde{x}_{aid'}}}{v_{\tilde{x}_{aid'}}\gamma_{aid'}} \Bigl)
-	\end{align*}
-	The $AA_{aid'}$ sends the ${UK}_{s,\tilde{x}_{aid'},uid}$ to the non-revoked user $uid$ and sends ${UK}_{c,\tilde{x}_{aid'},uid}$ to the cloud server.
+	\textcolor{red}{N/B: It should be indicated in a real life situation that an individual or organization can play the role of both data owner and user in the system with the main difference being whether the posses ownership rights to the data in question for that specified scenario.}
 	
-	The $AA_{aid'}$ then updates the public attribute key of the revoked attribute $\tilde{x}_{aid'}$ as
-	\begin{align*}
-		\widetilde{PK}_{\tilde{x}_{aid'}} = ({PK}_{\tilde{x}_{aid'}})^{UK_{1,\tilde{x}_{aid'}}}
-	\end{align*}
+	\item Certificate Authority (CA) - The CA plays the central role of assisting with the verification of the identity of the different entities to enable them to securely communicate with one another. It does this by providing the corresponding certificates and public parameters used in the verification process.
 	
+	\item Attribute Authority (AA) - The AA is responsible for providing the appropriate public and private key parameters for the different attributes under their control to the appropriate owners and users for the encryption and decryption of data. 
 	
-	\item Secret Key Update
-	
-	\item Ciphertext Update
-	\end{enumerate}
+	\item Cloud Service Provider (CSP) - This entity provides the necessary storage facilities for data on the platform and also the processing capabilities for part of the operation related to the decryption of data.
 	
 \end{enumerate}
+
+- system architecture diagram
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=.50]{"System Architecture Diagram (Draft 1)"}
+	\caption{System Architecture Diagram}
+	\label{fig:sysarch}
+\end{figure}
+
+Figure \ref{fig:sysarch} shows the complete architecture of the entire system framework, indicating the various entities and the different ways in which they interact with each other as part of the overall system.
+
+vs 
+
+\textcolor{red}{The figure shows a representation of the ABE framework representing the security and privacy of the system as a whole.}
+
+\subsubsection{Use Case}
+
+- sequence diagram capturing roles involved in the use case
+
+\textcolor{red}{the system process is to provide a description of the interactions between the multiple entities from a high level for the system}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{"System Sequence Diagram"}
+	\caption{System Sequence Diagram}
+	\label{fig:sysseq}
+\end{figure}
+
+The sequence diagram is displayed in figure \ref{fig:sysseq} showing a full process from system setup to encryption and decryption.
