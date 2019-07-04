@@ -1,31 +1,63 @@
-\chapter{Secure Privacy Preserving Framework for Elctronic Health Records (EHRs)}
+\chapter{Secure Privacy Preserving Framework for Electronic Health Records (EHRs)}
 \label{chap:proposed_solution}
 
 
 \renewcommand{\theenumi}{\Alph{enumi}}
 \renewcommand{\theenumii}{\roman{enumii}}
 
+
+\subsection*{Chapter ToDo}
+\textcolor{red}{
+\begin{itemize}
+	\item Overview	
+	\begin{itemize}
+		\item what the subsequent sections will contain to provide a clearer image of their content
+		\item what are the good things about the model: its more secure than xyz, runs faster. potential drawbacks: ... its own section?
+		\item what the chapter will contain: description of the proposed framework for secure storage of data using a combination of attribute and symmetric-based encryption.  details of implementation. Also provide info on the security model for the underlying attribute based encryption scheme. This would highlight the assumptions that was used to verifying the integrity of the proposed scheme. I will summarize the pros and cons of the proposed scheme.
+	\end{itemize}
+	\item ABE Scheme Construction
+	\begin{itemize}
+		\item Decryption Phase 1 Construction Section - Add more info about how secret shares are generated [more info can be found in papers by brent water or allison lewko for shorter forms....long form take a look at the PhD thesis of ben lyynn]
+		\item Decryption Phase 2 Construction Section - Possible rephrasing of statement before formula [look to replace the term binding element or whole sentence]
+		\item Revocation Construction Section - possibility of more info to the description before the formulas
+	\end{itemize}
+	\item Look up impact of security parameter...has to do with key length and curve size and stuff like that most likely \textcolor{black}{(security parameter plays a role in determine the group size..which affects the key size and has an impact on the security of the scheme....no impact on correctness of the scheme though.)}
+	\item Determine if Security Model/Security Game + Assumptions are to be included between the scheme definition and construction chapters
+	\begin{itemize}
+		\item Look up info from adopted paper + look into security in outsourcing ABE papers also
+		\item Crypto Hardness problems that apply here
+		\item Security Game
+		\item What assumption(s) is from the point of view of security is the system to be analyzed by
+		\item Correctness/Completeness (same thing) and other high level proof methods
+	\end{itemize}
+	\item System Process Diagram - the system process is to provide a description of the interactions between the multiple entities from a high level for the system
+	\item Use Case
+	\begin{itemize}
+		\item Use real life example to show what the entities could be in the real world
+		\item Individuals can also play the role of DU and DO just with different amounts of access control
+	\end{itemize}
+\end{itemize}
+}
+
+
+
 \section{Overview}
 
-\begin{itemize}
-	\item what the chapter will contain: description of the proposed framework for secure storage of data using a combination of attribute and symmetric-based encryption.  details of implementation. Also provide info on the security model for the underlying attribute based encryption scheme. This would highlight the assumptions that was used to verifying the integrity of the proposed scheme. I will summarize the pros and cons of the proposed scheme.
-	
-	\item what are the good things about the model: its more secure than xyz, runs faster. potential drawbacks: ... \textcolor{red}{its own section?}
-	
-	\item what the subsequent sections will contain to provide a clearer image of their content
-\end{itemize}
+This chapter introduces the framework that is the basis of this thesis. We start with a description of the ABE scheme that plays an essential role in providing the features of security and privacy for the framework. The construction of the ABE scheme follows after the definition of the various algorithms. The construction shows the mathematical concepts that confirm the inner workings of the different algorithms.
+
+A description of the entire framework follows with the architecture and its corresponding entities highlighted together with a detailed use case that describes how framework can be implemented in a real world scenario.
 
 
 \section{Multiple Authority Ciphertext Policy Attribute Based Encryption with Outsourced Decryption}
 
 \subsection{ABE Scheme Definition}
 
-Our ABE scheme has been adapted from the scheme developed in \textcolor{red}{[cite oiriginal paper]}. Using similar methods applied in \textcolor{red}{[cite outsourcing paper]}, we have modified the scheme with the aim of outsourcing the bulk of the decryption algorithm operation to the CSP. This section contains a definition of the algorithms that make up our ABE scheme.
+Our ABE scheme has been adapted from the scheme developed in \cite{Yang2014}. Using similar methods applied in \cite{Green2011outsource}, we have modified the scheme with the aim of outsourcing the bulk of the decryption algorithm operation to the CSP. This section contains a definition of the algorithms that make up our ABE scheme.
 
 \subsubsection*{Setup Algorithms}
 The setup algorithms are run as a part of the initialization stage of the ABE scheme. These algorithms are responsible for the registration of the other entities in the system. This also provides them with the necessary information for verifying their identity when communicating with other entities in the system and other vital information they need in order to execute their own operations
 \begin{itemize}
-	\item CASetup - The CASetup algorithm is the algorithm executed by the Certificate Authority in order to generate the Global Master Key (GMK) and Global Public Parameters (GPP) of the entire scheme. It takes as input the security parameter of the scheme. \textcolor{red}{(look up impact of that security parameter...has to do with key length and curve size and stuff like that most likely)}. The CASetup algorithm also takes care of the registration of the users and attribute authorities (AAs) in the system by assigning to them their unique ids. It is also responsible for generating the public-secret key pairs together with the user certificates and their corresponding verification keys. It makes the GPP available to all registered entities in the system and sends an unmatched public-private key pair for all users to the AA.
+	\item CASetup - The CASetup algorithm is the algorithm executed by the Certificate Authority in order to generate the Global Master Key (GMK) and Global Public Parameters (GPP) of the entire scheme. It takes as input the security parameter of the scheme. The CASetup algorithm also takes care of the registration of the users and attribute authorities (AAs) in the system by assigning to them their unique ids. It is also responsible for generating the public-secret key pairs together with the user certificates and their corresponding verification keys. It makes the GPP available to all registered entities in the system and sends an unmatched public-private key pair for all users to the AA.
 	
 	\item AASetup - The AASetup algorithm is run by the individual Attribute Authorities (AAs) and generates the public-secret key pair for the attribute authority. It also generates a public-version key pair for each of the attributes under the control of the AA that is provided as input in the AA universal attribute set.
 \end{itemize}
@@ -57,15 +89,8 @@ The setup algorithms are run as a part of the initialization stage of the ABE sc
 	
 \end{itemize}
 
-\subsubsection{\textcolor{red}{Security Model/Security Game + Assumptions....to be clarified and determined}}
-- DDH Problem?
-- High level proofs e.g correctness, etc
+%\subsubsection{Security Model}
 
-\begin{itemize}
-	\item Security game? N/B Based on security games and also has to do with interactions to verify security of scheme between an attacker and a challenger. More details from reference materials
-	\item What metrics from a security point of view is the system based on? CPA vs CCA
-	\item What assumption(s) is from the point of view of security is the system to be analyzed by (\textcolor{red}{to be adopted from original paper + possible outsourcing papers also} and the basic correctness and the completeness high level assessments)
-\end{itemize}
 
 \subsection{ABE Scheme Construction}
 
@@ -141,10 +166,6 @@ The setup algorithms are run as a part of the initialization stage of the ABE sc
 			CT' = \prod\limits_{aid_{k} \in I_{A}} \frac{e\Bigl(C', K_{uid,aid}\Bigl)e\Bigl(C'', K'_{uid,aid}\Bigl)^{-1}}{\prod\limits_{i \in I_{aid_k}}\biggl(e\Bigl(C_i, GPK_{uid}\Bigl)e\Bigl(D_i, K_{\rho(i),uid}\Bigl)e\Bigl(C'_i, K_{uid,aid_k}^{-1}\Bigl)e\Bigl(g, D'_i\Bigl)^{-1}\biggl)^{\omega_{i}n_A}}
 		\end{align*}
 		
-		N/B - 
-		
-		\textcolor{red}{Look up the description of the process for the generation of the secret share using the shares represented by the attributes that are contained in the key. This technique has something to do with matrices. For potentially more details look up the papers by brent waters or allison lewko? for additional information in a more summarized format. For more intense details look at the PhD thesis of ben lynn which is the main source}
-		
 		$\omega_{i}$ - constant chosen for the reconstruction of encryption exponent s using shares $\lambda_{i}$
 		
 		$n_A$ - number of AAs involved in the ciphertext
@@ -158,7 +179,7 @@ The setup algorithms are run as a part of the initialization stage of the ABE sc
 		
 		\item Phase 2 - Data Decryption
 		
-		The user does an exponentiation on the token to get the blinding element (BE) \textcolor{red}{[rephrase this later]} for decryption.
+		The user does an exponentiation on the token to get the blinding element (BE) for decryption.
 		
 		\begin{align*}
 			BE= CT'^{u'_{uid}} = \prod\limits_{aid_{k} \in I_{A}} e\Bigl(g, g\Bigl)^{s\alpha_{aid}}
@@ -175,9 +196,6 @@ The setup algorithms are run as a part of the initialization stage of the ABE sc
 	
 	User revocation which can also be referred to as attribute revocation as used in some of the literature on the subject should achieve two critical criteria. The revoked user should not be able to decrypt new ciphertexts which have been encrypted using the public attribute keys of attributes that the user was previously granted private keys for. This is referred to as Backward Security. Any new user who has the right attributes should be able to decrypt the original ciphertexts that were encrypted using those public parameters. This is referred to a Forward Security. The revocation algorithm used has been gotten from the scheme by Yang et. al in \cite{Yang2014}.
 	
-	\textcolor{red}{to be formatted i.e more info added after clarification}
-	
-	\textcolor{green}{math symbols to be used in this section}
 	
 	\begin{enumerate}
 		\item Update Key Generation
@@ -227,23 +245,15 @@ The setup algorithms are run as a part of the initialization stage of the ABE sc
 
 \section{Secure Privacy Preserving EHR Framework}
 
-\begin{itemize}
-	\item describe the different entities that make up the system and the roles they play (\textcolor{blue}{Update: rough draft prepared 10/01/2019})
-	\item show system architecture diagram
-	\item Process diagrams also
-\end{itemize}
-
 
 \subsection{System Architecture/Model}
 
 \subsubsection{System Entities}
 
 \begin{enumerate}[label=(\arabic*)]
-	\item Data Owner (DO) - The DO is responsible for the generation of data to be stored on the platform and retains ownership of data for the duration of its life cycle. The Data Owner also specifies what requirements are to be met for any user to have access by indicating what attributes they should possess though the policy used for data encryption. \textcolor{red}{may need to indicate real life example....}
+	\item Data Owner (DO) - The DO is responsible for the generation of data to be stored on the platform and retains ownership of data for the duration of its life cycle. The Data Owner also specifies what requirements are to be met for any user to have access by indicating what attributes they should possess though the policy used for data encryption.
 	
 	\item Data User (DU) - The DU represents entities that require access to stored data. They are required to possess the right attributes in order to gain access to stored data on the cloud.
-	
-	\textcolor{red}{N/B: It should be indicated in a real life situation that an individual or organization can play the role of both data owner and user in the system with the main difference being whether the posses ownership rights to the data in question for that specified scenario.}
 	
 	\item Certificate Authority (CA) - The CA plays the central role of assisting with the verification of the identity of the different entities to enable them to securely communicate with one another. It does this by providing the corresponding certificates and public parameters used in the verification process.
 	
@@ -262,17 +272,13 @@ The setup algorithms are run as a part of the initialization stage of the ABE sc
 	\label{fig:sysarch}
 \end{figure}
 
-\textcolor{red}{Figure \ref{fig:sysarch} shows the complete architecture of the entire system framework, indicating the various entities and the different ways in which they interact with each other as part of the overall system.}
+Figure \ref{fig:sysarch} shows the complete architecture of the entire system framework, indicating the various entities and the different ways in which they interact with each other as part of the overall system.
 
-vs 
-
-\textcolor{red}{The figure shows a representation of the ABE framework representing the security and privacy of the system as a whole.}
 
 \subsubsection{Use Case}
 
 - sequence diagram capturing roles involved in the use case
 
-\textcolor{red}{the system process is to provide a description of the interactions between the multiple entities from a high level for the system}
 
 \begin{figure}[h]
 	\centering
