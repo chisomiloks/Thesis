@@ -1,0 +1,267 @@
+\chapter{Background and Literature Review}
+\label{chap:background_literature_review}
+
+\section{Security and Privacy}
+
+\subsection{Security}
+Security according to the National Institute of Standards and Technology (NIST) \cite{Kissel2013} could be defined as any condition that leads to the creation and maintenance of defensive measures to ensure than an information technology infrastructure continues to perform it basic or critical functions irrespective of the risks posed by the threats to its normal operation.
+
+The major objectives that need to be considered when analyzing the security of any system are Confidentiality, Integrity and Availability. These objectives are to be met completely for any system to be considered secure.
+
+Confidentiality \cite{Kissel2013} assures that only those entities in the system that are authorized have access to data that is either being stored, processed or transferred in the system.
+
+Integrity \cite{Kissel2013} relates to the verification of the authenticity of data. This means ensuring that data has not been manipulated in any form either while in transit or while in storage. This ensures that any unauthorized manipulation of data in the form of addition, deletion or substitution is detected.
+
+Availability \cite{Kissel2013} can simply be described as a measure of the level of accessibility and usability of a particular system upon request by an authorized user. This means that the system should be able to at all times carry out the various functions in order to meet the demands of its users. This also covers the ability of the infrastructure to remain functional even when some individual.
+
+\subsection{Privacy}
+
+Privacy is commonly equated with the concept of confidentiality although they are both distinct. While confidentiality is mainly concerned with ensuring that only users who are authorized have access to data which is being stored, processed or transferred within a system. Privacy, on the other hand, is concerned with ensuring that users have more control over the collection, use and storage of information that is related to them. Therefore, while maintaining the confidentiality of a system aids in preserving privacy, confidentiality does not completely ensure privacy as an authorized user may abuse that privilege by violating the privacy of user information \cite{pearsonprivacy}.
+
+The range of what is considered private information significantly varies in scope depending on the application area. For instance, in health sector, private information can be regarded as any oral or written information that meets any of the following criteria: relates to the health of the individual, including their family history; relates to health care provision, including the source of care; constitutes as service for individuals who require long term care; relates to payment for health care. More importantly, private information is any information that can be used to identify an individual, either alone or when related to another piece of available information \cite{annpia}.
+
+The privacy of data that is stored in the cloud faces multiple challenges as a result of the different ways in which the data are stored or processed on a machine that is usually owned by a different organization, the CSP. The major issues that exist in this area of privacy relate to trust as users are not completely certain that: their data is not being used for other purposes other than that for which it was collected; that data is destroyed properly in the end; privacy breaches have occurred which may have exposed their information; their information is retained even after they have stopped using a particular service \cite{pearsonprivacy}.
+
+\section{Electronic Health Data}
+
+There are three broad classes in relation to the electronic collection and storage of health information and according to Canada Health Infoway, established for accelerating the adoption and use of digital health solutions across Canada, can be defined as:
+
+\begin{itemize}
+	
+	\item Electronic Health Record (EHR)\cite{caninfoway} - these records usually contain information about an individual's health and their health care history. Typical information contained in these records include lab results, medication profiles, clinical reports, and diagnostic images. The EHR is made available electronically to authorized health care institutions
+	
+	\item Electronic Medical Record (EMR)\cite{caninfoway} - this refers to the digital form of the information acquired during an individual's visit to a health institution. This allows the doctor at the facility to gain access to information about the individual, including potentially information stored in the EHR.
+	
+	\item Personal Health Record (PHR)\cite{caninfoway} - this is simply a compete of partial record containing information about an individual's health and usually in their custody. The health care institution has no control of this and it is managed by the individual.
+	
+\end{itemize}
+
+The focus of this work is on electronic health records which are typically shared among multiple parties and under the control of the medical institution. \textcolor{red}{Important point so needs to be reverified with source cited also and also additional sources}
+
+\section{Cloud Computing}
+
+Cloud computing as defined by the National Institute of Standards and Technology (NIST) \cite{nist}, is ''a model for enabling convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction.'' Cloud computing offers considerable advantages to both government and private organizations, which has led to its growth and world wide acceptance in recent years. Some of the advantages offered by the cloud include: easy and fast deployment of IT systems; reduction in the cost of installation and maintenance of infrastructure; easy accessibility; improved flexibility of systems; and a heavy reduction in the responsibilities of the user as most of the traditional tasks will be handled by the provider of the cloud based service, the CSP.
+
+The different service models for cloud computing as Infrastructure as a Service (IaaS), Platform as a Service (PaaS) and Software as a Service (SaaS). These delivery models are distinct based on what services the CSP provides and the amount of responsibility that falls on the user in terms of control and management of resources. The IaaS model gives users more responsibilities as they have control over their operating systems, storage and applications which have been deployed while the SaaS offers the least amount of responsibilities which are limited to some application configuration settings. More detailed information about the different service models can be found at \cite{nist}.
+
+The deployment models available in cloud computing are the private, community, public and hybrid cloud models. These models are based on the number of parties that share the available deployed infrastructure. The private cloud is typically setup for use for a single organization while the community and public cloud models usually involve multiple parties with the former involving parties that share similar interest and requirements, while the latter is typically provisioned and available for use by the general public. The hybrid cloud model is basically a combination of the any of the other models and is typically a combination of the private and public models with the aim of benefiting from the strengths of the models while eliminating individual model weaknesses. More detailed information about the different deployment models can be found at \cite{nist}.
+
+The cloud computing deployment model this thesis considers is the public cloud model as this is the model mostly used or a hybrid model potentially involving a private and public cloud model focusing on the vulnerabilities of the public facing infrastructure. Also, users of the private model have more control over their infrastructure and are able, to a certain degree, to ensure that the security and privacy of stored data is assured.
+
+
+\section{Cryptography}
+
+Cryptography\cite{Kissel2013} is the field of study which represents the principles, means and methods used for transforming data in order to hide their original content and prevent unauthorized use or modification. This typically involves the study of several mathematical techniques. Cryptography can be broadly divided into secret key and public key cryptography also known as symmetric and asymmetric schemes.
+
+\subsection{Secret Key Cryptography (Symmetric)} This type of cryptographic systems involve the use of a single secret key which is usually agreed upon by both parties who want to keep their communication secret. This secret key is used to encrypt the original message typically described as the plaintext (i.e encode the plaintext into a ciphertext that cannot be read by a party without the secret key). The receiving party if authorized and in possession of the secret key is able to decrypt the ciphertext and gain access to the original message. Examples of secret key schemes include the Ciphers (Caesar, Monoalphabetic and Polyalphabetic cyphers), Data Encryption Standard (DES) and Advanced Encryption Standard. 
+
+\subsection{Public Key Cryptography (Asymmetric)} This type of cryptographic systems was developed as a result of the challenges in secret key cryptography which include the problem of key management and lack of secure channel for users to exchange keys. Public key cryptography involves the use of two separate keys, a public and private key, which are used to perform complementary operations such as encryption and decryption or signature generation and verification. Examples of public key schemes include the Diffie–Hellman key exchange protocol, RSA, Elgamal and Elliptic Curve Cryptography.
+
+\subsection{Cryptographic Adversary Models}
+
+Attacks on cryptographic systems typically carried out by an adversary normally to either recover the plaintext from the ciphertext or recover the secret key used by the system can be classified into four broad categories.
+
+\begin{itemize}
+	\item Ciphertext Only Attack \cite{Menezes1996} - A ciphertext only attack is a class of attacks in which the adversary only has access to some ciphertext without any knowledge of the corresponding plaintext. This is the weakest type of attack because the adversary has the least amount of information to work with and any encryption scheme vulnerable to this class of attack is considered to be completely insecure.
+	
+	\item Known Ciphertext Attack \cite{Menezes1996} - A known plaintext attack is a class of attacks in which the adversary has access to some plaintext and ciphertext pairs. The  adversary is unable to create more pairs and in only able to gain access to these by eavesdropping on the comunication channel between parties. These types of attacks are only marginally more difficult to mount. 
+	
+	\item Chosen Plaintext Attack (CPA) \cite{Menezes1996} - A chosen plaintext attack is a class of attacks where the adversary is able to select the plaintext and request for the corresponding ciphertexts. This is typically done through the use of a black box system, typically called an oracle, that is able to produce the corresponding ciphertext when given any plaintext without revealing the key or any information about the plaintext of the original ciphertext that the adversary is trying to decrypt. A variation of this is the adaptive chosen plaintext attack where the adversary chooses the new plaintext based on the ciphertext received for earlier submitted plaintexts.
+	
+	\item Chosen Ciphertext Attack (CCA) \cite{Menezes1996} - A chosen ciphertext attack is a class of attacks where the adversary selects any ciphertext and requests for the corresponding plaintext. This is the direct opposite of the chosen plaintext attack class. This class of attacks are considered to be the strongest model of attacks when classifying encryption schemes based on their level of resistance. An adaptive chosen ciphertext attack just like the adaptive version of CPA, involves the adversary deciding on what ciphertext to submit based on the plaintext received for earlier requests.
+	
+\end{itemize}
+
+Note that some of the attack types above are mutually exclusive (for instance, an attack cannot be both chosen plaintext and known plaintext). And also the chosen plaintext/ciphertext attacks are somewhat exclusive to the modern era of cryptography.
+
+\section{Technical Preliminaries}
+
+\subsection{Bilinear Maps}
+
+The concept of bilinear maps, or pairings, are the foundation of pairing based cryptography which allowed of the creating of cryptosystems with a great variety of functionalities. Cyclic groups with efficiently computable bilinear maps form the basis of bilinear maps.
+
+There are two general types of bilinear maps, namely:
+
+\begin{enumerate}
+	\item \textbf{Symmetric Pairing\cite{Lynn2007}} - In this type of pairing we have two cyclic groups $ G, G_{T} $ of prime order p with g as the a generator of G. The efficiently computable bilinear map in this case is represented as $$ e \colon G \times G = G_{T} $$
+	
+	\item \textbf{Assymmetric Pairing\cite{Lynn2007}} - In this type of pairing we have three cyclic groups $ G_{1}, G_{2}, G_{T} $ with $ G_{1} $ and $ G_{T} $ of order p and $ G_{2} $ a group with each element having an order dividing pG. The efficiently computable bilinear map in this case is represented as $$ e \colon G_{1} \times G_{2} = G_{T} $$
+	
+\end{enumerate}
+
+The type of pairing used in this work is symmetric. Below is a definition of bilinear maps as well as the properties that make it efficient for use in Attribute Based Encryption.
+
+\begin{definition}{\textbf{(Bilinear Maps\cite{Lynn2007})}}
+	Let $ G, G_{T} $  be two cyclic groups (multiplicative or additive) of prime order p. Let g be a generator for G and  $  e \colon G \times G = G_{T} $. The bilinear map e has the following properties:
+	
+	\begin{enumerate}
+		
+		\item Bilinearity: for all $ u, v \in G and a, b \in Z_{p} $, we have $ e(u^{a}, v^{b}) = e(u, v)^{ab} $.
+		
+		\item Non-degeneracy: $ e(g, g) \neq 1 $
+		
+	\end{enumerate}
+	
+\end{definition}
+
+\subsection{Access Structures}
+
+The definitions of access structures and linear secret sharing schemes used in this thesis have been adapted from \cite{Beimel1996}.
+
+\begin{definition}{\textbf{(Access Structures \cite{Beimel1996})}}
+	\textit{Let $\{P_{1},\ldots,P_{n}\}$ be a set of parties. A collection $ \mathbb{A} \subseteq 2^{\{P_{1},\ldots,P_{n}\}} $ is monotone if $ \forall B,C\colon $ if B $ \in \mathbb{A} $ and B $ \subseteq $ C, then C $ \in \mathbb{A} $. An access structure, i.e monotone is a collection $ \mathbb{A} $ of non-empty subsets of $\{P_{1},\ldots,P_{n}\}$ i.e., $ \mathbb{A} \subseteq 2^{\{P_{1},\ldots,P_{n}\}}\setminus\{\} $. The sets in $ \mathbb{A} $ are called the authorized sets, and the sets not in $ \mathbb{A} $ are called the unauthorized sets.}
+\end{definition}
+
+In ABE, attributes play the role of parties in the access structure and the scheme in this thesis only considers access structures that are monotone. 
+
+Access policies based on monotone access structures could be represented as either a Linear Secret Sharing Scheme (LSSS) Matrix or with the use of monotonic boolean formulas which could be represented as an access tree in which the core nodes are used to represent the AND and OR gates with the attributes represented by the leaf nodes. 
+
+Access policies based on monotone access structures could be represented in two different ways for ABE schemes. The two widely used methods are:
+
+\subsection{Secret Sharing Schemes}
+
+Secret sharing schemes which was first created by Shamir in \cite{Shamir1979} allows for the division of data among multiple parties in such a way that the original data can only be reconstructed if a party is in possession of at least a fixed number of division, usually the threshold, and possession of a number of pieces less than the threshold reveals no information about the original data. Other earlier works in secret sharing include works by Barkley \cite{Blakley1979}, Benaloh \cite{Benaloh1988} and Ito, Saito and Nishizeki \cite{Ito1989}. LSSS are secret sharing schemes in which the reconstruction of the original secret is done using a linear function of the available pieces \cite{Beimel1996}.
+
+\subsection{Linear Secret Sharing Schemes}
+
+\begin{definition}{\textbf{(Linear Secret Sharing Schemes \cite{Beimel1996}\cite{Waters2011})}}
+	A secret sharing scheme $ \prod $ over a set of parties $ \mathcal{P} $ is called linear (over $ Z_{p} $) if
+	\begin{enumerate}
+		\item The shared for each party form a vector over $ Z_{p} $.
+		
+		\item There exists a matrix $ M $ with $ \ell $ rows and $ n $ columns called the share-generating matrix for $ \prod $. For all $ i = 1,/ldots,\ell $, with $ M_{i} $ representing the $i$'th row of $ M $. The function $ \rho $ is defined as the party labeling row $ i $ as $ \rho(i) $. Consider a column vector $ \vec{v} = (s, r_{2},\ldots,r_{n}) $ where $ s \in Z_{p} $ is the secret to be shared and $ r_{2},\ldots,r_{n} \in Z_{p} $ are chosen randomly, then $ M_{v} $ is can be described as the vector $ \ell $ shares of the secret $ s $ according to $ \prod $. The share $ (M_{v})_{i} $ belongs to party $ \rho(i) $.
+		
+	\end{enumerate}
+\end{definition}
+
+The linear reconstruction property as described in \cite{Beimel1996} shows that suppose that $ \prod $ is an LSSS for an access structure $ \mathbb{A} $. Let $ S \in \mathbb{A} $ be any authorized set, and let $ I \subset {1,/ldots,\ell} $ be defined as $ I = {i : \rho(i) \in S} $. Then there exits constants $ {w_{i} \in Z_{p}}_{i \in I} $ such that, if $ {\rho_{i}} $ are shares of the secret $ s $ according to $ \prod $, then $ \sum_{i \in I} w_{i}\lambda_{i} = s $.
+
+Note that access structures represented as boolean formulas which are typically represented by binary trees can be converted into a LSSS form using the techniques described in \cite{Lewko2011b} with the number of rows in the corresponding matrix equal to the number of leaf nodes in the access tree.
+
+
+\subsection{Cryptographic Hardness Problems}
+
+Let G be a cyclic group of prime order p. Let g be a generator for G represented as $ G = \langle g \rangle $ and let $ x, y, z \in G $ . The different complexity assumptions used to show the security of the different pairing based schemes have their foundation in the following core hardness problems\cite{Lynn2007}:
+
+\begin{itemize}
+	
+	\item \textbf{Discrete Log DLog) Problem} - Given $ g $ and $ g^{x} $, compute $ x $.
+	
+	\item \textbf{Computational Diffie-Hellman (CDH) Problem} - Given $ g, g^{x}, $ and $ g^{y} $, compute $ g^{xy} $.
+	
+	\item \textbf{Decisional Diffie-Hellman (DDH) Problem} - Given $ g, g^{x}, g^{y} $ and $ g^{z} $ , determine if $ xy = z $.	 
+	
+\end{itemize}
+
+\section{Attribute Based Encryption (ABE)}
+
+ABE is a pairing based cryptogaphic scheme that was developed based on Identity Based Encryption(IBE) which was originally proposed by Shamir in 1984 \cite{Shamir1985}. Shamir proposed a scheme which allowed for the encryption and decryption of information between two different users without the need for any exchange of keys between both parties. His proposal assumed the existence of a trusted key generation service similar to Certificate Authorities (CA) which were responsible for registration of users as they join a network and also for subsequent verification of their identity. Personal information unique to several users, such as their address, email address or a combination of this information, was used as the public key in the system. This allowed for the encryption of data meant for UserB by UserA using the email address of UserB, e.g “userB@gmail.com”. UserB on receiving this encrypted data would then contact the key generation service and, after successful authentication, receives a secret key granting him access to the original datae. The scheme proposed by Shamir was further developed and the first practical and secure IBE scheme was presented by Boneh and Franklin in \cite{Boneh2003}, who developed a fully functional IBE scheme which made use of groups for which there existed an efficiently computable bilinear map such as the Weil pairing.
+
+Sahai and Waters in \cite{Sahai2005} were able to develop a new scheme that improved on the existing IBE schemes by creating a system in which the user identity is viewed as a set of descriptive attributes, allowing a user to encrypt data for all users who have a certain set of attributes. Decryption in this case is only permitted if the identity of a user, and the identity for which the ciphertext was encrypted, were close enough based on their individual attributes. It is in this work that the notion of Attribute Based Encryption is first mentioned.
+
+Goyal et al. in \cite{Goyal2006} developed an ABE scheme that was more expressive than the original ABE scheme proposed by Sahai and Waters \cite{Sahai2005}. In their scheme, termed Key-Policy Attribute-Based Encryption (KP-ABE), each ciphertext created by the user contains a set of descriptive attributes. Secret keys of individual users are associated with an access structure which specifies the attributes that need to be contained in a ciphertext for successful decryption. The access tree structure could be made up of interior nodes that consist of AND and OR gates with the leaves containing different attributes. For example, if UserA’s key in KP-ABE contains “C AND D” as the access policy, the only ciphertexts he should be able to decrypt are those that contains both attributes C and D. A ciphertext with only attribute C or D could not be decrypted by UserA as the requirements for access would not be satisfied. The keys generated for users in this scheme are also collusion resistant just like the original scheme, meaning that no two users with different attributes could combine their keys to create an overlap of attributes that would give them the ability to decrypt files which they would not normally be able to decrypt.
+
+The authors in \cite{Goyal2006} mentioned a variant to the KP-ABE scheme known as the Ciphertext-Policy Attribute-Based Encryption (CP-ABE) scheme which they left as an open problem that was solved by \cite{Bethencourt2007}. In CP-ABE, the ciphertexts are associated with the access policy while the user keys contain a set of descriptive attributes. This would mean that, for a key to decrypt a particular ciphertext, its attributes need to match the access structure of the access policy of the ciphertext. This scheme, unlike the KP-ABE scheme, gives the user encrypting data more control as the user is able to control who can have access to data being encrypted by making sure the access policy in the ciphertext specifies what attributes need to be possessed for access to be granted.
+
+The four basic algorithms of any ABE based system includes the following:
+
+\begin{enumerate}
+	
+	\item Setup -  The setup algorithm is responsible for the selection of the bilinear group and the definition of a bilinear map that has the properties of bilinearity, computability and non-degeneracy. The setup algorithm takes as its input the security parameter which specifies the size of the attribute set and generates a public key (PK) and a master key (MK) as output.
+	
+	\item Keygen - The keygen algorithm takes as its input two parameters, the MK generated during setup and the set of attributes that the user possesses, and generates a secret key (SK) for the user in CP-ABE. The input for KP-ABE includes the MK, PK and an access structure and outputs SK.
+	
+	\item Encryption - The encryption algorithm takes as its input PK, a message M, and an access structure for CP-ABE schemes and produces a ciphertext C. It takes as input PK, M and a set of attributes and produces a ciphertext C for KP-ABE schemes.
+	
+	\item Decryption - The decryption algorithm takes as input PK, C and SK and, if the attributes of either the ciphertext or secret key satisfies the access structure of the other, depending on whether the scheme is a CP-ABE or KP-ABE scheme, decrypts C and outputs M.
+	
+\end{enumerate}
+
+Both variants of ABE allows for delegation which would allow a user with a secret key for set of attributes (CP-ABE) or containing an access structure (KP-ABE) to derive a new secret key containing a set of attributes that is a subset of the attribute set of the original key or an access structure that is more restrictive than the access structure contained in the original key.
+
+\section{Revocation}
+
+A useful feature with ABE based systems is the ability for user revocation. This is a challenge as multiple users may share a similar attribute which could cause the revocation of one user to affect other users who share a similar attribute. Furthermore it is important that user revocation be flexible and occur at different granular levels which means that revocation could involve removal of a user completely or a partial reduction of a user’s access, based on their attributes. The addition of an expiry date to the generated key has been proposed by initial ABE based systems \cite{Bethencourt2007} but does not offer an effective means for the revocation of user attributes.
+
+Yu et al. in \cite{Yu2010} proposed a scheme that enables secure, scalable and fine grained data access to a cloud based system with a great reduction in the computation overhead by delegating most of the computation intensive tasks to the cloud servers while ensuring the security and privacy of user data through the combination of KP-ABE, proxy re-encryption (PRE) and lazy re-encryption (LRE). In their scheme, the attributes that are assigned to the ciphertexts are all assigned a unique ID which serves as the version number that is stored in a list maintained by the cloud servers, together with the PRE keys used. The cloud servers also maintain a list of all the existing users in the system who are currently authorized to have access to the different stored data. Data files are encrypted using symmetric encryption with the decryption keys encrypted using ABE and appended to the encrypted data file together with a unique file ID. PRE enables the use of a proxy to convert a ciphertext which has been encrypted using the public key of a particular user into another ciphertext that can be decrypted using the private key of a different user, without revealing the contents of the underlying file. In order to revoke a user, the scheme determines the least amount of attributes that need to be updated to prevent a user from having access and redefines the public and master keys for those attributes while generating the corresponding PRE keys. The revoked user's ID, the attribute set, the PRE keys and the new public key parameters are sent to the cloud servers. The cloud servers then remove the revoked user from the user list, store the new public key parameters and then updates its list of attributes together with the PRE keys used.
+
+Yu et al. in \cite{Yu2010a} have applied the concept of proxy re-encryption with CP-ABE in order to enable revocation. Liang et al. in \cite{Liang2011} have proposed the system Ciphertext Policy Attribute Encryption with Revocation (CP-ABE-R), which makes use of linear secret sharing and binary tree techniques to enable effective revocation of users with the aid of a unique identifier assigned to each user in the system and which is not needed for encryption and decryption. Cheng et al. have proposed a scheme \cite{Cheng2013} that enables effective revocation in CP-ABE by dividing the original data into multiple parts which they term \textit{slices}, before they are stored in the cloud which allows for revocation by the re-encryption of only one slice. The data is encrypted with a symmetric key and then split into multiple parts using a secret sharing scheme. In the case of the secret sharing scheme applied here, the number of parts that are needed to reconstruct the original file is equal to the number of distinct parts. A particular slice of data is chosen as the dynamic data and it is this slice that is constantly re-encrypted to enable revocation while the static data remains the same. This reduces the computational and storage overhead while ensuring that the security of the system is not compromised.
+
+
+\section{Multi-Authority Schemes}
+
+The first Multi-Authority Attribute Based Encryption (MA-ABE) scheme was proposed by Chase in \cite{Chase2007}\cite{Chow2010} and was based on Key Policy Attribute Based Encryption (KP-ABE). In this scheme, there are multiple Attribute Authorities (AA) in addition to a Central Authority (CA) which are responsible for generating secret keys corresponding to the attributes which they handle. Users are assigned a Global Unique Identifier (GUID) which they use to request the shares of the system-wide Master Secret Key (MSK) handled by the different authorities. The GUID is used by the authorities to tie the shares to a particular user. The system includes a CA which is responsible for aiding users in decryption by ensuring that all the shares generated for a particular user by the different AAs sum up to the same MSK. The CA ensures this by assigning to each user a special value that cancels out all of the shares from the different authorities, providing the user with a function of the system wide MSK. In order to carry out its functions, the CA has knowledge of the MSK and as a result would also be able to decrypt any ciphertext in the system which is in contrast with the idea behind using multiple authorities, which is to distribute trust among several untrusted authorities. Also, in the original system, the users use their GUIDs to identify with the individual AAs, which means that several authorities could combine their information about a particular user and develop a profile based on the attributes that the user has acquired and be able to generate keys with the same level of access as the user.
+
+Chase and Chow in \cite{Chase2009} proposed a solution to the original MA-ABE problem which eliminated the use of a CA and also prevented the AAs from having the ability to combine the information about a user by allowing users to use pseudonyms for interacting with the individual AAs in the system instead of the use of their respective GUID. This solution eliminates the CA by applying a set of Pseudo Random Functions (PRF), and having every pair of authorities in the system share a secret PRF seed which allows for a combination of all their individually generated shares. To enable users to communicate with the individual AAs using pseudonyms, the authors have developed a novel Anonymous Key Issuing Protocol. Additional details about the protocol and its functions can be found in \cite{Chow2010}\cite{Chase2009}.
+
+Lewko and Waters propose a MA-ABE\cite{Lewko2011a}\cite{Lewko2011b} solution in which the different authorities operate independently and do not have to share any common information with each other as in \cite{Chase2007} e except for an initial set of common reference parameters. Their system has higher tolerance as the failure or corruption of authorities in the system will not have a direct impact on the operation of the fully functioning and uncorrupted authorities. Furthermore, in their solution, any party could become an authority by making available, to the other entities in the system, their verification key and their lift of managed attributes. This solution makes use of Linear Secret Sharing Schemes (LSSS) access structures and the authors show that boolean formulas could easily be transformed into LSSS structures using techniques found in \cite{Lewko2011b}. Lewko and Waters have used the dual system proof technique to prove the security of their system.
+
+Kan et al. in \cite{Yang2013} have developed a solution called DAC-MACS (Data Access Control for Multi-Authority Cloud Storage) in order to make a more efficient CP-ABE based MA-ABE solution that takes advantage of the services available in the area of cloud computing and that is more suited to this domain. Their solution includes an efficient attribute revocation method that enables both forward and backward security. In addition to providing a means for attribute revocation, Kan et al.'s system\cite{Yang2013} has better efficiency than other similar solutions. Also, by using a decryption token for the decryption, they have been able to transfer the intensive computations over to the cloud server, thereby reducing the computational overhead on the side of the end user. A flaw in the system is the fact that the different AAs have knowledge of the GUID of the users which would give a revoked user the ability to derive the key update key that they could use to update their own keys by corrupting any AA, together with some non-revoked users.
+
+Kan and Xiaohua\cite{Yang2014} have developed a more effective MA-ABE solution based on CP-ABE. In their new system, the secret keys of the different users are not related to the key of the data owner and so users will only need to hold an individual secret key for an authority instead of multiple secret keys associated with multiple owners. This makes it more suitable for a multiowner setting as storage overhead for user keys is greatly reduced. They have also improved the revocation mechanism by modifying it to require that only ciphertexts associated with a revoked attribute be updated and by using a single update key for the update of both keys and ciphertexts.
+
+
+%\section{ABE Schemes with Accountability}
+
+%In order to incorporate accountability into ABE in order to ensure that users do not abuse their secret keys in either CP-ABE or KP-ABE is a feature that has been investigated by researchers. This involves a concept introduced by \cite{tracing} known as traitor tracing which includes both White Box and Black Box Tracing. White box tracing involves a scenario where only the user's secret key or a modified version is in the possession of an unauthorized party who attempts to use the existing decryption system to perform decryption and gain access to data. Black box tracing is different from white box tracing as the unauthorized party has access to both the secret key and a modified version of the decryption algorithm which makes it a more challenging system to develop especially with regards to ABE schemes\cite{Liu2013}. The major challenge with implementing traceability in ABE, unlike other encryption schemes such as IBE for which traceable systems have been built, is the fact that the decryption keys are not associated with specific individuals but with attributes which are usually shared by multiple users.
+
+%Yu et al.\cite{Yu2009} have developed a black box traceable system that prevents the users from abusing their keys in KP-ABE based systems. In their scheme, each user is assigned a unique ID and bits of the user identities, which are used as additional attributes, are embedded in user secret keys. The attributes are split into three groups: the public attributes which are accessible; the normal attributes which are associated with the non-tracing algorithms and are hidden to prevent the fraudulent system from being able to compare with the attributes in the ciphertext which could expose the trace ciphertexts; and the identity-related attributes, which are also hidden, and are used to ensure that only users whose secret key usage is being traced are able to decrypt the corresponding trace ciphertexts. This solution allows the data owner to trace fraudulent decryption algorithms and keys of suspected users by feeding them with particular trace ciphertexts in order to trick the systems into decrypting them which would show evidence of key abuse. Li et al.\cite{Li2011} have proposed a multi authority CP-ABE scheme that also allows for the tracing of malicious users also in the black box tracing model.
+
+%Liu et al. develop a white-box traceable CP-ABE scheme which supports any monotone access structure in \cite{Liu2013}. This scheme allows for a more expressive access structure unlike the earlier schemes \cite{Yu2009}\cite{Li2011} which limited the access policies to a single AND gate together with a wildcard used to signify a ``do not care" attribute. In order to be able to link keys to individual users despite the shared attributes, they have made us of an unforgeable signature scheme to act as a ``fixed point" which identifies the owner of the key. They have also proposed an extended version which involves the use of two separate entities for the generation of tracing information and the issuing of secret keys for decryption to users to improve security. A limitation to their scheme is the lack of user revocation which is an important functionality in the domain of ABE. They show that a decryption system could be constructed to resist the tracing systems proposed in \cite{Yu2009} and \cite{Li2011} by being able to identify the difference between normal and trace ciphertexts.
+
+%Zhou et al.\cite{Zhou2015} propose TR-MABE which is a white-box traceable and revocable MA-ABE scheme and show how it can be applies to provide multi-level privacy preservation in a cloud based e-healthcare system. Their system groups the data requesters into two main groups: the primary physicians who are directly responsible for the patients and have the ability to access the identity of the patients and the secondary physicians who may require access to patient medical data but should not have access to the patients identity. Their system involves the use of multiple central authorities (CA) and multiple attribute authorities (AA). The patient i.e data owner encrypts his data which includes his identity under a specific access policy and stores it in the cloud which subsequently updates the identity component of the ciphertexts to enable decryption for only the primary physicians.
+
+
+\section{Outsourcing}
+
+\begin{itemize}
+	\item main goal? (ref original paper\cite{Green2011outsource})
+	\item optimization? (ref subsequent papers)
+	\item method (i.e split decryption into two phases [cite original paper i.e \cite{Green2011outsource}]
+	\item advantages (allow for low compute devices to be employed at the user end. why?)
+	\item risk? (none - same level of security and privacy as the original ABE approach)
+\end{itemize}
+
+\textcolor{red}{Give general info about outsourcing in ABE to provide background knowledge on approach used to provide outsourcing capabilities to ABE scheme in this paper}
+
+\begin{itemize}
+	\item Aim of outsourcing i.e splitting the decryption process for greater privacy and security while reducing the operations on the user end opening access to the use of devices with lower computational power.
+	
+	\item split into an elgamal ciphertext \textcolor{red}{cite original outsourcing paper for more info}
+	
+	\item other advantages of outsourcing from other papers that used a similar technique and what their approaches were also if necessary
+	
+\end{itemize}
+
+
+\section{ABE Based Health Care Systems}
+
+Ibraimi et al. proposed a new variant of CP-ABE \cite{Ibraimi2010} in order to be able to enforce the required levels of access controls in a multiple domain based system to ensure the security of personal health records (PHR). They have distributed the group of users who normally require access to PHRs into two domains: the professional domain, which consists of the health care providers; and the social domain, made up of family members, friends and possibly fellow patients. Their proposed variant of CP-ABE allows the encryption of health records with an access policy that is made up of attributes issued by two different trusted authorities: the trusted authority in charge of the professional domain and the trusted authority in charge of the social domain.
+
+The authors in \cite{Narayan2010} have proposed the design of a patient controlled cloud based EHR infrastructure using CP-ABE. They have based their system on the assumptions: a trusted authority (TA) exists that is responsible for the generation of keys for users and is able to store the public parameters and public keys of users in a public directory; each user is associated with a unique identifier and a set of attributes; and the cloud server used for storage is only trusted for the performance of storage operations. They have used a variant of CP-ABE, known as broadcast ciphertext-policy attribute-based encryption (bABE), which extends the traditional CP-ABE to enable revocation of users' keys. They have also provided the functionality of keyword search which allows users to search using a search term by providing a key which allows the cloud provider to perform search operations on the encrypted data without learning anything about the actual data contents.
+
+Akinyele in \cite{Akinyele2010}, using ABE, has provided a detailed design and implementation of self-protecting EMR which allows EMR availability even when the providers are offline. Their system makes role- and content-based access control possible. For role-based access control, users are granted explicit access to collections of data related to their roles that match some specific criteria which the authors have termed content slices. These slices could be as specific as required by the system administrators and the content-based access is used to grant access to users such as contractors, who have no definite roles in the system but require access to records to carry out their functions. They have also implemented a policy engine as part of their design to evaluate new or updated EMRs in order to determine the policies that are to be used for encryption. The policy engine's final decision is based on either the set of policies specified by the administrator, the identity and nature of the EHR, the annotations attached to the EHR, or in some cases the textual content of the record. They have taken advantage of the XML-based EMR standards which include the Continue of Care Record (CCR) and the Continuity of Care Document (CCD) which allows their policy encryption engine to parse each node in order to determine the appropriate access policy and subsequently the access control rule and content related attributes for which the document is to be encrypted. Users will need to be present at the initialization stage to have their mobile devices provisioned with the required decryption keys to be able to use the accompanying mobile application to access their data. CP-ABE is used to grant access to patients and health professionals using keys with fixed attributes related to their roles or responsibilities while users with no definite role are granted access through the use of KP-ABE by generating keys, which contain a specific policy that defines what data they can access and, in some cases, the time periods for which they can have access.
+
+Barua et al. in \cite{Barua2011} have proposed a scheme which they called Efficient and Secure Patient-centric Access Control (ESPAC), in which they have used CP-ABE to achieve patient-centric access control allowing different access privileges based on the roles of the data requester and assigning the corresponding attributes based on those privileges. They have constructed their access control policy by assigning attributes, based on the relationship between the patient and the requesting party, which is used to determine the privacy levels of the requesting party before attributes are assigned. Their system is made up of four main entities: the trusted authority (TA), the cloud service provider (CSP), the registered user, and the data-access requester. The scheme makes use of pseudo identity instead of unique identities to ensure privacy. The scheme enables message integrity checks, non-repudiation and source authentication through the use of signature verification. This scheme is able to ensure forward and backward secrecy.
+
+Suhair et al. in \cite{Alshehri} have proposed the design of a cloud based EHR system using CP-ABE to ensure security by using the credentials and attributes of the health care providers as the universal attribute set. Their proposed architecture is made up mainly of three components: the EHR system hosted on the cloud; the participating healthcare providers; and the attribute authority (AA) which is in control of generating the secret keys of users which contain the appropriate attributes. The cloud is used for data storage and computation in their infrastructure. Encryption and decryption of the medical records are performed at the client end through the use of lightweight software. Suhair et al. have proposed the addition of an expiry date to the access policies used for encryption, or complete re-encryption with updated access policies, as a way to achieve revocation in order to avoid the communication overhead involved with the re-distribution of secret keys to authorized users. The use of a single AA presents a focal point of weakness for the security of the system and presents the key escrow problem.
+
+Hupperich et al. in \cite{Hupperich2012} propose an architecture that gives the patient control of the delegation of access to their EHRs, in line with the existing privacy laws. They have proposed a system that would allow patients to authorize the appropriate health care service providers to have access to their EHRs through a flexible channel that would not require the patient to be present. In order to eliminate the use of smart cards for access, and to enable health care providers to have access to EHRs their infrastructure only requires the use of the patient’s smart card at the initial stage for the generation of a transaction code (TAC) which the patient can use to grant access by sending to authorized health care professionals. They have used ABE for encryption by using the patient’s identity and a TAC that is specific to a particular medical record as the two main attributes for encryption and decryption. They have implemented emergency access by allowing the encryption of certain records using the attribute \textit{``emergency"} without any TAC, with logging implemented to keep track of emergency access. The authors have not mentioned how the system would handle revocation of users and have not implemented a secure means of transmission for the generated TACs which they have stated could be transferred via traditional means such as a phone or on paper.
+
+The authors in \cite{Hsieh2012} proposed the design for a secure interoperable cloud based service for private health records (PHR) which uses the Continuity of Care Document (CCD) for the storage and exchange of information and employs several security mechanisms using available open standards such as XACML, XML encryption, XML signature and XML key management specification. They have used CP-ABE to achieve patient controlled encryption, and the public key encryption with keyword search (PEKS) scheme to provide privacy-preserving keyword search. They have used the Secure Channel Free PEKS scheme which allows users to perform private searches over encrypted data for specific matching keywords without revealing the keywords or any partial matches to the server.
+
+Li et al. in \cite{Li2013} proposed a framework titled Scalable and Secure Sharing of Personal Health Records in Cloud Computing Using Attribute Based Encryption containing a suite of security mechanisms that aimed to solve the existing issues in cloud-based PHR storage systems which include eliminating the risk of privacy exposure, key management scalability, flexible access and effective revocation of existing users. Their work focuses on the multiple data owner scenario similar to our proposed architecture and thus they have divided the users in the system into two broad security domains similar to \cite{Ibraimi2010}, which reduces the complexity of key management for data owners and users who require access, with the improvement being that in their scheme the public domain (PUD) is managed by multiple AAs. The personal domain is made up of users who are close to the data owners (i.e. patients) such as family members and friends while the public domain is made up of the various professionals who require access to the patient’s records such as doctors and pharmacists. In order to apply ABE to the personal domain, Li et al. have employed the Key Policy ABE with efficient revocation as proposed in \cite{Yu2010a} with the data owner fully responsible for handling this particular domain. The data owner generates keys for members of this domain with the access structure corresponding to their level of access and sends this keys to the corresponding users in order to grant them access. The authors have employed in the public domain the use of the MA-ABE proposed in \cite{Chase2007} and improved in \cite{Chase2009}. Since the MA-ABE scheme they adopted is essentially a KP-ABE scheme with multiple AAs, in which control of access lies with the AAs who generate the keys for the different attributes therefore taking away control from the data owner, Li et al. have made a slight modification to how this scheme is used in their system. In order to grant the data owner more control, the system requires that the key access policies and the general approach for specifying the ciphertext attributes be agreed upon in order to grant the users some level of control in specifying the access policy of the ciphertext from their end by choosing the right attributes. To improve security in the public domain, Li et al. have slightly modified the Multi-authority ABE (MA-ABE) scheme proposed by \cite{Chase2009} to enable efficient user revocation by using the revocation technique proposed by \cite{Yu2010a} which was not a feature of the original scheme. Their system provides dynamic attribute and access policy modification together with on-demand user/attribute revocation, together with break glass access, in order to make records available for use under emergency situations.
+
+%The following are the highlights of their system, with regards to the entities and functionalities provided, which are slightly related to our proposed architecture:
+%
+%\begin{enumerate}
+%	
+%	\item Multiple Data Owners: Their system allows multiple users to store their data on the system and give access to multiple parties. This is similar to our system which also includes multiple owners, except that in our system there will be only one domain of users as the data being handled and shared does not require the need for a personal domain. The extension of the system to include a personal domain would be trivial.
+%	
+%	\item Multiple Data Users: Multiple users who require access only need to acquire the corresponding keys from the user or from the subsequent Attribute Authorities (AA) depending on to which domain they belong. The system is split into two broad domains, the personal domain and the professional domain. This is also similar to our architecture with the exception of the personal domain as our system would have only an underlying MA-ABE scheme for the handling of all users.
+%	
+%	\item Revocation: Li et al. handle revocation using the dummy attribute method as used in the original KP-ABE scheme, one of the schemes on which their system is based. They have proposed a modification to the adopted MA-ABE scheme based on the same approach. Our system uses an MA-ABE scheme that comes with a more efficient method of revocation.
+%	
+%	\item Read/Write Access: The system includes both Read and Write access for the data owners with write access also given to only authorized data users, depending on their roles in the system. Our proposed system does not include write access as this is not needed since the platform is used for sharing. The addition of write access could be implemented in the future using additional attributes to specify if a user should be able to write to already stored data and appropriate signature techniques for accountability.
+%	
+%\end{enumerate}
