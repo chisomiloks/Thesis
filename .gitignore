@@ -221,3 +221,6 @@ TSWLatexianTemp*
 
 # MAC file
 .DS_Store
+
+# Folders
+Backups/
