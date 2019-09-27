@@ -1,6 +1,8 @@
 \chapter{Evaluation and Results}
 \label{chap:evaluation_and_results}
 
+Testing
+
 This chapter highlights the information about the software and hardware specifications involved in the implementation of the underlying framework and also shows the results of performance tests for the underlying ABE scheme in relation to scalability of computational and storage overhead with regards to the number of attribute authorities and attributes involved in the system for data encryption and decryption.
 
 \section{Experimental Setup}
@@ -16,7 +18,7 @@ We evaluated the performance of our system framework by implementing the underly
 \begin{itemize}
 	\item Python - We wrote our underlying code using Python 3.x as this gave us access to some other effective libraries that played a role in the robustness of our code and evaluation during our experiments.\textcolor{red}{cite python + numpy + matplotlib}
 	
-	\item Charm Crypto Library \textcolor{red}{cite charm-crypto paper} - We used the charm-crypto library for the implementation of the ABE components of our framework. Charm is a library implemented in python that has multiple contibutors in the cryptographic field and as a result gives access to easy to use functionalities related to pairing based public key encryption schemes such as ABE. Our scheme was implemented using a group size of -- and an elliptic curve of type --.
+	\item Charm Crypto Library \textcolor{red}{cite charm-crypto paper} - We used the charm-crypto library for the implementation of the ABE components of our framework. Charm is a library implemented in python that has multiple contributors in the cryptographic field and as a result gives access to easy to use functionalities related to pairing based public key encryption schemes such as ABE. Our scheme was implemented using a group size of -- and an elliptic curve of type --.
 \end{itemize}
 
 System performance was evaluated through the implementation of the underlying scheme on a linux server and also with the use of different software tools be described below.
