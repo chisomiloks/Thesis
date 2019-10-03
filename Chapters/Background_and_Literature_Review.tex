@@ -1,6 +1,17 @@
 \chapter{Background and Literature Review}
 \label{chap:background_literature_review}
 
+\subsection*{Chapter ToDo}
+\textcolor{red}{
+	\begin{itemize}
+		\item Outsourcing [Section 2.9]
+		\begin{itemize}
+			\item place holder for verifiable outsourced paper just identified.
+			\item Flaws with DACMACs?
+		\end{itemize}
+	\end{itemize}
+}
+
 \section{Security and Privacy}
 
 \subsection{Security}
@@ -214,18 +225,15 @@ Kan and Xiaohua\cite{Yang2014} have developed a more effective MA-ABE solution b
 
 \section{Outsourcing}
 
-An important extension to the functionality of available ABE schemes is the ability to outsource the computationally intensive operations such as the decryption of the ciphertext to third party systems such as the Cloud Service Provider (CSP) while maintaining the same levels of security and privacy as the existing ABE schemes. This was initially proposed by Green et al. in \cite{Green2011outsource}. In their approach, they have been able to achieve outsourcing by enabling the CSP with the ability to transform the ABE ciphertext into a constant-size El Gamal-style ciphertext when provided with the appropriate information without being able to access the original data. This splits the decryption component of the overall scheme into a transformation algorithm and a final decryption algorithm. The final decryption algorithm involves just one exponentiation and a division and so can be executed on a device with minimal computational resources at the user end.
+An important extension to the functionality of available ABE schemes is the ability to outsource the computationally intensive operations such as the decryption of the ciphertext to third party systems such as the Cloud Service Provider (CSP) while maintaining the same levels of security and privacy as the existing ABE schemes. This enables users to have access to the required data using devices with low computational power such as mobile devices with no additional risk.
 
-\begin{itemize}
-	\item Explain the purpose of outsourcing in ABE [advantages (allow for low compute devices to be employed at the user end. why?)] and [risk? (none - same level of security and privacy as the original ABE approach)] - Aim of outsourcing i.e splitting the decryption process for greater privacy and security while reducing the operations on the user end opening access to the use of devices with lower computational power. Done via split into an Elgamal ciphertext \textcolor{red}{cite original outsourcing paper for more info}
-	
-	\item explain what green et al did with regards to outsourcing in ABE [main goal? (ref original paper\cite{Green2011outsource})] [and method (i.e split decryption into two phases [cite original paper i.e \cite{Green2011outsource}])]
-	
-	\item explain outsourcing in the additional 3-4 papers with regards to their contribution or application of the concept [optimization? (ref subsequent papers)] and [other advantages of outsourcing from other papers that used a similar technique and what their approaches were also if necessary]
-\end{itemize}
+This was initially proposed by Green et al. in \cite{Green2011outsource}. In their approach, they achieve outsourcing by splitting the traditional decryption algorithm into two components. The first a transformation algorithm to be run externally by the CSP, which given the necessary input transforms the ABE ciphertext into a constant-size El Gamal-style ciphertext. The second component is the decryption algorithm to be executed by the user which with the El Gamal-style ciphertext and the right input produces the original message. The second component to be run by the user is less computationally intensive as it involves a single exponentiation operation compared to the multiple pairing operation involved in the transformation algorithm. They have applied this to single authority KP- and CP-ABE schemes showing improvements with relation to size of the ciphertext at the user end and  minimal impact on the bandwidth of the decryption process. Their approach has the added benefit of reducing the amount of code that has to reside on the user device and the main bulk of code which corresponding to the analysis of ABE attributes and the computation of pairings now resides on the third party device allowing for a smaller and more trusted code base on the user end.
 
-\textcolor{red}{Give general info about outsourcing in ABE to provide background knowledge on approach used to provide outsourcing capabilities to ABE scheme in this paper}
+Other authors \cite{Li2013outsource}\cite{Li2014outsource} have extended the idea of outsourcing in ABE by outsourcing the key generation algorithm in addition to the decryption algorithm through several other methods with limited improvements on the level of overhead achieved by Green et al. in \cite{Green2011outsource}.
 
+Sherman Chow has created a framework in \cite{Chow2016outscourceframe} that allows for the construction of an ABE scheme with multiple authorities, revocation capability and outsourcing of the decryption algorithm from a single authority ABE scheme if certain conditions are met. These include the ability to split the ciphertext and secret keys into both attribute-dependent and attribute-independent components. The framework also requires that the structure of secret keys generated by multiple attribute authorities share a structure that makes them indistinguishable from keys generated by a single authority.
+
+\textcolor{red}{placeholder for verifiable outsourced paper just identified. Also dac macs and its flaws?}
 
 
 \section{ABE Based Health Care Systems}
