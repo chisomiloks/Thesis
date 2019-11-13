@@ -39,7 +39,6 @@
 }
 
 
-
 \section{Overview}
 
 This chapter introduces the framework that is the basis of this thesis. We start with a description of the ABE scheme that plays an essential role in providing the features of security and privacy for the framework. The construction of the ABE scheme follows after the definition of the various algorithms. The construction shows the mathematical concepts that confirm the inner workings of the different algorithms.
@@ -53,10 +52,19 @@ A description of the entire framework follows with the architecture and its corr
 
 Our ABE scheme has been adapted from the scheme developed in \cite{Yang2014}. Using similar methods applied in \cite{Green2011outsource}, we have modified the scheme with the aim of outsourcing the bulk of the decryption algorithm operation to the CSP. This section contains a definition of the algorithms that make up our ABE scheme.
 
-\subsubsection*{Setup Algorithms}
+\subsubsection*{Setup and Registration Algorithms}
 The setup algorithms are run as a part of the initialization stage of the ABE scheme. These algorithms are responsible for the registration of the other entities in the system. This also provides them with the necessary information for verifying their identity when communicating with other entities in the system and other vital information they need in order to execute their own operations
 \begin{itemize}
-	\item CASetup - The CASetup algorithm is the algorithm executed by the Certificate Authority in order to generate the Global Master Key (GMK) and Global Public Parameters (GPP) of the entire scheme. It takes as input the security parameter of the scheme. The CASetup algorithm also takes care of the registration of the users and attribute authorities (AAs) in the system by assigning to them their unique ids. It is also responsible for generating the public-secret key pairs together with the user certificates and their corresponding verification keys. It makes the GPP available to all registered entities in the system and sends an unmatched public-private key pair for all users to the AA.
+	\item CASetup - The CASetup algorithm is the algorithm executed by the Certificate Authority (CA) in order to generate the Global Master Key (GMK) and Global Public Parameters (GPP) of the entire scheme. It takes as input the security parameter of the scheme.  The CA makes the GPP available to all entities in the system
+	
+	%The CASetup algorithm also takes care of the registration of the users and attribute authorities (AAs) in the system by assigning to them their unique ids. It is also responsible for generating the public-secret key pairs together with the user certificates and their corresponding verification keys. It makes the GPP available to all registered entities in the system and sends an unmatched public-private key pair for all users to the AA.
+	
+	\begin{enumerate}
+		\item UserReg - The UserReg algorithm is run by the CA whenever new users are being added to the system. The CA assigns a unique id to each new user and also generates two public-private key pairs together with user certificates and their corresponding verification keys for each new user. The CA sends one each of the generated public and private keys to the user together with the certificate.
+		
+		\item AAReg - The AAReg algorithm is run by the CA whenever new Attribute Authorities (AA) are joining the system. The CA assigns a unique id to each new AA and also send the other public and private keys for each registered user to the AA together with the verification keys for the generated certificates.
+		
+	\end{enumerate}
 	
 	\item AASetup - The AASetup algorithm is run by the individual Attribute Authorities (AAs) and generates the public-secret key pair for the attribute authority. It also generates a public-version key pair for each of the attributes under the control of the AA that is provided as input in the AA universal attribute set.
 \end{itemize}
@@ -233,6 +241,7 @@ The setup algorithms are run as a part of the initialization stage of the ABE sc
 
 \subsection{System Architecture/Model}
 
+The system architecture is made up of several entities that perform different functions with regards to their roles in the system. 
 \subsubsection{System Entities}
 
 \begin{enumerate}[label=(\arabic*)]
@@ -248,7 +257,7 @@ The setup algorithms are run as a part of the initialization stage of the ABE sc
 	
 \end{enumerate}
 
-- system architecture diagram
+\subsubsection{System Architecture}
 
 \begin{figure}[h]
 	\centering
@@ -262,8 +271,18 @@ Figure \ref{fig:sysarch} shows the complete architecture of the entire system fr
 
 \subsubsection{Use Case}
 
+
+In a real world scenario, hospitals and other medical institutions would play either the role of data owner or data user depending on where the data is collected and where the data is to be used. Hospital A would be an owner for data generated at its location for its patient and Hospital A would be a user when it requires access to data generated at a different hospital which it needs for a range of reasons from treatment to research.
+
+The Attribute Authorities (AAs) in the real world would range from the administrations at different levels in the different hospitals that are part of the framework, the Research Ethic Boards, the administrations at different levels in potential research partners like academic institutions (i.e Universities), etc.
+
+The CSP could be any of the providers such as the AWS cloud, Google cloud to name a few while the CA could be provincial or federal authorities responsible for oversight and regulations related to health care and privacy.
+
 - sequence diagram capturing roles involved in the use case
+
 - Players
+
+
 \begin{itemize}
 	\item Data Owners - Hospitals
 	\item Data Users - Other Hospitals, Universities and other research institutes,etc
@@ -273,9 +292,190 @@ Figure \ref{fig:sysarch} shows the complete architecture of the entire system fr
 \end{itemize}
 
 
-\begin{figure}[h]
+\begin{figure}[]
 	\centering
-	\includegraphics[width=\textwidth]{"System Sequence Diagram"}
+	\includegraphics[width=0.75\textwidth]{"Use Case Diagram (Initialization and Registration Scenario)"}
+	\caption{Use-case diagram for EHR Exchange Framework (Initialization and Registration Scenario)}
+	\label{fig:use_case_ini}
+\end{figure}
+
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{|c|p{0.75\linewidth}|}
+		\hline
+		\textbf{Use-Case}    & Certificate Authority Setup                                  \\ \hline
+		\textbf{Actors}      & Certificate Authority (CA)                        \\ \hline
+		\textbf{Description} & This use-case occurs when the CA initializes the framework. The CA generates the Global Master Key (GMK) and Global Public Parameters (GPP) for the entire framework which would be used for other processes within the framework. \\ \hline
+		\textbf{Stimulus}    & Certificate Authority runs CASetup algorithm to initialize system                     \\ \hline
+		\textbf{Response}    & Initialize system and derive GPP and GMK.             \\ \hline
+	\end{tabular}
+	\caption{Certificate Authority Setup use-case description.}
+	\label{tab:use_case_casetup}
+\end{table}
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{|c|p{0.75\linewidth}|}
+		\hline
+		\textbf{Use-Case}    & User Registration                                   \\ \hline
+		\textbf{Actors}      & Certificate Authority, User (Data Owner \& User)                        \\ \hline
+		\textbf{Description} & This use-case occurs when a user requests to be added to the system. The CA verifies their identity and then creates an entry for the new user which includes their unique id and their public parameters.  \\ \hline
+		\textbf{Stimulus}    & CA runs UserReg algorithm to register a new user.                    \\ \hline
+		\textbf{Response}    & New user registered with their public information stored. The user receives a public and secret key, a certificate and the GPP for the framework.             \\ \hline
+	\end{tabular}
+	\caption{User Registration use-case description.}
+	\label{tab:use_case_userreg}
+\end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|p{0.75\linewidth}|}
+	\hline
+	\textbf{Use-Case}    & Attribute Authority Registration                                   \\ \hline
+	\textbf{Actors}      & Certificate Authority (CA), Attribute Authority (AA)                         \\ \hline
+	\textbf{Description} & This use-case occurs when an AA requests to be added to the system. The CA verifies their identity and then creates an entry for the new authority which includes their unique id. \\ \hline
+	\textbf{Stimulus}    & CA runs the AAReg algorithm.                   \\ \hline
+	\textbf{Response}    & New AA registered and the AA receives the public information of all registered users in the system and the verification keys for the generated user certificates. This triggers the Attribute Authority Setup use-case.            \\ \hline
+\end{tabular}
+\caption{Attribute Authority Registration  use-case description.}
+\label{tab:use_case_aareg}
+\end{table}
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{|c|p{0.75\linewidth}|}
+		\hline
+		\textbf{Use-Case}    & Attribute Authority Setup                                   \\ \hline
+		\textbf{Actors}      & Attribute Authority (AA)                         \\ \hline
+		\textbf{Description} & This use-case occurs when a new AA is being initialized. The AA generates its public and secret keys together with the public keys for every attribute under its control.  \\ \hline
+		\textbf{Stimulus}    & Attribute Authority runs AASetup algorithm.                    \\ \hline
+		\textbf{Response}    & AA initialized with its public and private keys together with the public keys for its attributes.            \\ \hline
+	\end{tabular}
+	\caption{Attribute Authority Setup use-case description.}
+	\label{tab:use_case_aasetup}
+\end{table}
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{|c|p{0.75\linewidth}|}
+		\hline
+		\textbf{Use-Case}    & Secret Key Generation                                   \\ \hline
+		\textbf{Actors}      & User (Data Owner \& User), Attribute Authority (AA)                        \\ \hline
+		\textbf{Description} & This use case occurs when a user requests a secret key from an AA in the system. The AA verifies the user identity and provides the user with the appropriate secret keys for that authority and the attributes the user has been assigned. \\ \hline
+		\textbf{Stimulus}    & User secret key request.                    \\ \hline
+		\textbf{Response}    & If the user identity is verified using the available verification key for their certificate, they are provided with unique secret keys from the AA for the corresponding attributes.             \\ \hline
+	\end{tabular}
+	\caption{Secret Key Generation use-case description.}
+	\label{tab:use_case_skgen}
+\end{table}
+
+
+\begin{figure}[]
+\centering
+\includegraphics[width=0.75\textwidth]{"Use Case Diagram (Data Flow Scenario)"}
+\caption{Use-case diagram for EHR Exchange Framework (Data Flow Scenario)}
+\label{fig:use_case_df}
+\end{figure}
+
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{|c|p{0.75\linewidth}|}
+		\hline
+		\textbf{Use-Case}    & Data Encryption                                   \\ \hline
+		\textbf{Actors}      & User (Data Owner), Cloud Service Provider (CSP)                        \\ \hline
+		\textbf{Description} & This use case occurs when a data owner (also a user) wants to add data to the the framework. The encrypt the data using a symmetric key and then encrypt the symmetric key using the appropriate access policy as part of the underlying ABE scheme. Encrypted data is stored on the cloud. \\ \hline
+		\textbf{Stimulus}    & User data storage.                    \\ \hline
+		\textbf{Response}    & Encrypted data is stored on the cloud.            \\ \hline
+	\end{tabular}
+	\caption{Data Encryption use-case description.}
+	\label{tab:use_case_enc}
+\end{table}
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{|c|p{0.75\linewidth}|}
+		\hline
+		\textbf{Use-Case}    & Ciphertext Transformation                                   \\ \hline
+		\textbf{Actors}      & User (Data User), Cloud Service Provider (CSP)                        \\ \hline
+		\textbf{Description} & This use case occurs when a user is requesting data from the cloud. The user provides the appropriate information and if they are valid, the CSP transforms the stored ciphertext into an El-Gamal style ciphertext \\ \hline
+		\textbf{Stimulus}    & User data request from CSP                  \\ \hline
+		\textbf{Response}    & Transform algorithm is run and if the provided information is valid, a partially decrypted ciphertext is returned to the user.             \\ \hline
+	\end{tabular}
+	\caption{Ciphertext Transformation use-case description.}
+	\label{tab:use_case_ctr}
+\end{table}
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{|c|p{0.75\linewidth}|}
+		\hline
+		\textbf{Use-Case}    & Data Decryption                                   \\ \hline
+		\textbf{Actors}      & User (Data User)                         \\ \hline
+		\textbf{Description} & This use case occurs when the user decrypts the partially decrypted ciphertext in order to access the symmetric encryption key which is then used to decrypt the symmetrically encrypted data. \\ \hline
+		\textbf{Stimulus}    & User receives partially decrypted ciphertext.                    \\ \hline
+		\textbf{Response}    & If successful, user gains access to symmetric key which also grants them access to the original data in plain form.             \\ \hline
+	\end{tabular}
+	\caption{Data Decryption use-case description.}
+	\label{tab:use_case_dec}
+\end{table}
+
+
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.75\textwidth]{"Use Case Diagram {Revocation}"}
+	\caption{Use-case diagram for EHR Exchange Framework (Revocation Scenario)}
+	\label{fig:use_case_rev}
+\end{figure}
+
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{|c|p{0.75\linewidth}|}
+		\hline
+		\textbf{Use-Case}    & Update Key Generation                                   \\ \hline
+		\textbf{Actors}      & Attribute Authority (AA), User (Data Owner \& User)                        \\ \hline
+		\textbf{Description} & This use case occurs when an existing user is being revoked based on attributes they have secret keys for. The AA that has control of the attribute generates an update key pair. One to be used by users who share that attribute and still have valid access. The other to be used by the data owner via the CSP to update the affected ciphertexts. \\ \hline
+		\textbf{Stimulus}    & The user who owns the corresponding data puts in a request with the appropriate AA who runs the UKGen algorithm.                   \\ \hline
+		\textbf{Response}    & If successful, provided update keys for the secret keys and ciphertexts to the appropriate users.             \\ \hline
+	\end{tabular}
+	\caption{Update Key Generation use-case description.}
+	\label{tab:use_case_ukeygen}
+\end{table}
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{|c|p{0.75\linewidth}|}
+		\hline
+		\textbf{Use-Case}    & Secret Key Update                                  \\ \hline
+		\textbf{Actors}      & User (Data Owner \& User)                        \\ \hline
+		\textbf{Description} & This use case occurs when still valid users need to update their keys to retain access to ciphertext encrypted with attributes for which an existing user has been revoked. The user uses the update key it has received from the Attribute Authority. \\ \hline
+		\textbf{Stimulus}    & Existing user is revoked and a still valid user updates their secret key for the corresponding attribute.                     \\ \hline
+		\textbf{Response}    & User's secret keys matching the affected attribute is updated.             \\ \hline
+	\end{tabular}
+	\caption{Secret Key Update use-case description.}
+	\label{tab:use_case_skupd}
+\end{table}
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{|c|p{0.75\linewidth}|}
+		\hline
+		\textbf{Use-Case}    & Ciphertext Update                                  \\ \hline
+		\textbf{Actors}      & Cloud Service Provider (CSP), User (Data Owner)                         \\ \hline
+		\textbf{Description} & This use case occurs when a data owner requests to update the current ciphertexts that are part of the system after an existing user has had their secret keys revoked. The corresponding ciphertext is updated by the CSP using the provided update key. \\ \hline
+		\textbf{Stimulus}    & User (Data Owner) puts in a ciphertext update request.                   \\ \hline
+		\textbf{Response}    & Ciphertext is updated to prevent further access by the revoked user.             \\ \hline
+	\end{tabular}
+	\caption{Ciphertext Update use-case description.}
+	\label{tab:use_case_ctupd}
+\end{table}
+
+
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.80\textwidth]{"System Sequence Diagram"}
 	\caption{System Sequence Diagram}
 	\label{fig:sysseq}
 \end{figure}
