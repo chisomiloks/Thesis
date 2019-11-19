@@ -5,40 +5,6 @@
 \renewcommand{\theenumii}{\roman{enumii}}
 
 
-\subsection*{Chapter ToDo}
-\textcolor{red}{
-	\begin{itemize}
-		\item Overview	
-		\begin{itemize}
-			\item what the subsequent sections will contain to provide a clearer image of their content
-			\item what are the good things about the model: its more secure than xyz, runs faster. potential drawbacks: ... its own section?
-			\item what the chapter will contain: description of the proposed framework for secure storage of data using a combination of attribute and symmetric-based encryption.  details of implementation. Also provide info on the security model for the underlying attribute based encryption scheme. This would highlight the assumptions that was used to verifying the integrity of the proposed scheme. I will summarize the pros and cons of the proposed scheme.
-		\end{itemize}
-		\item ABE Scheme Construction
-		\begin{itemize}
-			\item Decryption Phase 1 Construction Section - Add more info about how secret shares are generated [more info can be found in papers by brent water or allison lewko for shorter forms....long form take a look at the PhD thesis of ben lynn]
-			\item Decryption Phase 2 Construction Section - Possible rephrasing of statement before formula [look to replace the term binding element or whole sentence]
-			\item Revocation Construction Section - possibility of more info to the description before the formulas
-		\end{itemize}
-		\item Look up impact of security parameter...has to do with key length and curve size and stuff like that most likely \textcolor{black}{(security parameter plays a role in determine the group size..which affects the key size and has an impact on the security of the scheme....no impact on correctness of the scheme though.)}
-		\item Determine if Security Model/Security Game + Assumptions are to be included between the scheme definition and construction chapters
-		\begin{itemize}
-			\item Look up info from adopted paper + look into security in outsourcing ABE papers also
-			\item Crypto Hardness problems that apply here
-			\item Security Game
-			\item What assumption(s) is from the point of view of security is the system to be analyzed by
-			\item Correctness/Completeness (same thing) and other high level proof methods
-		\end{itemize}
-		\item System Process Diagram - the system process is to provide a description of the interactions between the multiple entities from a high level for the system
-		\item Use Case
-		\begin{itemize}
-			\item Use real life example to show what the entities could be in the real world
-			\item Individuals can also play the role of DU and DO just with different amounts of access control
-		\end{itemize}
-	\end{itemize}
-}
-
-
 \section{Overview}
 
 This chapter introduces the framework that is the basis of this thesis. We start with a description of the ABE scheme that plays an essential role in providing the features of security and privacy for the framework. The construction of the ABE scheme follows after the definition of the various algorithms. The construction shows the mathematical concepts that confirm the inner workings of the different algorithms.
@@ -48,7 +14,9 @@ A description of the entire framework follows with the architecture and its corr
 
 \section{Multiple Authority Ciphertext Policy Attribute Based Encryption with Outsourced Decryption}
 
-\subsection{ABE Scheme Definition}
+This section contains the formal definition of the underlying ABE scheme for the overall framework. This formal definition provides a description of the algorithms that are part of the ABE scheme. The second part of the section provides more detailed information in the form of the mathematical construction for the ABE scheme.
+
+\subsection{ABE Scheme Algorithm Definition}
 
 Our ABE scheme has been adapted from the scheme developed in \cite{Yang2014}. Using similar methods applied in \cite{Green2011outsource}, we have modified the scheme with the aim of outsourcing the bulk of the decryption algorithm operation to the CSP. This section contains a definition of the algorithms that make up our ABE scheme.
 
@@ -96,7 +64,19 @@ The setup algorithms are run as a part of the initialization stage of the ABE sc
 	
 \end{itemize}
 
-%\subsubsection{Security Model}
+\subsection{ABE Scheme Security Definition}
+
+The security definition of the ABE scheme is based on the correctness definition of the scheme based on the following conditions:
+
+\begin{enumerate}[label=(\arabic*)]
+	\item Decrypt(Transform(Encrypt(Message, GPP, $PK_aids$), $SK_uid,aid$, $GPK_uid$), $GKS'_uid$) = Message
+	
+	\item Revocation also i.e forward decryption and backward decryption
+\end{enumerate}
+
+
+Further analysis of the security of the underlying ABE scheme together with the security games and proofs can be found in \cite{Yang2014}, the original scheme from which this was derived.
+
 
 \subsection{ABE Scheme Construction}
 
@@ -170,16 +150,17 @@ The setup algorithms are run as a part of the initialization stage of the ABE sc
 	%CT' = \prod\limits_{aid_{k} \in I_{A}} e\Bigl(g, g\Bigl)^{\frac{s\alpha_{aid}}{u'_{uid}}}
 	%\end{align*}
 	
-	\item Decryption - The user does an exponentiation on the partially decrypted ciphertext to get the blinding element (BE) for decryption.
+	\item Decryption - The algorithm for decryption takes as input the partially decrypted ciphertext ($CT'$) and the user's secret key and produces as output the original message. It performs an exponentiation on $CT'$ in order to derive the blinding element (BE) of the original message as
+	%The user does an exponentiation on the partially decrypted ciphertext to get the blinding element (BE) for decryption.
 	
 	\begin{align*}
 	&= CT'^{u'_{uid}} \\ &= \prod\limits_{aid_{k} \in I_{A}} e\Bigl(g, g\Bigl)^{s\alpha_{aid}}
 	\end{align*}
 	
-	Remember the $C$ element of the ciphertext $= K_i\cdot\bigl(\prod\limits_{aid_{k} \in I_{A}}PK_{aid_{k}}\bigl)^{s}$ where $PK_{aid_{k}} = e\bigl(g, g\bigl)^{\alpha_{aid}}$. Therefore the original message which in this case is the symmetric key is computed as
+	Remember the $C$ element of the main ciphertext $= K_i\cdot\bigl(\prod\limits_{aid_{k} \in I_{A}}PK_{aid_{k}}\bigl)^{s}$ where $PK_{aid_{k}} = e\bigl(g, g\bigl)^{\alpha_{aid}}$. Therefore the original message which in this case is the symmetric key $K$ is computed as
 	
 	\begin{align*}
-	K = \frac{C}{BE}
+	= \frac{C}{BE}
 	\end{align*}
 	
 	\item User Revocation - User revocation which can also be referred to as attribute revocation as used in some of the literature on the subject should achieve two critical criteria. The revoked user should not be able to decrypt new ciphertexts which have been encrypted using the public attribute keys of attributes that the user was previously granted private keys for. This is referred to as Backward Security. Any new user who has the right attributes should be able to decrypt the original ciphertexts that were encrypted using those public parameters. This is referred to a Forward Security. The revocation algorithm used has been gotten from the scheme by Yang et. al in \cite{Yang2014}.
@@ -227,16 +208,29 @@ The setup algorithms are run as a part of the initialization stage of the ABE sc
 
 \section{Secure Privacy Preserving EHR Framework}
 
+This section provides information about the privacy preserving EHR framework that is the main subject of this thesis. We provide a system architectural model that shows the different entities that are part of the framework and how they interact with each other to achieve the functionalities of this framework. We also provide specific use case scenarios together with a detailed description of the individual use cases to provide further information of the different settings in which the framework could be applied.
 
 \subsection{System Architecture/Model}
 
-The system architecture is made up of several entities that perform different functions with regards to their roles in the system. 
+The system architecture is made up of several entities that perform different functions with regards to their roles in the system.
+
+\begin{figure}[]
+	\centering
+	\includegraphics[scale=.50]{"System Architecture Diagram (Draft 1)"}
+	\caption{System Architecture Diagram}
+	\label{fig:sysarch}
+\end{figure}
+
 \subsubsection{System Entities}
 
 \begin{enumerate}[label=(\arabic*)]
-	\item Data Owner (DO) - The DO is responsible for the generation of data to be stored on the platform and retains ownership of data for the duration of its life cycle. The Data Owner also specifies what requirements are to be met for any user to have access by indicating what attributes they should possess though the policy used for data encryption.
+	\item Users - Users are the members of the system that add or request data. They could be either data owners or data users with individuals able to play both roles in general with the system.
 	
-	\item Data User (DU) - The DU represents entities that require access to stored data. They are required to possess the right attributes in order to gain access to stored data on the cloud.
+	\begin{itemize}
+		\item Data Owner (DO) - The DO is responsible for the generation of data to be stored on the platform and retains ownership of data for the duration of its life cycle. The Data Owner also specifies what requirements are to be met for any user to have access by indicating what attributes they should possess though the policy used for data encryption.
+		
+		\item Data User (DU) - The DU represents entities that require access to stored data. They are required to possess the right attributes in order to gain access to stored data on the cloud.
+	\end{itemize}
 	
 	\item Certificate Authority (CA) - The CA plays the central role of assisting with the verification of the identity of the different entities to enable them to securely communicate with one another. It does this by providing the corresponding certificates and public parameters used in the verification process.
 	
@@ -248,42 +242,35 @@ The system architecture is made up of several entities that perform different fu
 
 \subsubsection{System Architecture}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=.50]{"System Architecture Diagram (Draft 1)"}
-	\caption{System Architecture Diagram}
-	\label{fig:sysarch}
-\end{figure}
-
 Figure \ref{fig:sysarch} shows the complete architecture of the entire system framework, indicating the various entities and the different ways in which they interact with each other as part of the overall system.
 
 
-\subsubsection{Use Case}
-
+\subsection{Use Case}
 
 In a real world scenario, hospitals and other medical institutions would play either the role of data owner or data user depending on where the data is collected and where the data is to be used. Hospital A would be an owner for data generated at its location for its patient and Hospital A would be a user when it requires access to data generated at a different hospital which it needs for a range of reasons from treatment to research.
 
 The Attribute Authorities (AAs) in the real world would range from the administrations at different levels in the different hospitals that are part of the framework, the Research Ethic Boards, the administrations at different levels in potential research partners like academic institutions (i.e Universities), etc.
 
-The CSP could be any of the providers such as the AWS cloud, Google cloud to name a few while the CA could be provincial or federal authorities responsible for oversight and regulations related to health care and privacy.
+The CSP could be any of the real world cloud service providers such as the AWS cloud, Google cloud to name a few while the CA could be provincial or federal authorities responsible for oversight and regulations related to health care and privacy.
 
-- sequence diagram capturing roles involved in the use case
+The following figures and tables show different use case scenarios which capture multiple use cases within the framework and the accompanying tables show a more detailed of the use cases captures within the use case scenario diagrams.
 
-- Players
+%- sequence diagram capturing roles involved in the use case
+%- Players
 
 
-\begin{itemize}
-	\item Data Owners - Hospitals
-	\item Data Users - Other Hospitals, Universities and other research institutes,etc
-	\item AAs - Hospital Board(REB + Management), University Boards(REB and Management), University Departments
-	\item CSP - AWS, Google Cloud, etc
-	\item CA - Local and Provincial Authorities related to health care and privacy
-\end{itemize}
+%\begin{itemize}
+%	\item Data Owners - Hospitals
+%	\item Data Users - Other Hospitals, Universities and other research institutes,etc
+%	\item AAs - Hospital Board(REB + Management), University Boards(REB and Management), University Departments
+%	\item CSP - AWS, Google Cloud, etc
+%	\item CA - Local and Provincial Authorities related to health care and privacy
+%\end{itemize}
 
 
 \begin{figure}[]
 	\centering
-	\includegraphics[width=0.75\textwidth]{"Use Case Diagram (Initialization and Registration Scenario)"}
+	\includegraphics[width=\textwidth]{"Use Case Diagram (Initialization and Registration Scenario)"}
 	\caption{Use-case diagram for EHR Exchange Framework (Initialization and Registration Scenario)}
 	\label{fig:use_case_ini}
 \end{figure}
@@ -362,7 +349,7 @@ The CSP could be any of the providers such as the AWS cloud, Google cloud to nam
 
 \begin{figure}[]
 \centering
-\includegraphics[width=0.75\textwidth]{"Use Case Diagram (Data Flow Scenario)"}
+\includegraphics[width=\textwidth]{"Use Case Diagram (Data Flow Scenario)"}
 \caption{Use-case diagram for EHR Exchange Framework (Data Flow Scenario)}
 \label{fig:use_case_df}
 \end{figure}
@@ -413,7 +400,7 @@ The CSP could be any of the providers such as the AWS cloud, Google cloud to nam
 
 \begin{figure}[]
 	\centering
-	\includegraphics[width=0.75\textwidth]{"Use Case Diagram {Revocation}"}
+	\includegraphics[width=\textwidth]{"Use Case Diagram {Revocation}"}
 	\caption{Use-case diagram for EHR Exchange Framework (Revocation Scenario)}
 	\label{fig:use_case_rev}
 \end{figure}
@@ -462,11 +449,11 @@ The CSP could be any of the providers such as the AWS cloud, Google cloud to nam
 \end{table}
 
 
-\begin{figure}[]
-	\centering
-	\includegraphics[width=0.80\textwidth]{"System Sequence Diagram"}
-	\caption{System Sequence Diagram}
-	\label{fig:sysseq}
-\end{figure}
+%\begin{figure}[]
+%	\centering
+%	\includegraphics[width=0.80\textwidth]{"System Sequence Diagram"}
+%	\caption{System Sequence Diagram}
+%	\label{fig:sysseq}
+%\end{figure}
 
-The sequence diagram is displayed in figure \ref{fig:sysseq} showing a full process from system setup to encryption and decryption.
+%The sequence diagram is displayed in figure \ref{fig:sysseq} showing a full process from system setup to encryption and decryption.
