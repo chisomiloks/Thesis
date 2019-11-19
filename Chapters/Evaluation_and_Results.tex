@@ -41,9 +41,30 @@ We evaluated the performance of our system by evaluating the two major operation
 
 Our results for encryption as indicated in \textcolor{red}{figures encryption} show that our encryption system is identical in performance with the encryption algorithm of the adapted scheme for this framework \textcolor{red}{[cite original paper]}.
 
+\begin{figure}[]
+	\centering
+	\includegraphics[width=\textwidth]{"Scheme Performance (Encryption_AAs)"}
+	\caption{Encryption Computation Time}
+	\label{fig:res_enc_aas}
+\end{figure}
+
 Our results for decryption show a constant decryption time irrespective of the number of attribute authorities or attributes in comparison with the increase in decryption time of the adapted scheme \textcolor{red}{[cite original paper]}. This can be seen in \textcolor{red}{charles and co}.
 
+\begin{figure}[]
+	\centering
+	\includegraphics[width=\textwidth]{"Scheme Performance (Decryption_AAs)"}
+	\caption{Decryption Computation Time}
+	\label{fig:res_dec_aas}
+\end{figure}
+
 These results indicate that the amount of time for decryption involving a single attribute will be the same as that involving a thousand or more attributes, keeping the computational overhead constant and allowing for the use of low computational devices for the decryption process.
+
+\begin{figure}[]
+	\centering
+	\includegraphics[width=\textwidth]{"Scheme Performance (Revocation_AAs)"}
+	\caption{Revocation Computation Time}
+	\label{fig:res_rev_aas}
+\end{figure}
 
 
 - add charts here showing the performance (i.e how long it took to run)
