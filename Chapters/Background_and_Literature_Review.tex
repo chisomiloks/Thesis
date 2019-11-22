@@ -1,18 +1,9 @@
 \chapter{Background and Literature Review}
 \label{chap:background_literature_review}
 
-%\subsection*{Chapter ToDo}
-%\textcolor{red}{
-%	\begin{itemize}
-%		\item Outsourcing [Section 2.9]
-%		\begin{itemize}
-%			\item place holder for verifiable outsourced paper just identified.
-%			\item Flaws with DACMACs?
-%		\end{itemize}
-%	\end{itemize}
-%}
-
 \section{Security and Privacy}
+
+This section provides a description of the concepts of security and privacy, two key features of the framework described in this thesis. They are both important features of any system that involves the flow of data among multiple parties or entities.
 
 \subsection{Security}
 Security according to the National Institute of Standards and Technology (NIST) \cite{Kissel2013} is defined as any condition that leads to the creation and maintenance of defensive measures to ensure than an information technology infrastructure continues to perform it basic or critical functions irrespective of the risks posed by the threats to its normal operation.
@@ -24,6 +15,37 @@ Confidentiality \cite{Kissel2013} assures that only those entities in the system
 Integrity \cite{Kissel2013} relates to the verification of the authenticity of data. This means ensuring that data has not been manipulated in any form either while in transit or while in storage. This ensures that any unauthorized manipulation of data in the form of addition, deletion or substitution is detected.
 
 Availability \cite{Kissel2013} is a measure of the level of accessibility and usability of a particular system upon request by an authorized user. This means that the system should be able to at all times carry out the various functions in order to meet the demands of its users. This also covers the ability of the infrastructure to remain functional even when some individual makes attempts to compromise its integrity.
+
+\subsubsection{Security Mechanisms}
+
+\textcolor{red}{Explain security mechanisms of which cryptography is one}
+
+\subsubsection{Cryptography}
+
+Cryptography\cite{Kissel2013} is the field of study which represents the principles, means and methods used for transforming data in order to hide their original content and prevent unauthorized use or modification. This typically involves the study of several mathematical techniques. Cryptography can be broadly divided into secret key and public key cryptography also known as symmetric and asymmetric schemes.
+
+\begin{enumerate}[label=(\arabic*)]
+	\item Secret Key Cryptography (Symmetric) - This type of cryptographic system involve the use of a single secret key which is usually agreed upon by both parties who want to keep their communication secret. This secret key is used to encrypt the original message typically described as the plaintext (i.e encode the plaintext into a ciphertext that cannot be read by a party without the secret key). The receiving party if authorized and in possession of the secret key is able to decrypt the ciphertext and gain access to the original message. Examples of secret key schemes include the Ciphers (Caesar, Monoalphabetic and Polyalphabetic cyphers), Data Encryption Standard (DES) and Advanced Encryption Standard. 
+	
+	\item Public Key Cryptography (Asymmetric) - This type of cryptographic systems was developed as a result of the challenges in secret key cryptography which include the problem of key management and lack of secure channel for users to exchange keys. Public key cryptography involves the use of two separate keys, a public and private key, which are used to perform complementary operations such as encryption and decryption or signature generation and verification. Examples of public key schemes include the Diffie–Hellman key exchange protocol, RSA, Elgamal and Elliptic Curve Cryptography.
+\end{enumerate}
+
+\subsubsection*{Cryptographic Adversary Models}
+
+Attacks on cryptographic systems aimed at recovering the plaintext from the ciphertext or the secret key can be classified into four broad categories.
+
+\begin{enumerate}[label=(\arabic*)]
+	\item Ciphertext Only Attack \cite{Menezes1996} - A ciphertext only attack is a class of attacks in which the adversary only has access to some ciphertext without any knowledge of the corresponding plaintext. This is the weakest type of attack because the adversary has the least amount of information to work with and any encryption scheme vulnerable to this class of attack is considered to be completely insecure.
+	
+	\item Known Ciphertext Attack \cite{Menezes1996} - A known plaintext attack is a class of attacks in which the adversary has access to some plaintext and ciphertext pairs. The  adversary is unable to create more pairs and in only able to gain access to these by eavesdropping on the comunication channel between parties. These types of attacks are only marginally more difficult to mount. 
+	
+	\item Chosen Plaintext Attack (CPA) \cite{Menezes1996} - A chosen plaintext attack is a class of attacks where the adversary is able to select the plaintext and request for the corresponding ciphertexts. This is typically done through the use of a black box system, typically called an oracle, that is able to produce the corresponding ciphertext when given any plaintext without revealing the key or any information about the plaintext of the original ciphertext that the adversary is trying to decrypt. A variation of this is the adaptive chosen plaintext attack where the adversary chooses the new plaintext based on the ciphertext received for earlier submitted plaintexts.
+	
+	\item Chosen Ciphertext Attack (CCA) \cite{Menezes1996} - A chosen ciphertext attack is a class of attacks where the adversary selects any ciphertext and requests for the corresponding plaintext. This is the direct opposite of the chosen plaintext attack class. This class of attacks are considered to be the strongest model of attacks when classifying encryption schemes based on their level of resistance. An adaptive chosen ciphertext attack just like the adaptive version of CPA, involves the adversary deciding on what ciphertext to submit based on the plaintext received for earlier requests.
+	
+\end{enumerate}
+
+Note that some of the attack types described above are mutually exclusive (for instance, an attack cannot be both chosen plaintext and known plaintext). And also the chosen plaintext/ciphertext attacks are somewhat exclusive to the modern era of cryptography.
 
 \subsection{Privacy}
 
@@ -47,7 +69,7 @@ There are three broad classes in relation to the electronic collection and stora
 	
 \end{itemize}
 
-The focus of this work is on electronic health records which are typically shared among multiple parties and under the control of the medical institution. \textcolor{red}{Important point so needs to be reverified with source cited also and also additional sources}
+The focus of this work is on electronic health records which are typically shared among multiple parties and under the control of the medical institution. %\textcolor{red}{Important point so needs to be reverified with source cited also and also additional sources}
 
 \section{Cloud Computing}
 
@@ -59,33 +81,9 @@ The deployment models available in cloud computing are the private, community, p
 
 The cloud computing deployment model this thesis considers is the public cloud model as this is the model mostly used or a hybrid model potentially involving a private and public cloud model focusing on the vulnerabilities of the public facing infrastructure. Also, users of the private model have more control over their infrastructure and are able, to a certain degree, to ensure that the security and privacy of stored data is assured.
 
-
-\section{Cryptography}
-
-Cryptography\cite{Kissel2013} is the field of study which represents the principles, means and methods used for transforming data in order to hide their original content and prevent unauthorized use or modification. This typically involves the study of several mathematical techniques. Cryptography can be broadly divided into secret key and public key cryptography also known as symmetric and asymmetric schemes.
-
-\subsection{Secret Key Cryptography (Symmetric)} This type of cryptographic system involve the use of a single secret key which is usually agreed upon by both parties who want to keep their communication secret. This secret key is used to encrypt the original message typically described as the plaintext (i.e encode the plaintext into a ciphertext that cannot be read by a party without the secret key). The receiving party if authorized and in possession of the secret key is able to decrypt the ciphertext and gain access to the original message. Examples of secret key schemes include the Ciphers (Caesar, Monoalphabetic and Polyalphabetic cyphers), Data Encryption Standard (DES) and Advanced Encryption Standard. 
-
-\subsection{Public Key Cryptography (Asymmetric)} This type of cryptographic systems was developed as a result of the challenges in secret key cryptography which include the problem of key management and lack of secure channel for users to exchange keys. Public key cryptography involves the use of two separate keys, a public and private key, which are used to perform complementary operations such as encryption and decryption or signature generation and verification. Examples of public key schemes include the Diffie–Hellman key exchange protocol, RSA, Elgamal and Elliptic Curve Cryptography.
-
-\subsection{Cryptographic Adversary Models}
-
-Attacks on cryptographic systems aimed at recovering the plaintext from the ciphertext or the secret key can be classified into four broad categories.
-
-\begin{itemize}
-	\item Ciphertext Only Attack \cite{Menezes1996} - A ciphertext only attack is a class of attacks in which the adversary only has access to some ciphertext without any knowledge of the corresponding plaintext. This is the weakest type of attack because the adversary has the least amount of information to work with and any encryption scheme vulnerable to this class of attack is considered to be completely insecure.
-	
-	\item Known Ciphertext Attack \cite{Menezes1996} - A known plaintext attack is a class of attacks in which the adversary has access to some plaintext and ciphertext pairs. The  adversary is unable to create more pairs and in only able to gain access to these by eavesdropping on the comunication channel between parties. These types of attacks are only marginally more difficult to mount. 
-	
-	\item Chosen Plaintext Attack (CPA) \cite{Menezes1996} - A chosen plaintext attack is a class of attacks where the adversary is able to select the plaintext and request for the corresponding ciphertexts. This is typically done through the use of a black box system, typically called an oracle, that is able to produce the corresponding ciphertext when given any plaintext without revealing the key or any information about the plaintext of the original ciphertext that the adversary is trying to decrypt. A variation of this is the adaptive chosen plaintext attack where the adversary chooses the new plaintext based on the ciphertext received for earlier submitted plaintexts.
-	
-	\item Chosen Ciphertext Attack (CCA) \cite{Menezes1996} - A chosen ciphertext attack is a class of attacks where the adversary selects any ciphertext and requests for the corresponding plaintext. This is the direct opposite of the chosen plaintext attack class. This class of attacks are considered to be the strongest model of attacks when classifying encryption schemes based on their level of resistance. An adaptive chosen ciphertext attack just like the adaptive version of CPA, involves the adversary deciding on what ciphertext to submit based on the plaintext received for earlier requests.
-	
-\end{itemize}
-
-Note that some of the attack types described above are mutually exclusive (for instance, an attack cannot be both chosen plaintext and known plaintext). And also the chosen plaintext/ciphertext attacks are somewhat exclusive to the modern era of cryptography.
-
 \section{Technical Preliminaries}
+
+This section provides a detailed description of concepts that form the foundation of Attribute Based-Encryption which is a pairing based form of cryptography that is a fundamental building block of the framework described in this thesis. This includes the different mathematical tools, foundational concepts and a description of the complexity assumptions.
 
 \subsection{Bilinear Maps}
 
@@ -145,12 +143,12 @@ Secret sharing schemes which was first created by Shamir in \cite{Shamir1979} al
 	\end{enumerate}
 \end{definition}
 
-The linear reconstruction property as described in \cite{Beimel1996} shows that suppose that $ \prod $ is an LSSS for an access structure $ \mathbb{A} $. Let $ S \in \mathbb{A} $ be any authorized set, and let $ I \subset {1,/ldots,\ell} $ be defined as $ I = {i : \rho(i) \in S} $. Then there exits constants $ {w_{i} \in Z_{p}}_{i \in I} $ such that, if $ {\rho_{i}} $ are shares of the secret $ s $ according to $ \prod $, then $ \sum_{i \in I} w_{i}\lambda_{i} = s $.
+The linear reconstruction property as described in \cite{Beimel1996} shows that suppose that $ \prod $ is an LSSS for an access structure $ \mathbb{A} $. Let $ S \in \mathbb{A} $ be any authorized set, and let $ I \subset {1,\ldots,\ell} $ be defined as $ I = {i : \rho(i) \in S} $. Then there exits constants $ {w_{i} \in Z_{p}}_{i \in I} $ such that, if $ {\rho_{i}} $ are shares of the secret $ s $ according to $ \prod $, then $ \sum_{i \in I} w_{i}\lambda_{i} = s $.
 
 Note that access structures represented as boolean formulas which are typically represented by binary trees can be converted into a LSSS form using the techniques described in \cite{Lewko2011b} with the number of rows in the corresponding matrix equal to the number of leaf nodes in the access tree.
 
 
-\subsection{Cryptographic Hardness Problems}
+\subsection{Cryptographic Complexity Assumptions}
 
 Let G be a cyclic group of prime order p. Let g be a generator for G represented as $ G = \langle g \rangle $ and let $ x, y, z \in G $ . The different complexity assumptions used to show the security of the different pairing based schemes have their foundation in the following core hardness problems\cite{Lynn2007}:
 
@@ -166,7 +164,7 @@ Let G be a cyclic group of prime order p. Let g be a generator for G represented
 
 \section{Attribute Based Encryption (ABE)}
 
-ABE is a pairing based cryptogaphic scheme that was developed based on Identity Based Encryption (IBE) which was originally proposed by Shamir in 1984 \cite{Shamir1985}. Shamir proposed a scheme which allowed for the encryption and decryption of information between two different users without the need for any exchange of keys between both parties. His proposal assumed the existence of a trusted key generation service similar to Certificate Authorities (CA) which were responsible for registration of users as they join a network and also for subsequent verification of their identity. Personal information unique to several users, such as their address, email address or a combination of this information, was used as the public key in the system. This allowed for the encryption of data meant for UserB by UserA using the email address of UserB, e.g “userB@gmail.com”. UserB on receiving this encrypted data would then contact the key generation service and, after successful authentication, receives a secret key granting him access to the original datae. The scheme proposed by Shamir was further developed and the first practical and secure IBE scheme was presented by Boneh and Franklin in \cite{Boneh2003}, who developed a fully functional IBE scheme which made use of groups for which there existed an efficiently computable bilinear map such as the Weil pairing.
+ABE is a pairing based cryptogaphic scheme that was developed based on Identity Based Encryption (IBE) which was originally proposed by Shamir in 1984 \cite{Shamir1985}. Shamir proposed a scheme which allowed for the encryption and decryption of information between two different users without the need for any exchange of keys between both parties. His proposal assumed the existence of a trusted key generation service similar to Certificate Authorities (CA) which were responsible for registration of users as they join a network and also for subsequent verification of their identity. Personal information unique to several users, such as their address, email address or a combination of this information, was used as the public key in the system. This allowed for the encryption of data meant for UserB by UserA using the email address of UserB, e.g “userB@gmail.com”. UserB on receiving this encrypted data would then contact the key generation service and, after successful authentication, receives a secret key granting him access to the original data. The scheme proposed by Shamir was further developed and the first practical and secure IBE scheme was presented by Boneh and Franklin in \cite{Boneh2003}, who developed a fully functional IBE scheme which made use of groups for which there existed an efficiently computable bilinear map such as the Weil pairing.
 
 Sahai and Waters in \cite{Sahai2005} developed a new scheme that improved on the existing IBE schemes by creating a system in which the user identity is viewed as a set of descriptive attributes, allowing a user to encrypt data for all users who have a certain set of attributes. Decryption in this case is only permitted if the identity of a user, and the identity for which the ciphertext was encrypted, were close enough based on their individual attributes. It is in this work that the notion of Attribute Based Encryption is first mentioned.
 
