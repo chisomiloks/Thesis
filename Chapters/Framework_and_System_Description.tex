@@ -16,18 +16,20 @@ A description of the entire framework follows with the architecture and its corr
 
 This section contains the formal definition of the underlying ABE scheme for the overall framework. This formal definition provides a description of the algorithms that are part of the ABE scheme. The second part of the section provides more detailed information in the form of the mathematical construction for the ABE scheme.
 
-\subsection{ABE Scheme Algorithm Definition}
+\subsection{ABE Scheme Algorithm and Security Definition}
 
 Our ABE scheme has been adapted from the scheme developed in \cite{Yang2014}. Using similar methods applied in \cite{Green2011outsource}, we have modified the scheme with the aim of outsourcing the bulk of the decryption algorithm operation to the CSP. This section contains a definition of the algorithms that make up our ABE scheme.
 
-\subsubsection*{Setup and Registration Algorithms}
-The setup algorithms are run as a part of the initialization stage of the ABE scheme. These algorithms are responsible for the registration of the other entities in the system. This also provides them with the necessary information for verifying their identity when communicating with other entities in the system and other vital information they need in order to execute their own operations
-\begin{itemize}
-	\item CASetup - The CASetup algorithm is the algorithm executed by the Certificate Authority (CA) in order to generate the Global Master Key (GMK) and Global Public Parameters (GPP) of the entire scheme. It takes as input the security parameter of the scheme.  The CA makes the GPP available to all entities in the system
+\subsubsection*{Algorithm Definitions}
+
+The following algorithms make up the ABE scheme. These algorithms include: the setup and system initialization algorithms, the secret key generation algorithm, the encryption, transformation and decryption algorithms as well as the revocation algorithms. They are described a follows: 
+%The setup algorithms are run as a part of the initialization stage of the ABE scheme. These algorithms are responsible for the registration of the other entities in the system. This also provides them with the necessary information for verifying their identity when communicating with other entities in the system and other vital information they need in order to execute their own operations.
+\begin{enumerate}[label=(\arabic*)]
 	
-	%The CASetup algorithm also takes care of the registration of the users and attribute authorities (AAs) in the system by assigning to them their unique ids. It is also responsible for generating the public-secret key pairs together with the user certificates and their corresponding verification keys. It makes the GPP available to all registered entities in the system and sends an unmatched public-private key pair for all users to the AA.
+	\item CASetup - The CASetup algorithm is the algorithm executed by the Certificate Authority (CA) in order to generate the Global Master Key (GMK) and Global Public Parameters (GPP) of the entire scheme. It takes as input the security parameter of the scheme.  The CA makes the GPP available to all entities in the system.
 	
 	\begin{enumerate}
+		
 		\item UserReg - The UserReg algorithm is run by the CA whenever new users are being added to the system. The CA assigns a unique id to each new user and also generates two public-private key pairs together with user certificates and their corresponding verification keys for each new user. The CA sends one each of the generated public and private keys to the user together with the certificate.
 		
 		\item AAReg - The AAReg algorithm is run by the CA whenever new Attribute Authorities (AA) are joining the system. The CA assigns a unique id to each new AA and also send the other public and private keys for each registered user to the AA together with the verification keys for the generated certificates.
@@ -35,36 +37,24 @@ The setup algorithms are run as a part of the initialization stage of the ABE sc
 	\end{enumerate}
 	
 	\item AASetup - The AASetup algorithm is run by the individual Attribute Authorities (AAs) and generates the public-secret key pair for the attribute authority. It also generates a public-version key pair for each of the attributes under the control of the AA that is provided as input in the AA universal attribute set.
-\end{itemize}
-
-\subsubsection*{Key Generation Algorithm}
-\begin{itemize}
+	
 	\item SKGen - The SKGen algorithm is run by the corresponding AAs in order to provide the user with the secret key for the attributes that they have been assigned. The AA takes as input the system GPP, the users Global Public Keys (GPKs), one of the user GSKs, the set of attributes and their corresponding public-version key pairs. It provides the user with a secret key that can be used for decryption.
-\end{itemize}
-
-\subsubsection*{Encryption Algorithm}
-\begin{itemize}
+	
 	\item Encrypt - The Encrypt algorithm is run by the data owner in order to encrypt the corresponding piece of data. This algorithm takes as input the system GPP, the public keys (PKs) for the AAs involved in the encryption - as they are in control of the attributes that make up the policy under which data is to be encrypted - of the data, and an access policy. It provides as output a ciphertext (CT) which implicitly contains the corresponding access policy.
-\end{itemize}
-
-\subsubsection*{Decryption Algorithms}
-\begin{itemize}
+	
 	\item CTransform - The CTranform algorithm is responsible for the transformation of the CT into an El Gamal style ciphertext that can be easily decrypted by the end user. This algorithm is executed by the Cloud Service Provider (CSP) and takes as input the ciphertext, the secret keys of the attributes in the user's possession and the user's GPK. It produces as output a partially decrypted ciphertext (CT') is the user's secret keys meet the policy under which the data was encrypted, otherwise it outputs an error.
 	
 	\item Decrypt - The Decrypt algorithm is run by the end user and takes as input the partially decrypted ciphertext CT' and the user's global secret key which is not shared with any other entity in the system and produces the original data as output for the user in its plain form.
-\end{itemize}
-
-\subsubsection*{Revocation Algorithms}
-\begin{itemize}
+	
 	\item UKeyGen - The UKeyGen algorithm is run by the AA under whose control the revoked attribute falls. The algorithm takes as input the SK of the AA, the revoked attribute and the current version key for the revoked attribute. It produces as output an updated version key for the revoked attribute. It produces an update key to be used to update the corresponding secret keys of users who possess the revoked attributes and whose access is not being revoked. It also produces an update key for the affected ciphertexts whose access policies contain the revoked attribute to allow for users who still maintain access to be able to decrypt while denying revoked users further access.
 	
 	\item SKUpdate - The SKUpdate algorithm is run by each non revoked user in the system and takes as input the corresponding secret key acquired from the AA that control the affected attribute together with the update key for user secret keys generated by the UKeyGen algorithm. It outputs a new secret key for the user.
 	
 	\item CTUpdate - The CTUpdate algorithm is run the CSP and takes as input the affected ciphertexts and the update key generated by the UKeyGen algorithm for ciphertext update. it outputs a new ciphertext that can only be decrypted by users with a current version of the corresponding revoked attribute.
 	
-\end{itemize}
+\end{enumerate}
 
-\subsection{ABE Scheme Security Definition}
+\subsubsection*{ABE Scheme Security Definition}
 
 The security definition of the ABE scheme is based on the correctness definition of the scheme based on the following conditions:
 
@@ -214,23 +204,16 @@ This section provides information about the privacy preserving EHR framework tha
 
 The system architecture is made up of several entities that perform different functions with regards to their roles in the system.
 
-\begin{figure}[]
-	\centering
-	\includegraphics[scale=.50]{"System Architecture Diagram (Draft 1)"}
-	\caption{System Architecture Diagram}
-	\label{fig:sysarch}
-\end{figure}
-
 \subsubsection{System Entities}
 
 \begin{enumerate}[label=(\arabic*)]
 	\item Users - Users are the members of the system that add or request data. They could be either data owners or data users with individuals able to play both roles in general with the system.
 	
-	\begin{itemize}
+	\begin{enumerate}
 		\item Data Owner (DO) - The DO is responsible for the generation of data to be stored on the platform and retains ownership of data for the duration of its life cycle. The Data Owner also specifies what requirements are to be met for any user to have access by indicating what attributes they should possess though the policy used for data encryption.
 		
 		\item Data User (DU) - The DU represents entities that require access to stored data. They are required to possess the right attributes in order to gain access to stored data on the cloud.
-	\end{itemize}
+	\end{enumerate}
 	
 	\item Certificate Authority (CA) - The CA plays the central role of assisting with the verification of the identity of the different entities to enable them to securely communicate with one another. It does this by providing the corresponding certificates and public parameters used in the verification process.
 	
@@ -240,12 +223,19 @@ The system architecture is made up of several entities that perform different fu
 	
 \end{enumerate}
 
+\begin{figure}[h]
+	\centering
+	%\includegraphics[scale=.50]{"System Architecture Diagram (Draft 1)"}
+	\includegraphics[width=0.75\textwidth]{"System Architecture Diagram (Draft 1)"}
+	\caption{System Architecture Diagram}
+	\label{fig:sysarch}
+\end{figure}
+
 \subsubsection{System Architecture}
 
 Figure \ref{fig:sysarch} shows the complete architecture of the entire system framework, indicating the various entities and the different ways in which they interact with each other as part of the overall system.
 
-
-\subsection{Use Case}
+\subsection{Use Cases}
 
 In a real world scenario, hospitals and other medical institutions would play either the role of data owner or data user depending on where the data is collected and where the data is to be used. Hospital A would be an owner for data generated at its location for its patient and Hospital A would be a user when it requires access to data generated at a different hospital which it needs for a range of reasons from treatment to research.
 
@@ -258,7 +248,6 @@ The following figures and tables show different use case scenarios which capture
 %- sequence diagram capturing roles involved in the use case
 %- Players
 
-
 %\begin{itemize}
 %	\item Data Owners - Hospitals
 %	\item Data Users - Other Hospitals, Universities and other research institutes,etc
@@ -267,14 +256,12 @@ The following figures and tables show different use case scenarios which capture
 %	\item CA - Local and Provincial Authorities related to health care and privacy
 %\end{itemize}
 
-
 \begin{figure}[]
 	\centering
-	\includegraphics[width=\textwidth]{"Use Case Diagram (Initialization and Registration Scenario)"}
+	\includegraphics[width=0.75\textwidth]{"Use Case Diagram (Initialization and Registration Scenario)"}
 	\caption{Use-case diagram for EHR Exchange Framework (Initialization and Registration Scenario)}
 	\label{fig:use_case_ini}
 \end{figure}
-
 
 \begin{table}[]
 	\centering
@@ -349,7 +336,7 @@ The following figures and tables show different use case scenarios which capture
 
 \begin{figure}[]
 \centering
-\includegraphics[width=\textwidth]{"Use Case Diagram (Data Flow Scenario)"}
+\includegraphics[width=0.75\textwidth]{"Use Case Diagram (Data Flow Scenario)"}
 \caption{Use-case diagram for EHR Exchange Framework (Data Flow Scenario)}
 \label{fig:use_case_df}
 \end{figure}
@@ -377,7 +364,7 @@ The following figures and tables show different use case scenarios which capture
 		\textbf{Actors}      & User (Data User), Cloud Service Provider (CSP)                        \\ \hline
 		\textbf{Description} & This use case occurs when a user is requesting data from the cloud. The user provides the appropriate information and if they are valid, the CSP transforms the stored ciphertext into an El-Gamal style ciphertext \\ \hline
 		\textbf{Stimulus}    & User data request from CSP                  \\ \hline
-		\textbf{Response}    & Transform algorithm is run and if the provided information is valid, a partially decrypted ciphertext is returned to the user.             \\ \hline
+		\textbf{Response}    & CTransform algorithm is run and if the provided information is valid, a partially decrypted ciphertext is returned to the user.             \\ \hline
 	\end{tabular}
 	\caption{Ciphertext Transformation use-case description.}
 	\label{tab:use_case_ctr}
@@ -400,7 +387,7 @@ The following figures and tables show different use case scenarios which capture
 
 \begin{figure}[]
 	\centering
-	\includegraphics[width=\textwidth]{"Use Case Diagram {Revocation}"}
+	\includegraphics[width=0.75\textwidth]{"Use Case Diagram {Revocation}"}
 	\caption{Use-case diagram for EHR Exchange Framework (Revocation Scenario)}
 	\label{fig:use_case_rev}
 \end{figure}
