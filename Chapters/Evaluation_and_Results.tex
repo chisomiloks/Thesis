@@ -1,85 +1,79 @@
 \chapter{Evaluation and Results}
 \label{chap:evaluation_and_results}
 
-Testing
-
-This chapter highlights the information about the software and hardware specifications involved in the implementation of the underlying framework and also shows the results of performance tests for the underlying ABE scheme in relation to scalability of computational and storage overhead with regards to the number of attribute authorities and attributes involved in the system for data encryption and decryption.
+This chapter highlights the information about the software and hardware specifications involved in the implementation of the underlying framework and also shows the results of performance tests for the underlying ABE scheme in relation to scalability of computational overhead with regards to the number of attribute authorities and attributes involved in the system for data encryption, data decryption, and user revocation.
 
 \section{Experimental Setup}
 
-We evaluated the performance of our system framework by implementing the underlying ABE scheme in an environment using hardware and software tools that will be described below.
+We evaluated the performance of our system framework by implementing the underlying ABE scheme in an environment using hardware and software tools as described below. We have focused on the performance of the underlying ABE scheme as there have been well established performance metrics for the multiple available types of symmetric encryption that could be used for the encryption of the actual data, with the ABE scheme used for the encryption of the symmetric key. 
 
-\subsection*{Hardware}
+\subsection{Hardware}
 \begin{itemize}
-	\item Linux Server - We used a -- Server running Ubuntu 16.04 LTS with -- RAM size and -- CPU speed.
+	\item Linux Server - We used a Linux Server running Ubuntu 18.04.3 LTS with 12GB RAM size and an Intel Core i5-6400 CPU @ 2.70GH x 4 processor.
 \end{itemize}
 
-\subsection*{Software Tools}
+\subsection{Software Tools}
 \begin{itemize}
-	\item Python - We wrote our underlying code using Python 3.x as this gave us access to some other effective libraries that played a role in the robustness of our code and evaluation during our experiments.\textcolor{red}{cite python + numpy + matplotlib}
+	\item Python - We wrote our underlying code using Python 3.7 as this gave us access to some other effective libraries that played a role in the robustness of our code and evaluation during our experiments. \textcolor{red}{cite python + numpy + matplotlib}
 	
-	\item Charm Crypto Library \textcolor{red}{cite charm-crypto paper} - We used the charm-crypto library for the implementation of the ABE components of our framework. Charm is a library implemented in python that has multiple contributors in the cryptographic field and as a result gives access to easy to use functionalities related to pairing based public key encryption schemes such as ABE. Our scheme was implemented using a group size of -- and an elliptic curve of type --.
+	\item Charm Crypto Library\cite{charm13crypto} - We used the charm-crypto library for the implementation of the ABE components of our framework. Charm is a library implemented in python that has multiple contributors in the cryptographic field and as a result gives access to a robust tool set that provides functionalities related to pairing based public key encryption schemes such as ABE. Our scheme was implemented using 'SS512', a super-singular elliptic curve with a 512-bit base field with groups of prime order.
 \end{itemize}
 
-System performance was evaluated through the implementation of the underlying scheme on a linux server and also with the use of different software tools be described below.
-
-\textcolor{red}{Give explanation of the specifications of my implementation i.e system hardware specs, language and library used, specification of elliptic curve that group is based on, etc}
-
-\begin{itemize}
-	\item Software
-	\\- charm crypto library  \textcolor{red}{provide an overview of the charm library...look up the paper published for the library for corresponding details for this section.....is info on setting up the library necessary? can be added as an index section I guess}
-	\\- Details about Group size and other parameters eg code use pairing group SS512 \textcolor{red}{look up this detail and add info eg curve type and size(elliptic curve),}
-	
-	\item Hardware - the framework was implemented on a desktop CPU running  OS with specifications
-	\\- system hardware specs (RAM size, processor type and speed, CPU name)
-\end{itemize}
-
+\textcolor{red}{- Give explanation of the specifications of my implementation i.e system hardware specs, language and library used, specification of elliptic curve that group is based on, etc}
 
 \section{Performance Evaluation}
 
-We evaluated the performance of our system by evaluating the two major operations - encryption and decryption - and how their performance scales in relation to the number of attribute authorities and attributes involved in the operations.
+We evaluated the performance of our system by evaluating the computational times for data encryption and decryption together with the time taken for users to update their attribute based secret keys. The focus of our evaluation are the processes that are run at the user end as we are working under the assumption that the Cloud Service Provider (CSP) provides in theory unlimited processing power unlike what could be available on the several devices at the user end.
 
-Our results for encryption as indicated in \textcolor{red}{figures encryption} show that our encryption system is identical in performance with the encryption algorithm of the adapted scheme for this framework \textcolor{red}{[cite original paper]}.
+We encrypt and decrypt sample symmetric keys using the underlying ABE scheme. We also use access policies that exclusively have 'AND' gates to push the limits of the maximum number of attributes that can be part of the access policy or user keys with respect to the number of Attribute Authorities (AA) involved.
 
-\begin{figure}[]
+Our results for encryption as indicated in figure \ref{fig:res_enc_aas} show that our encryption system is identical in performance with the encryption algorithm of the adapted scheme for this framework \cite{Yang2014}. Encryption requires mostly exponential operations and the amount of time scales linearly with an increase in the number of AAs and attributes that are contained in the access policy under which the file is being encrypted.
+
+\begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"Scheme Performance (Encryption_AAs)"}
+	\includegraphics[width=0.75\textwidth]{"Scheme Performance (Encryption_AAs)"}
 	\caption{Encryption Computation Time}
 	\label{fig:res_enc_aas}
 \end{figure}
 
-Our results for decryption show a constant decryption time irrespective of the number of attribute authorities or attributes in comparison with the increase in decryption time of the adapted scheme \textcolor{red}{[cite original paper]}. This can be seen in \textcolor{red}{charles and co}.
+Our results for decryption show a constant decryption time irrespective of the number of attribute authorities or attributes in comparison with the increase in decryption time of the adapted scheme \cite{Yang2014}. This can be seen in figure \ref{fig:res_dec_aas}. These results indicate that the amount of time for decryption involving a single attribute will be the same as that involving a hundred or more attributes, keeping the computational overhead constant and allowing for the use of low computational devices for the decryption process. This is because decryption in the framework only requires a single exponentiation operation irrespective of the number of AAs or attributes. The pairing operations which would have been part of the decryption process as used in kan yang scheme\cite{Yang2014} have been outsourced to the Cloud Service Provider (CSP).
 
-\begin{figure}[]
+\begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"Scheme Performance (Decryption_AAs)"}
+	\includegraphics[width=0.75\textwidth]{"Scheme Performance (Decryption_AAs)"}
 	\caption{Decryption Computation Time}
 	\label{fig:res_dec_aas}
 \end{figure}
 
-These results indicate that the amount of time for decryption involving a single attribute will be the same as that involving a thousand or more attributes, keeping the computational overhead constant and allowing for the use of low computational devices for the decryption process.
+\textcolor{red}{The revocation time should scale as the number of attributes increase. Have to fix experiment in so that multiple attributes are being revoked.}
 
 \begin{figure}[]
 	\centering
-	\includegraphics[width=\textwidth]{"Scheme Performance (Revocation_AAs)"}
+	\includegraphics[width=0.75\textwidth]{"Scheme Performance (Revocation_As)"}
 	\caption{Revocation Computation Time}
-	\label{fig:res_rev_aas}
+	\label{fig:res_rev_as}
 \end{figure}
 
-
-- add charts here showing the performance (i.e how long it took to run)
+\textcolor{red}{
 \begin{enumerate}
 	\item how encryption and decryption times scale in relation to the number of attribute authorities (use constant number of attributes in this case)  \textcolor{red}{this will be two charts)}
 	\item how the encryption and decryption times scale in relation to the number of attributes involved in encryption and decryption (use constant number of attribute authorities in this case i.e the max number of attribute authorities)  \textcolor{red}{this will be two charts)}
 	\item how revocation scales (i.e key update for users)?
 \end{enumerate}
+}
 
-How performance was evaluated i.e scalability + speed
-\\- Computation costs
-\\- Communication costs
+\textcolor{red}{\\- explain how many times experiments were run i.e 500 times finally after also trying 1000 times \\- explain how encryption scales with an increase in the number of authorities and number of attributes i.e linearly \\- based on pairing operations and computations \\ \\ How performance was evaluated i.e scalability + speed \\- Computation costs \\- Communication costs}
 
 \section{Security Analysis}
 
-- correctness? 
+\textcolor{red}{
+\begin{itemize}
+	\item Confidentiality
+	\item Authentication
+	\item Integrity
+	\item Privacy
+\end{itemize}
+}
+%- correctness? 
 
-\textcolor{red}{- look up other high level forms of validating scheme and also look at the security proof of the base scheme to reference also.}
+%\textcolor{red}{- look up other high level forms of validating scheme and also look at the security proof of the base scheme to reference also.}
