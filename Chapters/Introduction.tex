@@ -13,24 +13,16 @@ One way of ensuring that user data is protected from both the CSPs and from unau
 
 The need to meet the privacy and security requirements have led to the creation of systems for the sharing of electronic health data based on a system of encryption called Attribute Based Encryption (ABE) \cite{Ibraimi2010}\cite{Narayan2010}\cite{Akinyele2010}\cite{Barua2011}\cite{Alshehri}\cite{Hupperich2012}\cite{Hsieh2012}\cite{Li2013}. ABE, developed by Sahai and Waters \cite{Sahai2005}, provides the opportunity for fine-grained access control to data as either the user secret keys or the corresponding ciphertexts contain descriptive attributes with the other containing an access structure that specifies what attributes need to be present for decryption. This means that, if there is no match between the attributes of a user's key and the ciphertext, decryption is prevented. This enables the health institutions to be able to grant third parties access to only the specific data that they require to carry out their research while ensuring that Personal Identifiable Information (PII) of patients are not exposed in line with privacy laws and requirements.
 
-%\section{Research Statement}
+%\section{Research Challenge}
+
+%?
 
 \section{Thesis Contributions}
 
-In this thesis we have developed a framework for the sharing of health data among multiple parties even when the parties are using untrusted third party storage services. The platform employs symmetric encryption for the security of the actual data sets while a variant of the Multi-Authority Ciphertext Policy Attribute Based Encryption (MACP-ABE) is applied to encrypt the secret keys that users need to gain access to data in its plain form. This is because of the high amount of computation required for encryption and decryption algorithms of the different available Public Key encryption schemes, a category that includes the MACP-ABE scheme. The security of this protocol had been proven adequately in the original work \cite{Yang2014} and as a result, we have limited our proofs to the basic requirements such as correctness of the encryption scheme.
+In this thesis we have developed a framework for the sharing of health data among multiple parties even when the parties are using untrusted third party storage services. The platform employs symmetric encryption for the security of the actual data sets while a variant of the Multi-Authority Ciphertext Policy Attribute Based Encryption (MACP-ABE) is applied to encrypt the secret keys that users need to gain access to data in its plain form. This is because of the high amount of computation required for encryption and decryption algorithms of the different available Public Key encryption schemes, a category that includes the MACP-ABE scheme. The security of this protocol had been proven adequately in the original work \cite{Yang2014} and as a result, we have limited our analysis to the basic security requirements that are to be met by the framework.
 
-The major contributions of this thesis are - 
-
-\begin{itemize}
-	
-	\item Decryption Time (at User End) - a reduction in the amount of time on the end of the user for the decryption of data
-	
-	\item Reduced Computational Requirements - the computationally intensive operations required for decryption are offloaded to the cloud servers, thereby reducing the computational requirements for end user devices for data decryption
-	
-\end{itemize}
+The major contribution of this thesis is a framework for the exchange of electronic health data with significant decrease in the computational requirements in terms of time and resources.
 
 \section{Thesis Outline}
 
-\textcolor{red}{To be revised i.e rewritten.}
-
-The rest of this thesis is organized as follows: Chapter 2 provides some background technical information on related subjects such as security and privacy, electronic health data, cloud computing, cryptography and Attribute Based Encryption (ABE). It also provides some background on Attribute Based Encryption together with a review of literature outlining the work that has been done in the area of ABE in order to improve the security and performance original schemes while adding features such as revocation. A review of systems that have been built based on ABE for the handling of health related data is also included. Chapter 3 contains details about the proposed solution including the system and security models together with a detailed description of the entire protocol. Chapter 4 contains a discussion of the results from the implementation and Chapter 5 concludes the thesis and provides information on possible future improvements.
+The rest of this thesis is organized as follows: Chapter 2 provides some background technical information on related subjects such as security and privacy, electronic health data, cloud computing, cryptography and Attribute Based Encryption (ABE). It also provides a review of literature outlining work done in the area of ABE in order to improve the security and performance original schemes while adding features such as revocation. A review of systems that have been built based on ABE for the handling of health related data is also included. Chapter 3 introduces our secure privacy preserving framework for electronic health records. It provides the description and mathematical construction for the underlying ABE scheme and also a description of the architecture of our framework together with use cases. Chapter 4 provides details of the evaluation of our framework and also the results. It describes our experimental setup, provides a detailed performance evaluation with relation to computation and also provides a security analysis of the framework. Chapter 5 concludes the thesis, highlighting our contribution and also providing information on possible areas for future improvements.
