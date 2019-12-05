@@ -12,9 +12,9 @@ This chapter introduces the framework that is the basis of this thesis. We start
 A description of the entire framework follows with the architecture and its corresponding entities highlighted. We then provide use cases together with a detailed description of the individual use cases and the roles the entities play.
 
 
-\section{Multiple Authority Ciphertext Policy Attribute Based Encryption with Outsourced Decryption}
+\section{Proposed Multiple Authority Ciphertext Policy Attribute Based Encryption with Outsourced Decryption}
 
-This section contains the formal definition of the underlying ABE scheme for the overall framework. This formal definition provides a description of the algorithms that are part of the ABE scheme. The second part of the section provides more detailed information in the form of the mathematical construction for the ABE scheme.
+This section contains the formal definition of the underlying proposed ABE scheme for the overall framework. This formal definition provides a description of the algorithms that are part of the ABE scheme. The second part of the section provides more detailed information in the form of the mathematical construction for the ABE scheme.
 
 \subsection{ABE Scheme Algorithm and Security Definition}
 
@@ -54,26 +54,31 @@ The following algorithms make up the ABE scheme. These algorithms include: the s
 	
 \end{enumerate}
 
-\subsubsection*{ABE Scheme Security Definition}
+\subsubsection{ABE Scheme Security Definition}\label{secdef}
 
 The security definition of the ABE scheme is based on the correctness definition of the scheme based on the following conditions:
 
 \begin{enumerate}[label=(\arabic*)]
-	\item Decrypt(Transform(Encrypt(Message, GPP, $PK_aids$), $SK_uid,aid$, $GPK_uid$), $GKS'_uid$) = Message
+	\item Encryption and Decryption - Decrypt(CTransform(Encrypt(Message, GPP, $PK_{aids}$), $SK_{uid,aid}$, $GPK_{uid}$), $GSK'_{uid}$) = Message
 	
-	\item Revocation also i.e forward decryption and backward decryption
+	\item Revocation - For an attribute $\tilde{x}_{aid'}$, Decrypt(CTransform(CTUpdate(Encrypt(\\Message, GPP, $PK_{aids}$), ${UK}_{c,\tilde{x}_{aid'},uid}$), $SK_{uid,aid}$, $GPK_{uid}$), $GSK'_{uid}$) = Message, only if version key for $\tilde{K}_{\tilde{x}_{aid'},uid}$ = version key for $\tilde{x}_{aid'}$
 \end{enumerate}
 
+The scheme is secure under the CPA model of security. Further analysis of the security of the underlying ABE scheme together with the security game model and proofs can be found in \cite{Yang2014}, the original scheme from which this was derived.
 
-Further analysis of the security of the underlying ABE scheme together with the security games and proofs can be found in \cite{Yang2014}, the original scheme from which this was derived.
+We also adopt the security assumptions of the original  scheme\cite{Yang2014}. We assume the CA is fully trusted in the sense that it will not collude with any users in the system but it should not be able to decrypt any of the ciphertexts in the system alone. Attribute Authorities are trusted but can be corrupted by an adversary. The Cloud Service Provider is semi-trusted. We assume the CSP may want to acquire knowledge of the content of the data but it will always execute tasks/algorithm accurately. Also we assume that users are dishonest and may potentially collude with other dishonest parties to gain unauthorized access to data.
 
 
 \subsection{ABE Scheme Construction}
 
-
 \begin{enumerate}
 	
-	\item CA Setup - This procedure is run by the CA to setup the system $$ CASetup(1^{\lambda}) \longrightarrow GMK, GPP $$
+	\item CA Setup - This procedure is run by the CA to setup the system
+	\begin{align}
+	\begin{split}
+	CASetup(1^{\lambda}) \longrightarrow GMK, GPP
+	\end{split}
+	\end{align}
 	where $ 1^{\lambda} $ is the security parameter, $ GMK $ is the Global Master Key, and $ GPP $ represents the Global Public Parameters.
 	
 	The CA chooses two multiplicative groups $ G, G_{T} $ with the same prime order $ p $ and a bilinear map $ e \colon G \times G \rightarrow G_{T} $ and a hash function $ H \colon \{0, 1\} \rightarrow G. $ The CA chooses two random numbers $ a, b \in Z_{p} $
@@ -83,13 +88,17 @@ Further analysis of the security of the underlying ABE scheme together with the 
 	\begin{enumerate}
 		
 		\item User Registration - This is executed for all users in the system by the CA. Each user is assigned a globally unique $ uid $ and for each $ uid $, the CA generates two random numbers $ u_{uid}, u'_{uid} \in Z_{p} $ as its global secret keys
-		\begin{align*}
+		\begin{align}
+		\begin{split}
 		&GSK_{uid} = u_{uid}, \\ &GSK'_{uid} = u'_{uid}
-		\end{align*}
+		\end{split}
+		\end{align}
 		The global public keys for each user is generated as 
-		\begin{align*}
+		\begin{align}
+		\begin{split}
 		&GPK_{uid} = g^{u_{uid}}, \\ &GPK'_{uid} = g^{\frac{1}{u'_{uid}}}
-		\end{align*}
+		\end{split}
+		\end{align}
 		The CA generates a $ Certificate{uid} $ for each user $ uid $ and send $ (GPK_{uid}, GSK'_{uid}, \\ Cerificate(uid)) $ to the user.
 		
 		\item Attribute Authority (AA) Registration - The CA assigns a globally unique authority identity $ aid $ to each AA and sends $ (GPK'_{uid}, GSK_{uid}) $ for all registered users to $ AA_{aid} $. The CA also sends the verification key $ vk_{CA} $ to $ AA_{aid} $ for verifying the $ Certificate(uid) $ assigned to each user.
@@ -97,26 +106,32 @@ Further analysis of the security of the underlying ABE scheme together with the 
 	\end{enumerate}
 	
 	\item AA Setup - Let $ X_{aid} $ be the set of all attributes managed by $ AA_{aid} $. The AA chooses three random numbers $ \alpha_{aid}, \beta_{aid}, \gamma_{aid} \in Z_{p} $ as its secret key.
-	\begin{align*}
+	\begin{align}
+	\begin{split}
 	&SK_{aid} = (\alpha_{aid}, \beta_{aid}, \gamma_{aid}) \\
 	&PK_{aid} = (e(g, g)^{\alpha_{aid}}, g^{\beta_{aid}}, g^{\frac{1}{\beta_{aid}}})
-	\end{align*}
+	\end{split}
+	\end{align}
 	For each attribute $ x_{aid} \in X_{aid} $, $ AA_{aid} $ generates a public attribute key as $ PK_{x_{aid}} = (PK_{1, x_{aid}} = H(x_{aid})^{v_{x_{aid}}}, PK_{2, x_{aid}} = H(x_{aid})^{v_{x_{aid}}\gamma_{aid}}) $ where $ v_{x_{aid}} $ is the version key of attribute $ x_{aid} $ i.e $ VK_{x_{aid}} = v_{x_{aid}} $.
 	
 	\item Secret Key Generation - The Attribute Authority with $ AA_{aid} $ assigns a set of attributes $ S_{uid,aid} $ to user with $ uid $ after authentication and certificate verification. The AA chooses a random number $ t_{uid,aid} \in Z_{p} $ and computes a secret key for the user $SK_{uid,aid}$ as
-	\begin{align*}
+	\begin{align}
+	\begin{split}
 	&K_{uid,aid} = g^{\frac{\alpha_{aid}}{u'_{uid}}}g^{au_{uid}}g^{bt_{uid,aid}},\\ &K'_{uid,aid} = g^{t_{uid,aid}}, \\
 	\forall x_{aid} \in S_{uid,aid} \colon &K_{x_{aid},uid} = g^{t_{uid,aid}\beta_{aid}}H(x_{aid})^{v_{x_{aid}}\beta_{aid}(u_{uid} + \gamma_{aid})})
-	\end{align*}
+	\end{split}
+	\end{align}
 	If the user $ uid $ does not hold any attributes from $ AA_{aid} $, the user secret key $ SK_{uid,aid} $ only contains $ K_{uid,aid} $.
 	
 	\item Encryption - Data is divided into components based on the level of granularity required for access control i.e $ m = \{m_{i}, \cdots, m_{n}\} $. Data components are encrypted using symmetric encryption keys $ \kappa = \{\kappa_{i}, \cdots, \kappa_{n}\} $. An access structure $ (M_{k}, \rho) $ is defined for each content key $ \kappa_{i} (i = 1, \cdots, n) $ and encrypted using the ABE scheme to produce the corresponding ciphertext. Let M be an $\ell$ x n matrix, where $\ell$ denotes the total number of all the attributes and the function $ \rho $ associates rows of M to attributes. The function $\rho$ is not required to be injective which allows for an attribute to be associated with more than one row of M.
 	
 	To encrypt the content key $\kappa_{i}$, the algorithm chooses a random element $ s \in Z_{p} $ which is used as the random encryption exponent. It then selects a random vector $ \vec{v} = (s, y_{2},\ldots,y_{n}) \in Z_{p} $ where $ y_{2},\ldots,y_{n} $ are used to share the encryption exponent s. It then computes $ \forall 1 \leq i \leq \ell: \lambda_{i} = \vec{v}.M_{i} $ where $ M_{i} $ is the vector corresponding to the i-th row of M. It then randomly selects $ r_{1},r_{2},\ldots,r_{\ell} $ and computes the ciphertext $CT_{K_{i}}$ as	
-	\begin{align*}
-	&C = K_{i}\cdot\Bigl(\prod\limits_{aid_{k} \in I_{A}}PK_{aid_{k}}\Bigl)^{s}, C' = g^{s}, C'' = g^{bs},\\
-	\forall 1 \leq i \leq \ell, \rho(i) \in X_{aid_{k}} \colon &C_{i} = g^{a\lambda_{i}\cdot\bigl(PK_{i,\rho(i)}\bigl)^{-r_{i}}},\\ &C'_{i} = g^{r_{i}},D_{i} = g^{\frac{r_{i}}{\beta_{aid_k}}}, D'_{i} = \Bigl(PK_{2,\rho_{(i)}}\Bigl)^{r_{i}}
-	\end{align*}
+	\begin{align}
+	\begin{split}
+	&C = K_{i}\cdot\Bigl(\prod\limits_{aid_{k} \in I_{A}}PK_{aid_{k}}\Bigl)^{s}, \\ &C' = g^{s}, \\ &C'' = g^{bs},\\
+	\forall 1 \leq i \leq \ell, \rho(i) \in X_{aid_{k}} \colon &C_{i} = g^{a\lambda_{i}\cdot\bigl(PK_{i,\rho(i)}\bigl)^{-r_{i}}},\\ &C'_{i} = g^{r_{i}}, \\ &D_{i} = g^{\frac{r_{i}}{\beta_{aid_k}}}, \\ &D'_{i} = \Bigl(PK_{2,\rho_{(i)}}\Bigl)^{r_{i}}
+	\end{split}
+	\end{align}
 	Then the encrypted data is uploaded to the cloud server by the owner.
 	
 	\item Ciphertext Transformation - This involves the transformation of the ciphertext into an El Gamal style ciphertext referred to in this framework as a token through partial decryption while the integrity of the original message is preserved.
@@ -125,10 +140,10 @@ Further analysis of the security of the underlying ABE scheme together with the 
 	
 	Let $I$ be defined as $\{I_{aid_k} \in I_{A}\}$, where $I_{aid_k} \subset \{1,2,\ldots,\ell\}$ can be defined as $I_{aid_k} = \{i: \rho(i) \in S_{aid_k}\}$. Let $n_A = |I_A|$ be the number of AAs  involved in the access policy of the ciphertext. The algorithm chooses a set of constants $\{\omega_{i} \in Z_p\}_{i \in I}$ such that if the shares of a secret represented by $\{\lambda_{i}\}$ are valid with respect to the matrix component of the access structure, $M$, then the secret can be reconstructed as $\sum_{i \in I}\omega_{i}\lambda_{i}$. The algorithm computes the partially decrypted ciphertext $CT'$ as
 	
-	\begin{align*}
-	&= \prod\limits_{aid_{k} \in I_{A}} \frac{e\Bigl(C', K_{uid,aid}\Bigl)e\Bigl(C'', K'_{uid,aid}\Bigl)^{-1}}{\prod\limits_{i \in I_{aid_k}}\biggl(e\Bigl(C_i, GPK_{uid}\Bigl)e\Bigl(D_i, K_{\rho(i),uid}\Bigl)e\Bigl(C'_i, K_{uid,aid_k}^{-1}\Bigl)e\Bigl(g, D'_i\Bigl)^{-1}\biggl)^{\omega_{i}n_A}} \\ \\
+	\begin{align}
+	&= \prod\limits_{aid_{k} \in I_{A}} \frac{e\Bigl(C', K_{uid,aid}\Bigl)e\Bigl(C'', K'_{uid,aid}\Bigl)^{-1}}{\prod\limits_{i \in I_{aid_k}}\biggl(e\Bigl(C_i, GPK_{uid}\Bigl)e\Bigl(D_i, K_{\rho(i),uid}\Bigl)e\Bigl(C'_i, K_{uid,aid_k}^{-1}\Bigl)e\Bigl(g, D'_i\Bigl)^{-1}\biggl)^{\omega_{i}n_A}} \nonumber \\
 	&= \prod\limits_{aid_{k} \in I_{A}} e\Bigl(g, g\Bigl)^{\frac{s\alpha_{aid}}{u'_{uid}}}
-	\end{align*}
+	\end{align}
 	
 	%$\omega_{i}$ - constant chosen for the reconstruction of encryption exponent s using shares $\lambda_{i}$
 	
@@ -143,15 +158,19 @@ Further analysis of the security of the underlying ABE scheme together with the 
 	\item Decryption - The algorithm for decryption takes as input the partially decrypted ciphertext ($CT'$) and the user's secret key and produces as output the original message. It performs an exponentiation on $CT'$ in order to derive the blinding element (BE) of the original message as
 	%The user does an exponentiation on the partially decrypted ciphertext to get the blinding element (BE) for decryption.
 	
-	\begin{align*}
+	\begin{align}
+	\begin{split}
 	&= CT'^{u'_{uid}} \\ &= \prod\limits_{aid_{k} \in I_{A}} e\Bigl(g, g\Bigl)^{s\alpha_{aid}}
-	\end{align*}
+	\end{split}
+	\end{align}
 	
 	Remember the $C$ element of the main ciphertext $= K_i\cdot\bigl(\prod\limits_{aid_{k} \in I_{A}}PK_{aid_{k}}\bigl)^{s}$ where $PK_{aid_{k}} = e\bigl(g, g\bigl)^{\alpha_{aid}}$. Therefore the original message which in this case is the symmetric key $K$ is computed as
 	
-	\begin{align*}
+	\begin{align}
+	\begin{split}
 	= \frac{C}{BE}
-	\end{align*}
+	\end{split}
+	\end{align}
 	
 	\item User Revocation - User revocation which can also be referred to as attribute revocation as used in some of the literature on the subject should achieve two critical criteria. The revoked user should not be able to decrypt new ciphertexts which have been encrypted using the public attribute keys of attributes that the user was previously granted private keys for. This is referred to as Backward Security. Any new user who has the right attributes should be able to decrypt the original ciphertexts that were encrypted using those public parameters. This is referred to a Forward Security. The revocation algorithm used has been gotten from the scheme by Yang et. al in \cite{Yang2014}.
 	
@@ -162,35 +181,46 @@ Further analysis of the security of the underlying ABE scheme together with the 
 		The algorithm generates a new version key $VK'_{\tilde{x}_{aid'}} = v'_{\tilde{x}_{aid'}} (v'_{\tilde{x}_{aid'}} \neq v_{\tilde{x}_{aid'}})$ for the revoked attribute $\tilde{x}_{ai'd}$.
 		
 		The $AA_{aid'}$ then generates a unique update key ${UK}_{s,\tilde{x}_{aid'},uid}$ for secret key update by each non-revoked user $uid$ as
-		\begin{align*}
+		\begin{align}
+		\begin{split}
 		{UK}_{s,\tilde{x}_{aid'},uid} = H(\tilde{x}_{aid'})^{\beta_{aid'}(v'_{\tilde{x}_{aid'}}-v_{\tilde{x}_{aid'}})(u_{uid}+\gamma_{aid'})}
-		\end{align*}
+		\end{split}
+		\end{align}
 		and generates the update key ${UK}_{c,\tilde{x}_{aid'},uid}$ for ciphertext update as
-		\begin{align*}
-		{UK}_{c,\tilde{x}_{aid'},uid} =\Bigl( UK_{1,\tilde{x}_{aid'}} = \frac{v'_{\tilde{x}_{aid'}}}{v_{\tilde{x}_{aid'}}}, UK_{2,\tilde{x}_{aid'}} = \frac{v_{\tilde{x}_{aid'}} - v'_{\tilde{x}_{aid'}}}{v_{\tilde{x}_{aid'}}\gamma_{aid'}} \Bigl)
-		\end{align*}
+		\begin{align}
+		\begin{split}
+		&UK_{1,\tilde{x}_{aid'}} = \frac{v'_{\tilde{x}_{aid'}}}{v_{\tilde{x}_{aid'}}}, \\ &UK_{2,\tilde{x}_{aid'}} = \frac{v_{\tilde{x}_{aid'}} - v'_{\tilde{x}_{aid'}}}{v_{\tilde{x}_{aid'}}\gamma_{aid'}}
+		\end{split}
+		\end{align}
 		The $AA_{aid'}$ sends the ${UK}_{s,\tilde{x}_{aid'},uid}$ to the non-revoked user $uid$ and sends ${UK}_{c,\tilde{x}_{aid'},uid}$ to the cloud server.
 		
-		The $AA_{aid'}$ then updates the public attribute key of the revoked attribute $\tilde{x}_{aid'}$ as
-		\begin{align*}
-		\widetilde{PK}_{\tilde{x}_{aid'}} = ({PK}_{\tilde{x}_{aid'}})^{UK_{1,\tilde{x}_{aid'}}}
-		\end{align*}
+		The $AA_{aid'}$ then updates the public attribute key, $PK_{\tilde{x}_{aid'}}$ of the revoked attribute $\tilde{x}_{aid'}$ to $\tilde{PK}_{\tilde{x}_{aid'}}$ as
+		\begin{align} \label{eq:1}
+		\begin{split}
+		\tilde{PK}_{\tilde{x}_{aid'}} = ({PK}_{\tilde{x}_{aid'}})^{UK_{1,\tilde{x}_{aid'}}}
+		\end{split}
+		\end{align}
 		
+		% This is equation \ref{eq:1}
 		
-		\item Secret Key Update - This process is run by the non revoked users in the system. The algorithm produces an updated secret key using the update key ${UK}_{s,\tilde{x}_{aid'},uid}$ for the individual users as
-		\begin{align*}
-		\widetilde{SK}_{uid,aid'} = \Bigl(&\tilde{K}_{uid,aid'} = {K}_{uid,aid'},\tilde{K'}_{uid,aid'} = {K'}_{uid,aid'},\\
+		\item Secret Key Update - This process is run by the non revoked users in the system. The algorithm produces an updated secret key $\tilde{SK}_{uid,aid'}$ using the update key ${UK}_{s,\tilde{x}_{aid'},uid}$ for the individual users as
+		\begin{align}
+		\begin{split}
+		&\tilde{K}_{uid,aid'} = {K}_{uid,aid'}, \\ &\tilde{K'}_{uid,aid'} = {K'}_{uid,aid'}, \\
 		&\tilde{K}_{\tilde{x}_{aid'},uid} = {K}_{\tilde{x}_{aid'},uid}.{UK}_{s,\tilde{x}_{aid'},uid},\\
-		&\forall x_{aid'} \in S_{uid,aid'} \backslash \{ \tilde{x}_{aid'} \} \colon \tilde{K}_{\tilde{x}_{aid'},uid} = {K}_{\tilde{x}_{aid'},uid}  \Bigl) 
-		\end{align*}
+		\forall x_{aid'} \in S_{uid,aid'} \backslash \{ \tilde{x}_{aid'} \} \colon &\tilde{K}_{\tilde{x}_{aid'},uid} = {K}_{\tilde{x}_{aid'},uid}
+		\end{split} 
+		\end{align}
 		
-		\item Ciphertext Update - 
-		\begin{align*}
-		\widetilde{CT} = \Bigl(&\tilde{C} = C, \tilde{C'} = C', \tilde{C''} = C'',\\
-		&\forall 1 \leq i \leq \ell: \tilde{C'}_{i} = C'_{i}, \tilde{D}_{i} = D_{i},\\
-		&if \rho(i) = \tilde{x}_{aid'} : \tilde{C'}_{i} = C_{i} . (D'_{i})^{UK_{2,\tilde{x}_{aid'}}}, \tilde{D'}_{i} = (D'_{i})^{UK_{1,\tilde{x}_{aid'}}},\\
-		&if \rho(i) \neq \tilde{x}_{aid'} : \tilde{C}_{i} = C_{i}, \tilde{D'}_{i} = D'_{i}\Bigl)
-		\end{align*}
+		\item Ciphertext Update - The ciphertext $CT$ is updated using ${UK}_{c,\tilde{x}_{aid'},uid}$ to $\tilde{CT}$ as
+		\begin{align}
+		\begin{split}
+		&\tilde{C} = C, \\ &\tilde{C'} = C', \\ &\tilde{C''} = C'',\\
+		\forall 1 \leq i \leq \ell : &\tilde{C'}_{i} = C'_{i}, \\ &\tilde{D}_{i} = D_{i},\\
+		if \rho(i) = \tilde{x}_{aid'} : &\tilde{C'}_{i} = C_{i} . (D'_{i})^{UK_{2,\tilde{x}_{aid'}}}, \\ &\tilde{D'}_{i} = (D'_{i})^{UK_{1,\tilde{x}_{aid'}}},\\
+		if \rho(i) \neq \tilde{x}_{aid'} : &\tilde{C}_{i} = C_{i}, \\ &\tilde{D'}_{i} = D'_{i}
+		\end{split}
+		\end{align}
 	\end{enumerate}
 	
 \end{enumerate}
@@ -229,7 +259,7 @@ The system architecture is made up of several entities that perform different fu
 	\centering
 	%\includegraphics[scale=.50]{"System Architecture Diagram (Draft 1)"}
 	\includegraphics[width=\textwidth]{"System Architecture Diagram (Draft 1)"}
-	\caption{System Architecture Diagram}
+	\caption{System architecture diagram showing interaction between the multiple framework entities with numbers indicating the typical order of the interactions}
 	\label{fig:sysarch}
 \end{figure}
 

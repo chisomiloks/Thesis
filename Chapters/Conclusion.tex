@@ -7,14 +7,15 @@ This chapter provides a description of the contribution of this thesis and also 
 
 \section{Contribution}
 
-The main contribution of this thesis is a framework for the exchange of electronic health data with significant decrease in the computational requirements in terms of time and resources. This is in response to the need to be able to securely exchange sensitive medical data not simply among medical practitioners but also with 3rd party partner such as researchers who contribute to developments in the area while preserving privacy and maintaining security which becomes a problem when the trust zone is extended to 3rd party computational services as provided by cloud service providers. We have modified an existing Attribute Based Encryption (ABE) scheme to enable the outsourcing of decryption in order ot allow end users use devices with low computational abilities to gain access to data securely. Our system uses symmetric key encryption to encrypt data and uses our ABE scheme to encrypt the symmetric key thereby providing an encryption scheme with in-built access control.
+The main contribution of this thesis is a framework for the exchange of electronic health data with significant decrease in the computational requirements in terms of time and resources. This is in response to the need to  securely exchange sensitive medical data not simply among medical practitioners but also with 3rd party partner such as researchers who contribute to developments in the area while preserving privacy and maintaining security which becomes a problem when the trust zone is extended to 3rd party computational services as provided by cloud service providers. We have modified an existing Attribute Based Encryption (ABE) scheme to enable the outsourcing of decryption in order ot allow end users use devices with low computational abilities to gain access to data securely. Our system uses symmetric key encryption to encrypt data and uses our ABE scheme to encrypt the symmetric key thereby providing an encryption scheme with in-built access control.
 
 \section{Future Work}
 
-\begin{itemize}
-	\item Accountability..challenge as users share attributes
-	\item Searchable Encryption
-	
-\end{itemize}
+There are different areas of improvement in relation to our existing framework as described below:
 
-\textcolor{red}{- where it could go in terms of efficiency and accountability}
+\begin{enumerate}[label=(\arabic*)]
+	\item Accountability - Our current framework is limited in its ability to ensure strong levels of accountability as it can only be limited to the group of users who have been granted secret keys for the corresponding attributes which they share with others with the same level of access. A possible improvement would be to extend our underlying ABE scheme potentially using similar pairing based short signatures that are being developed with minimal overhead on our framework.
+	
+	\item Searchable Encryption - Our current setup requires some sort of record in the database to keep a record of what type of records are being stored in their encrypted form. A possible improvement would be to extend our underlying scheme to allow for searching at a more granular level over the encrypted data.
+	
+\end{enumerate}
