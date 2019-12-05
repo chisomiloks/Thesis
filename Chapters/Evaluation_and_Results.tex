@@ -8,6 +8,9 @@ This chapter highlights the information about the software and hardware specific
 We evaluated the performance of our system framework by implementing the underlying ABE scheme in an environment using hardware and software tools as described below. We have focused on the performance of the underlying ABE scheme as there have been well established performance metrics for the multiple available types of symmetric encryption that could be used for the encryption of the actual data, with the ABE scheme used for the encryption of the symmetric key. 
 
 \subsection{Hardware and Software Tools}
+
+The following hardware and software tools were used in setting up and running our experiments.
+
 \begin{itemize}
 	\item Linux Server - We used a Linux Server running Ubuntu 18.04.3 LTS with 12GB RAM size and an Intel Core i5-6400 CPU @ 2.70GH x 4 processor.
 	
@@ -16,13 +19,17 @@ We evaluated the performance of our system framework by implementing the underly
 	\item Charm Crypto Library\cite{charm13crypto} - We used the charm-crypto library for the implementation of the ABE components of our framework. Charm is a library implemented in python that has multiple contributors in the cryptographic field and as a result gives access to a robust tool set that provides functionalities related to pairing based public key encryption schemes such as ABE. Our scheme was implemented using 'SS512', a super-singular elliptic curve with a 512-bit base field with groups of prime order.
 \end{itemize}
 
+\subsection{Framework Development}
+
+Using the tools and schemes provided by the charm crypto library, we have developed our framework locally using python and set it up to run on the linux server. We have developed the different algorithms that are part of the framework into different modules in order to evaluate the performance of those algorithms that would typically reside on the user end in a real world deployment scenario of our framework architecture. We have done this to enable us measure the performance of our system without incurring the additional cost of purchasing resources using any of the available real world cloud service vendors.
+
+We have setup a different module for our experimental demo in order to scale the number of attribute authorities (AA) and attributes involved in the different algorithms (i.e encryption, decryption, and revocation). We also deploy a policy generation module to ensure that we have an access policy that includes the right number of attributes from the right number of authorities using the appropriate gate for our experiments. These modules allowed us to test the performance of our scheme in an automated form and allowed for easy modification and troubleshooting along the way.
+
 \section{Performance Evaluation}
 
 We evaluated the performance of our system by evaluating the computational times for data encryption and decryption together with the time taken for users to update their attribute based secret keys. The focus of our evaluation are the processes that are run at the user end as we are working under the assumption that the Cloud Service Provider (CSP) provides in theory unlimited processing power unlike what could be available on the several devices at the user end.
 
-We encrypt and decrypt sample symmetric keys using the underlying ABE scheme. We also use access policies that exclusively have 'AND' gates to push the limits of the maximum number of attributes that can be part of the access policy or user keys with respect to the number of Attribute Authorities (AA) involved. Our experiments have been run for 500 trials with the results being an average of the individual runs.
-
-Our results for encryption as indicated in figure \ref{fig:res_enc_aas} show that our encryption system is identical in performance with the encryption algorithm of the adapted scheme for this framework \cite{Yang2014}. Encryption requires mostly exponential operations and the amount of time scales linearly with an increase in the number of AAs and attributes that are contained in the access policy under which the file is being encrypted.
+We encrypt and decrypt sample symmetric keys using the underlying ABE scheme. We also use access policies that exclusively have 'AND' gates to push the limits of the maximum number of attributes that can be part of the access policy or user keys with respect to the number of Attribute Authorities (AA) involved. We have setup our experiments for each authority to have ten attributes each as part of the access policy and user attributes for encryption and decryption. This would mean that if ten authorities are involved in particular text, then the result also indicated the performance of the scheme for a hundred attributes.. Our experiments have been run for 500 trials with the results being an average of the individual runs.
 
 \begin{figure}[]
 	\centering
@@ -31,7 +38,7 @@ Our results for encryption as indicated in figure \ref{fig:res_enc_aas} show tha
 	\label{fig:res_enc_aas}
 \end{figure}
 
-Our results for decryption show a constant decryption time irrespective of the number of attribute authorities or attributes in comparison with the increase in decryption time of the adapted scheme \cite{Yang2014}. This can be seen in figure \ref{fig:res_dec_aas}. These results indicate that the amount of time for decryption involving a single attribute will be the same as that involving a hundred or more attributes, keeping the computational overhead constant and allowing for the use of low computational devices for the decryption process. This is because decryption in the framework only requires a single exponentiation operation irrespective of the number of AAs or attributes. The pairing operations which would have been part of the decryption process as used in kan yang scheme\cite{Yang2014} have been outsourced to the Cloud Service Provider (CSP).
+Our results for encryption as indicated in figure \ref{fig:res_enc_aas} show that our encryption system is identical in performance with the encryption algorithm of the adapted scheme for this framework \cite{Yang2014}. Encryption requires mostly exponential operations and the amount of time scales linearly with an increase in the number of AAs and attributes that are contained in the access policy under which the file is being encrypted. Our results for encryption show no negative impact on the performance in comparison to the adapted scheme.
 
 \begin{figure}[]
 	\centering
@@ -40,7 +47,7 @@ Our results for decryption show a constant decryption time irrespective of the n
 	\label{fig:res_dec_aas}
 \end{figure}
 
-Our setup for revocation was focused on showing how the time for revocation in terms of an existing user updating their attribute based secret keys when an existing user has been revoked scales with an increase in the number of attributes being revoked. Our results show that the time scales linearly with an increase in the number of attributes being revoked. This is as a result of the exponentiation operations that are involved in the update process. The result of our experiment can be seen in figure \ref{fig:res_rev_as}.
+Our results for decryption show a constant decryption time irrespective of the number of attribute authorities or attributes in comparison with the increase in decryption time of the adapted scheme \cite{Yang2014}. This can be seen in figure \ref{fig:res_dec_aas}. These results indicate that the amount of time for decryption involving a single attribute will be the same as that involving a hundred or more attributes, keeping the computational overhead constant and allowing for the use of low computational devices for the decryption process. This is because decryption in the framework only requires a single exponentiation operation irrespective of the number of AAs or attributes. The pairing operations which would have been part of the decryption process as used in kan yang scheme\cite{Yang2014} have been outsourced to the Cloud Service Provider (CSP).
 
 \begin{figure}[]
 	\centering
@@ -49,9 +56,11 @@ Our setup for revocation was focused on showing how the time for revocation in t
 	\label{fig:res_rev_as}
 \end{figure}
 
+Our setup for revocation was focused on showing how the time for revocation in terms of an existing user updating their attribute based secret keys when an existing user has been revoked scales with an increase in the number of attributes being revoked. Our results show that the time scales linearly with an increase in the number of attributes being revoked. This is as a result of the exponentiation operations that are involved in the update process. The result of our experiment can be seen in figure \ref{fig:res_rev_as}.Our results for revocation show no negative impact on the performance in comparison to the adapted scheme. For revocation we show how the time scales with just the attributes as those are the components of the user secret key that are updated when an existing user has their access revoked.
+
 \section{Security Analysis}
 
-In this section we analyze the different security and privacy properties of the framework. We describe how the framework is able to achieve the conditions necessary for confidentiality,integrity, and authentication including how it is able to preserve privacy through its processes. 
+In this section we analyze the different security and privacy properties of the framework. We describe how the framework is able to achieve the conditions necessary for confidentiality,integrity, and authentication including how it is able to preserve privacy through its processes. We have shown the security definition of our underlying ABE scheme in section \ref{secdef}, highlighting the correctness of the scheme when it comes to the encryption, decryption, and revocation processes. We also highlight the security model of the underlying scheme is based on the model of the scheme we adapted and the detailed security proof can be found in \cite{Yang2014}.
 
 \subsection*{Confidentiality and Integrity}
 
@@ -66,3 +75,5 @@ Our framework has authentication built into its cryptographic processes. The fac
 \subsection*{Privacy Preserving}
 
 Privacy is preserved as part of our framework through the fact that data owners are able to have some control over the level of access to data by specifying the appropriate access policy when encrypting data before it is stored on the cloud. Also the ability of the system to revoke access also ensures that user access can have a time limit depending on the preset rules before they are granted access. Also the strong underlying confidentiality, integrity and authentication mechanisms aid in ensuring data privacy.
+
+Users in the system are unable to combine their secret keys gotten from the appropriate authorities in order to gain increased access to data within the system. This is because of the randomness involved in the secret key generation by the attribute authorities when generating the keys of individual users. Users are also not able to derive the value of this random number due to the discrete log hardness problem in cryptography.
