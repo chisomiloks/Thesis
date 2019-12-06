@@ -26,31 +26,31 @@ The following algorithms make up the ABE scheme. These algorithms include: the s
 %The setup algorithms are run as a part of the initialization stage of the ABE scheme. These algorithms are responsible for the registration of the other entities in the system. This also provides them with the necessary information for verifying their identity when communicating with other entities in the system and other vital information they need in order to execute their own operations.
 \begin{enumerate}[label=(\arabic*)]
 	
-	\item CASetup - The CASetup algorithm is the algorithm executed by the Certificate Authority (CA) in order to generate the Global Master Key (GMK) and Global Public Parameters (GPP) of the entire scheme. It takes as input the security parameter of the scheme.  The CA makes the GPP available to all entities in the system.
+	\item CASetup - The Certificate Authority Setup algorithm is the algorithm executed by the Certificate Authority (CA) in order to generate the Global Master Key (GMK) and Global Public Parameters (GPP) of the entire scheme. It takes as input the security parameter of the scheme.  The CA makes the GPP available to all entities in the system.
 	
 	\begin{enumerate}
 		
-		\item UserReg - The UserReg algorithm is run by the CA whenever new users are being added to the system. The CA assigns a unique id to each new user and also generates two public-private key pairs together with user certificates and their corresponding verification keys for each new user. The CA sends one each of the generated public and private keys to the user together with the certificate.
+		\item UserReg - The User Registration algorithm is run by the CA whenever new users are being added to the system. The CA assigns a unique id to each new user and also generates two public-private key pairs together with user certificates and their corresponding verification keys for each new user. The CA sends one each of the generated public and private keys to the user together with the certificate.
 		
-		\item AAReg - The AAReg algorithm is run by the CA whenever new Attribute Authorities (AA) are joining the system. The CA assigns a unique id to each new AA and also send the other public and private keys for each registered user to the AA together with the verification keys for the generated certificates.
+		\item AAReg - The Attribute Authority Registration algorithm is run by the CA whenever new Attribute Authorities (AA) are joining the system. The CA assigns a unique id to each new AA and also send the other public and private keys for each registered user to the AA together with the verification keys for the generated certificates.
 		
 	\end{enumerate}
 	
-	\item AASetup - The AASetup algorithm is run by the individual Attribute Authorities (AAs) and generates the public-secret key pair for the attribute authority. It also generates a public-version key pair for each of the attributes under the control of the AA that is provided as input in the AA universal attribute set.
+	\item AASetup - The Attribute Authority Setup algorithm is run by the individual Attribute Authorities (AAs) and generates the public-secret key pair for the attribute authority. It also generates a public-version key pair for each of the attributes under the control of the AA that is provided as input in the AA universal attribute set.
 	
-	\item SKGen - The SKGen algorithm is run by the corresponding AAs in order to provide the user with the secret key for the attributes that they have been assigned. The AA takes as input the system GPP, the users Global Public Keys (GPKs), one of the user GSKs, the set of attributes and their corresponding public-version key pairs. It provides the user with a secret key that can be used for decryption.
+	\item SKGen - The Secret Key Generation algorithm is run by the corresponding AAs in order to provide the user with the secret key for the attributes that they have been assigned. The AA takes as input the system GPP, the users Global Public Keys (GPKs), one of the user GSKs, the set of attributes and their corresponding public-version key pairs. It provides the user with a secret key that can be used for decryption.
 	
-	\item Encrypt - The Encrypt algorithm is run by the data owner in order to encrypt the corresponding piece of data. This algorithm takes as input the system GPP, the public keys (PKs) for the AAs involved in the encryption - as they are in control of the attributes that make up the policy under which data is to be encrypted - of the data, and an access policy. It provides as output a ciphertext (CT) which implicitly contains the corresponding access policy.
+	\item Encrypt - The Encryption algorithm is run by the data owner in order to encrypt the corresponding piece of data. This algorithm takes as input the system GPP, the public keys (PKs) for the AAs involved in the encryption - as they are in control of the attributes that make up the policy under which data is to be encrypted - of the data, and an access policy. It provides as output a ciphertext (CT) which implicitly contains the corresponding access policy.
 	
-	\item CTransform - The CTranform algorithm is responsible for the transformation of the CT into an El Gamal style ciphertext that can be easily decrypted by the end user. This algorithm is executed by the Cloud Service Provider (CSP) and takes as input the ciphertext, the secret keys of the attributes in the user's possession and the user's GPK. It produces as output a partially decrypted ciphertext (CT') is the user's secret keys meet the policy under which the data was encrypted, otherwise it outputs an error.
+	\item CTransform - The Ciphertext Transformation algorithm is responsible for the transformation of the CT into an El Gamal style ciphertext that can be easily decrypted by the end user. This algorithm is executed by the Cloud Service Provider (CSP) and takes as input the ciphertext, the secret keys of the attributes in the user's possession and the user's GPK. It produces as output a partially decrypted ciphertext (CT') is the user's secret keys meet the policy under which the data was encrypted, otherwise it outputs an error.
 	
-	\item Decrypt - The Decrypt algorithm is run by the end user and takes as input the partially decrypted ciphertext CT' and the user's global secret key which is not shared with any other entity in the system and produces the original data as output for the user in its plain form.
+	\item Decrypt - The Decryption algorithm is run by the end user and takes as input the partially decrypted ciphertext (CT') and the user's global secret key which is not shared with any other entity in the system and produces the original data as output for the user in its plain form.
 	
-	\item UKeyGen - The UKeyGen algorithm is run by the AA under whose control the revoked attribute falls. The algorithm takes as input the SK of the AA, the revoked attribute and the current version key for the revoked attribute. It produces as output an updated version key for the revoked attribute. It produces an update key to be used to update the corresponding secret keys of users who possess the revoked attributes and whose access is not being revoked. It also produces an update key for the affected ciphertexts whose access policies contain the revoked attribute to allow for users who still maintain access to be able to decrypt while denying revoked users further access.
+	\item UKeyGen - The Update Key Generation algorithm is run by the AA under whose control the revoked attribute falls. The algorithm takes as input the SK of the AA, the revoked attribute and the current version key for the revoked attribute. It produces as output an updated version key for the revoked attribute. It also produces an update key to be used to update the corresponding secret keys of users who possess the revoked attributes and whose access is not being revoked. It also produces an update key for the affected ciphertexts whose access policies contain the revoked attribute to allow for users who still maintain access to be able to decrypt while denying revoked users further access.
 	
-	\item SKUpdate - The SKUpdate algorithm is run by each non revoked user in the system and takes as input the corresponding secret key acquired from the AA that control the affected attribute together with the update key for user secret keys generated by the UKeyGen algorithm. It outputs a new secret key for the user.
+	\item SKUpdate - The Secret Key Update algorithm is run by each non revoked user in the system and takes as input the corresponding secret key acquired from the AA that control the affected attribute together with the update key for user secret keys generated by the UKeyGen algorithm. It outputs a new secret key for the user.
 	
-	\item CTUpdate - The CTUpdate algorithm is run the CSP and takes as input the affected ciphertexts and the update key generated by the UKeyGen algorithm for ciphertext update. it outputs a new ciphertext that can only be decrypted by users with a current version of the corresponding revoked attribute.
+	\item CTUpdate - The Ciphertext Update algorithm is run the CSP and takes as input the affected ciphertexts and the update key generated by the UKeyGen algorithm for ciphertext update. it outputs a new ciphertext that can only be decrypted by users with a current version of the corresponding revoked attribute.
 	
 \end{enumerate}
 
@@ -64,10 +64,19 @@ The security definition of the ABE scheme is based on the correctness definition
 	\item Revocation - For an attribute $\tilde{x}_{aid'}$, Decrypt(CTransform(CTUpdate(Encrypt(\\Message, GPP, $PK_{aids}$), ${UK}_{c,\tilde{x}_{aid'},uid}$), $SK_{uid,aid}$, $GPK_{uid}$), $GSK'_{uid}$) = Message, only if version key for $\tilde{K}_{\tilde{x}_{aid'},uid}$ = version key for $\tilde{x}_{aid'}$
 \end{enumerate}
 
-The scheme is secure under the CPA model of security. Further analysis of the security of the underlying ABE scheme together with the security game model and proofs can be found in \cite{Yang2014}, the original scheme from which this was derived.
+This scheme is secure under the CPA model of security. Further analysis of the security of the underlying ABE scheme together with the security game model and proofs can be found in \cite{Yang2014}, the original scheme from which this was derived.
 
-We also adopt the security assumptions of the original  scheme\cite{Yang2014}. We assume the CA is fully trusted in the sense that it will not collude with any users in the system but it should not be able to decrypt any of the ciphertexts in the system alone. Attribute Authorities are trusted but can be corrupted by an adversary. The Cloud Service Provider is semi-trusted. We assume the CSP may want to acquire knowledge of the content of the data but it will always execute tasks/algorithm accurately. Also we assume that users are dishonest and may potentially collude with other dishonest parties to gain unauthorized access to data.
+We also adopt the security assumptions of the original  scheme \cite{Yang2014}. The security assumptions are as follows:
 
+\begin{enumerate}[label=(\arabic*)]
+	\item We assume the CA is fully trusted in the sense that it will not collude with any users in the system but it should not be able to decrypt any of the ciphertexts in the system alone.
+	
+	\item Attribute Authorities are trusted but can be corrupted by an adversary.
+	
+	\item The Cloud Service Provider is semi-trusted. We assume the CSP may want to acquire knowledge of the content of the data but it will always execute tasks/algorithm accurately.
+	
+	\item We assume that users are dishonest and may potentially collude with other dishonest parties to gain unauthorized access to data.
+\end{enumerate}
 
 \subsection{ABE Scheme Construction}
 
@@ -105,7 +114,7 @@ We also adopt the security assumptions of the original  scheme\cite{Yang2014}. W
 		
 	\end{enumerate}
 	
-	\item AA Setup - Let $ X_{aid} $ be the set of all attributes managed by $ AA_{aid} $. The AA chooses three random numbers $ \alpha_{aid}, \beta_{aid}, \gamma_{aid} \in Z_{p} $ as its secret key.
+	\item AA Setup - Let $ X_{aid} $ be the set of all attributes managed by $ AA_{aid} $. The AA generates three random numbers $ \alpha_{aid}, \beta_{aid}, \gamma_{aid} \in Z_{p} $ as its secret key.
 	\begin{align}
 	\begin{split}
 	&SK_{aid} = (\alpha_{aid}, \beta_{aid}, \gamma_{aid}) \\
@@ -305,7 +314,7 @@ The following figures and tables show different use case scenarios which capture
 		\textbf{Stimulus}    & Certificate Authority runs CASetup algorithm to initialize system                     \\ \hline
 		\textbf{Response}    & Initialize system and derive GPP and GMK.             \\ \hline
 	\end{tabular}
-	\caption{Certificate Authority Setup use-case description.}
+	\caption{Certificate Authority Setup Use-Case Description.}
 	\label{tab:use_case_casetup}
 \end{table}
 
@@ -319,7 +328,7 @@ The following figures and tables show different use case scenarios which capture
 		\textbf{Stimulus}    & CA runs UserReg algorithm to register a new user.                    \\ \hline
 		\textbf{Response}    & New user registered with their public information stored. The user receives a public and secret key, a certificate and the GPP for the framework.             \\ \hline
 	\end{tabular}
-	\caption{User Registration use-case description.}
+	\caption{User Registration Use-Case Description.}
 	\label{tab:use_case_userreg}
 \end{table}
 
@@ -333,7 +342,7 @@ The following figures and tables show different use case scenarios which capture
 	\textbf{Stimulus}    & CA runs the AAReg algorithm.                   \\ \hline
 	\textbf{Response}    & New AA registered and the AA receives the public information of all registered users in the system and the verification keys for the generated user certificates. This triggers the Attribute Authority Setup use-case.            \\ \hline
 \end{tabular}
-\caption{Attribute Authority Registration  use-case description.}
+\caption{Attribute Authority Registration Use-Case Description.}
 \label{tab:use_case_aareg}
 \end{table}
 
@@ -347,7 +356,7 @@ The following figures and tables show different use case scenarios which capture
 		\textbf{Stimulus}    & Attribute Authority runs AASetup algorithm.                    \\ \hline
 		\textbf{Response}    & AA initialized with its public and private keys together with the public keys for its attributes.            \\ \hline
 	\end{tabular}
-	\caption{Attribute Authority Setup use-case description.}
+	\caption{Attribute Authority Setup Use-Case Description.}
 	\label{tab:use_case_aasetup}
 \end{table}
 
@@ -361,7 +370,7 @@ The following figures and tables show different use case scenarios which capture
 		\textbf{Stimulus}    & User secret key request.                    \\ \hline
 		\textbf{Response}    & If the user identity is verified using the available verification key for their certificate, they are provided with unique secret keys from the AA for the corresponding attributes.             \\ \hline
 	\end{tabular}
-	\caption{Secret Key Generation use-case description.}
+	\caption{Secret Key Generation Use-Case Description.}
 	\label{tab:use_case_skgen}
 \end{table}
 
@@ -384,7 +393,7 @@ The following figures and tables show different use case scenarios which capture
 		\textbf{Stimulus}    & User data storage.                    \\ \hline
 		\textbf{Response}    & Encrypted data is stored on the cloud.            \\ \hline
 	\end{tabular}
-	\caption{Data Encryption use-case description.}
+	\caption{Data Encryption Use-Case Description.}
 	\label{tab:use_case_enc}
 \end{table}
 
@@ -398,7 +407,7 @@ The following figures and tables show different use case scenarios which capture
 		\textbf{Stimulus}    & User data request from CSP                  \\ \hline
 		\textbf{Response}    & CTransform algorithm is run and if the provided information is valid, a partially decrypted ciphertext is returned to the user.             \\ \hline
 	\end{tabular}
-	\caption{Ciphertext Transformation use-case description.}
+	\caption{Ciphertext Transformation Use-Case Description.}
 	\label{tab:use_case_ctr}
 \end{table}
 
@@ -412,7 +421,7 @@ The following figures and tables show different use case scenarios which capture
 		\textbf{Stimulus}    & User receives partially decrypted ciphertext.                    \\ \hline
 		\textbf{Response}    & If successful, user gains access to symmetric key which also grants them access to the original data in plain form.             \\ \hline
 	\end{tabular}
-	\caption{Data Decryption use-case description.}
+	\caption{Data Decryption Use-Case Description.}
 	\label{tab:use_case_dec}
 \end{table}
 
@@ -435,7 +444,7 @@ The following figures and tables show different use case scenarios which capture
 		\textbf{Stimulus}    & The user who owns the corresponding data puts in a request with the appropriate AA who runs the UKGen algorithm.                   \\ \hline
 		\textbf{Response}    & If successful, provided update keys for the secret keys and ciphertexts to the appropriate users.             \\ \hline
 	\end{tabular}
-	\caption{Update Key Generation use-case description.}
+	\caption{Update Key Generation Use-Case Description.}
 	\label{tab:use_case_ukeygen}
 \end{table}
 
@@ -449,7 +458,7 @@ The following figures and tables show different use case scenarios which capture
 		\textbf{Stimulus}    & Existing user is revoked and a still valid user updates their secret key for the corresponding attribute.                     \\ \hline
 		\textbf{Response}    & User's secret keys matching the affected attribute is updated.             \\ \hline
 	\end{tabular}
-	\caption{Secret Key Update use-case description.}
+	\caption{Secret Key Update Use-Case Description.}
 	\label{tab:use_case_skupd}
 \end{table}
 
@@ -463,7 +472,7 @@ The following figures and tables show different use case scenarios which capture
 		\textbf{Stimulus}    & User (Data Owner) puts in a ciphertext update request.                   \\ \hline
 		\textbf{Response}    & Ciphertext is updated to prevent further access by the revoked user.             \\ \hline
 	\end{tabular}
-	\caption{Ciphertext Update use-case description.}
+	\caption{Ciphertext Update Use-Case Description.}
 	\label{tab:use_case_ctupd}
 \end{table}
 

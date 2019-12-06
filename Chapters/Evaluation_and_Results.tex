@@ -1,7 +1,7 @@
 \chapter{Evaluation and Results}
 \label{chap:evaluation_and_results}
 
-This chapter highlights the information about the software and hardware specifications involved in the implementation of the underlying framework and also shows the results of performance tests for the underlying ABE scheme in relation to scalability of computational overhead with regards to the number of attribute authorities and attributes involved in the system for data encryption, data decryption, and user revocation.
+This chapter highlights the information about the software and hardware specifications involved in the implementation of the underlying framework. It also shows the results of performance tests for the underlying ABE scheme in relation to scalability of computational overhead with regards to the number of attribute authorities and attributes involved in the system for data encryption, data decryption, and user revocation.
 
 \section{Experimental Setup}
 
@@ -21,15 +21,15 @@ The following hardware and software tools were used in setting up and running ou
 
 \subsection{Framework Development}
 
-Using the tools and schemes provided by the charm crypto library, we have developed our framework locally using python and set it up to run on the linux server. We have developed the different algorithms that are part of the framework into different modules in order to evaluate the performance of those algorithms that would typically reside on the user end in a real world deployment scenario of our framework architecture. We have done this to enable us measure the performance of our system without incurring the additional cost of purchasing resources using any of the available real world cloud service vendors.
+Using the tools and schemes provided by the charm crypto library, we have developed our framework locally using python and set it up to run on the Linux server. We have developed the different algorithms that are part of the framework into different modules in order to evaluate the performance of those algorithms that would typically reside on the user end in a real world deployment scenario of our framework architecture. We have done this to enable us to measure the performance of our system without incurring the additional cost of purchasing resources using any of the available real world cloud service vendors.
 
-We have setup a different module for our experimental demo in order to scale the number of attribute authorities (AA) and attributes involved in the different algorithms (i.e encryption, decryption, and revocation). We also deploy a policy generation module to ensure that we have an access policy that includes the right number of attributes from the right number of authorities using the appropriate gate for our experiments. These modules allowed us to test the performance of our scheme in an automated form and allowed for easy modification and troubleshooting along the way.
+We have setup a different module for our experimental demo in order to scale the number of attribute authorities (AA) and attributes involved in the different algorithms (i.e encryption, decryption, and revocation). We also deployed a policy generation module to ensure that we have an access policy that includes the right number of attributes from the right number of authorities using the appropriate gate for our experiments. These modules allowed us to test the performance of our scheme in an automated form and allowed for easy modification and troubleshooting along the way.
 
 \section{Performance Evaluation}
 
 We evaluated the performance of our system by evaluating the computational times for data encryption and decryption together with the time taken for users to update their attribute based secret keys. The focus of our evaluation are the processes that are run at the user end as we are working under the assumption that the Cloud Service Provider (CSP) provides in theory unlimited processing power unlike what could be available on the several devices at the user end.
 
-We encrypt and decrypt sample symmetric keys using the underlying ABE scheme. We also use access policies that exclusively have 'AND' gates to push the limits of the maximum number of attributes that can be part of the access policy or user keys with respect to the number of Attribute Authorities (AA) involved. We have setup our experiments for each authority to have ten attributes each as part of the access policy and user attributes for encryption and decryption. This would mean that if ten authorities are involved in particular text, then the result also indicated the performance of the scheme for a hundred attributes.. Our experiments have been run for 500 trials with the results being an average of the individual runs.
+We encrypt and decrypt sample symmetric keys using the underlying ABE scheme. We also use access policies that exclusively have `AND' gates to push the limits of the maximum number of attributes that can be part of the access policy or user keys with respect to the number of Attribute Authorities (AA) involved. We have setup our experiments for each authority to have ten attributes each as part of the access policy and user attributes for encryption and decryption. This would mean that if ten authorities are involved in particular text, then the result also indicated the performance of the scheme for a hundred attributes. Our experiments have been run for 500 trials with the results being an average of the individual runs. We settled on 500 trials after numerous trial numbers ranging from 10 to 1000 and finding no significant impact on results in the number of trials above five hundred (i.e 750 and 1000).
 
 \begin{figure}[]
 	\centering
@@ -60,7 +60,7 @@ Our setup for revocation was focused on showing how the time for revocation in t
 
 \section{Security Analysis}
 
-In this section we analyze the different security and privacy properties of the framework. We describe how the framework is able to achieve the conditions necessary for confidentiality,integrity, and authentication including how it is able to preserve privacy through its processes. We have shown the security definition of our underlying ABE scheme in section \ref{secdef}, highlighting the correctness of the scheme when it comes to the encryption, decryption, and revocation processes. We also highlight the security model of the underlying scheme is based on the model of the scheme we adapted and the detailed security proof can be found in \cite{Yang2014}.
+In this section we analyze the different security and privacy properties of the framework. We describe how the framework is able to achieve the conditions necessary for confidentiality, integrity, and authentication including how it is able to preserve privacy through its processes. We have shown the security definition of our underlying ABE scheme in section \ref{secdef}, highlighting the correctness of the scheme when it comes to the encryption, decryption, and revocation processes. We also highlight the security model of the underlying scheme is based on the model of the scheme we adapted and the detailed security proof can be found in \cite{Yang2014}.
 
 \subsection*{Confidentiality and Integrity}
 
