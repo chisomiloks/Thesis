@@ -5,39 +5,72 @@
 %put a title:
 %title:Thesis examination information
 %Subtitle: Submitted by: Name
-%
-%Degree name in Program name
 
+%Degree name in Program name
+%\begin{center}
+%	
+%{\textbf{CERTIFICATE OF APPROVAL}}
+%
+%\vspace{0.1cm}
+%{Submitted by \authorname}
+%
+%\vspace{0.1cm}
+%{\textbf{\degreename} in \textbf{\subjectname}}
+%
+%\vspace{0.1cm}
+%{Date\ of Defence:  January 16, 2020}
+%
+%\end{center}
+%
+%%%%%%%%%%%%%%%%%%%%% Table No: 1 starts here %%%%%%%%%%%%%%%%%%%%
+%
+%\begin{table}[H]
+%	\centering
+%	\begin{tabular}{p{5.8in}}
+%		\hline
+%		%row no:1
+%		\multicolumn{1}{|p{5.8in}|}{{Thesis\ title: \ttitle } } \\
+%		\hhline{-}
+%	\end{tabular}
+%\end{table}
+%
+%%%%%%%%%%%%%%%%%%%%% Table No: 1 ends here %%%%%%%%%%%%%%%%%%%%
+%
+%\vspace{0.1cm}
 %\noindent
-%{\Large \ttitle} \newline
-%Submitted by \authorname \newline
+%{\fontsize{9pt}{9pt}The undersigned certify that the student has presented his thesis, that the thesis is acceptable in form and content and that a satisfactory knowledge of the field covered by the thesis was demonstrated by the candidate\ through an oral examination.  They recommend this thesis to the School of Graduate and Postdoctoral Studies for acceptance.}
 %
+%\vspace{0.2cm}
 %\noindent
-%\degreename \hspace{0.07cm} in \subjectname
+%{\textbf{Examining Committee:}}
 %
-%\vspace{1cm}
+%\vspace{0.2cm}
+%{\setlength{\parindent}{0cm}\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \tab Dr. Jing Ren \tab \tab Chair of Examining Committee}
 %
-%An oral defense of this thesis took place on October 19, 2018 in front of the following examining committee: 
+%\vspace{0.2cm}
+%{\setlength{\parindent}{0cm}\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \tab Dr. Mikael Eklund \tab \tab Research Supervisor}
 %
-%      \begin{table}[h!]
-%      \centering
-%      \setlength{\tabcolsep}{0.125cm}
-%      \caption*{Examining Committee}
-%        \hspace*{-4.0cm}
-%         \scalebox{1.0}{
-%        \begin{tabular}{@{}ll@{}}
-%          \toprule
-%          Chair of Examining Committee     & Dr. Jing Ren       \\
-%          Research Supervisor    &  Dr. Michael Eklund     \\      
-%          Examining Committee Member & Dr. Khalil El-Khatib \\
-%          Thesis Examiner & Dr. Patrick Hung \\
-%          \bottomrule
-%        \end{tabular}
-%        }
-%      \end{table}
+%\vspace{0.2cm}
+%{\setlength{\parindent}{0cm}\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \tab Dr. Khalil El-Khatib \tab \tab Examining Committee Member}
 %
+%\vspace{0.2cm}
+%{\setlength{\parindent}{0cm}\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \tab Dr. Patrick Hung \tab \tab Thesis Examiner}
 %
-%The above committee determined that the thesis is acceptable in form and content and that a satisfactory knowledge of the field covered by the thesis was demonstrated by the candidate during an oral examination.  A signed copy of the Certificate of Approval is available from the School of Graduate and Postdoctoral Studies.
+%%%%%%%%%%%%%%%%%%%%% Table No: 2 starts here %%%%%%%%%%%%%%%%%%%%
+%
+%\begin{table}[H]
+%	\centering
+%	\begin{tabular}{p{6in}}
+%		\hline
+%		%row no:1
+%		\multicolumn{1}{|p{6in}|}{\begin{itemize}
+%				\item {As research supervisor for the above student, the thesis was rendered acceptable without revisions.}\tab {\setlength{\parindent}{0cm}\ \ \ \ \ \ \ \ \ \ \ \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  Dr. First Name Last Name} \item {As research supervisor for the above student, I read and approved the changes required by the final examiners and recommend the thesis for acceptance:}{\setlength{\parindent}{0cm}\ \ \ \ \ \ \ \ \  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ Dr. First Name Last Name}
+%			\end{itemize}} \\
+%		\hhline{-}
+%	\end{tabular}
+%\end{table}
+%
+%%%%%%%%%%%%%%%%%%%%% Table No: 2 ends here %%%%%%%%%%%%%%%%%%%%
 
 \cleardoublepage
 
@@ -47,13 +80,15 @@
 \begin{abstract}
 \addchaptertocentry{\abstractname} % Add the abstract to the table of contents
 
-There exists a need for sharing user health data, especially with institutes for research purposes. The need to protect this user data from malicious and unauthorized access continues to present itself. This is especially true in the case of a system that includes a third party storage service, which limits the amount of control that the data owner has. The use of encryption for secure data storage has continued to evolve in order to meet the need for flexible and fine grained access control. This evolution has led to the development of Attribute Based Encryption (ABE) based on the concept of Identity Based Encryption (IBE), an extension of public key cryptography. ABE gives more control to the data owner and its application enables users make use of the technological advancements available to them.
+There exists a need for sharing user health data, especially with institutes for research purposes. The need to maintain the privacy and security of this user data continues to present itself.  This is especially true in the case of a system that includes a third party storage service such as cloud computing, which limits the amount of control that the data owner has. The use of encryption for secure data storage has continued to evolve in order to meet the need for flexible and fine grained access control. This evolution has led to the development of Attribute Based Encryption (ABE) . The use of ABE to ensure the security and privacy of health data has been explored with multiple solutions proposed. This thesis presents an ABE based framework which allows for the secure outsourcing of the more computationally intensive processes for data decryption to the cloud servers. This reduces the amount of time needed for decryption to occur at the user end and also reduce the amount of computational power needed by users who require access to the data stored in the cloud in its encrypted form.
 
-In the area of health, there is a lot of data collected on a constant basis. This medical data is highly sensitive as it typically contains the personal information of the users together with other sensitive information that needs to remain private. This data is to be protected from unauthorized users while ensuring it is available in a controlled form to those who require access in order to provide care. There is also a desire to share this data with other medical researchers and third parties such as universities and research institutes. This opens an avenue for these third parties to be able to carry out research using this data in order to contribute to the advancement of the field of health care. There is also a need to protect user privacy by ensuring that third parties only have access to the limited amount of data they require for their research while protecting the Personal Identifiable Information (PII) of users. There is also a need to follow the guidelines set by the laws with regards to user data privacy.
-
-Advancements in the area of technology such as cloud computing has expanded the trust boundaries of user systems while providing multiple advantages such as potentially unlimited access to storage and computational resources. In order to take advantage of these resources while maintaining the same levels of security and privacy, mechanisms need to be deployed. This is because users do not have physical control of the devices that are providing this resources and so need to be able to protect their data from a potentially compromised system administrator (i.e the Cloud Service Provider). There is a need to find a balance between providing adequate levels of security and finding a way to provide effective fine-grained access control to potential users. ABE provides an effective mechanism that fits this requirement as its use of attributes to regulate access provides embedded access control together with the security provided by it cryptograhic system.
-
-The use of ABE to ensure the security and privacy of health data has been explored with multiple solutions proposed. This thesis presents a framework and to apply within it an improved ABE scheme which allows for the secure outsourcing of the more computationally intensive processes for data decryption to the cloud servers. The aims of this improved ABE scheme are to reduce the amount of time needed for decryption to occur at the user end and also reduce the amount of computational power needed by users who require access to the data stored in the cloud in its encrypted form.
+%There exists a need for sharing user health data, especially with institutes for research purposes. The need to protect this user data from malicious and unauthorized access continues to present itself. This is especially true in the case of a system that includes a third party storage service, which limits the amount of control that the data owner has. The use of encryption for secure data storage has continued to evolve in order to meet the need for flexible and fine grained access control. This evolution has led to the development of Attribute Based Encryption (ABE) based on the concept of Identity Based Encryption (IBE), an extension of public key cryptography. ABE gives more control to the data owner and its application enables users make use of the technological advancements available to them.
+%
+%In the area of health, there is a lot of data collected on a constant basis. This medical data is highly sensitive as it typically contains the personal information of the users together with other sensitive information that needs to remain private. This data is to be protected from unauthorized users while ensuring it is available in a controlled form to those who require access in order to provide care. There is also a desire to share this data with other medical researchers and third parties such as universities and research institutes. This opens an avenue for these third parties to be able to carry out research using this data in order to contribute to the advancement of the field of health care. There is also a need to protect user privacy by ensuring that third parties only have access to the limited amount of data they require for their research while protecting the Personal Identifiable Information (PII) of users. There is also a need to follow the guidelines set by the laws with regards to user data privacy.
+%
+%Advancements in the area of technology such as cloud computing has expanded the trust boundaries of user systems while providing multiple advantages such as potentially unlimited access to storage and computational resources. In order to take advantage of these resources while maintaining the same levels of security and privacy, mechanisms need to be deployed. This is because users do not have physical control of the devices that are providing this resources and so need to be able to protect their data from a potentially compromised system administrator (i.e the Cloud Service Provider). There is a need to find a balance between providing adequate levels of security and finding a way to provide effective fine-grained access control to potential users. ABE provides an effective mechanism that fits this requirement as its use of attributes to regulate access provides embedded access control together with the security provided by it cryptograhic system.
+%
+%The use of ABE to ensure the security and privacy of health data has been explored with multiple solutions proposed. This thesis presents a framework and to apply within it an improved ABE scheme which allows for the secure outsourcing of the more computationally intensive processes for data decryption to the cloud servers. The aims of this improved ABE scheme are to reduce the amount of time needed for decryption to occur at the user end and also reduce the amount of computational power needed by users who require access to the data stored in the cloud in its encrypted form.
 
 %The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically!
 
