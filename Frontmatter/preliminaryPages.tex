@@ -1,76 +1,64 @@
 %----------------------------------------------------------------------------------------
 %	CERTIFICATE OF APPROVAL
 %----------------------------------------------------------------------------------------
-
+\addchaptertocentry{Thesis Examination Information}
 %put a title:
 %title:Thesis examination information
 %Subtitle: Submitted by: Name
 
 %Degree name in Program name
-%\begin{center}
-%	
-%{\textbf{CERTIFICATE OF APPROVAL}}
-%
-%\vspace{0.1cm}
-%{Submitted by \authorname}
-%
-%\vspace{0.1cm}
-%{\textbf{\degreename} in \textbf{\subjectname}}
-%
-%\vspace{0.1cm}
-%{Date\ of Defence:  January 16, 2020}
-%
-%\end{center}
-%
-%%%%%%%%%%%%%%%%%%%%% Table No: 1 starts here %%%%%%%%%%%%%%%%%%%%
-%
-%\begin{table}[H]
-%	\centering
-%	\begin{tabular}{p{5.8in}}
-%		\hline
-%		%row no:1
-%		\multicolumn{1}{|p{5.8in}|}{{Thesis\ title: \ttitle } } \\
-%		\hhline{-}
-%	\end{tabular}
-%\end{table}
-%
-%%%%%%%%%%%%%%%%%%%%% Table No: 1 ends here %%%%%%%%%%%%%%%%%%%%
-%
-%\vspace{0.1cm}
-%\noindent
-%{\fontsize{9pt}{9pt}The undersigned certify that the student has presented his thesis, that the thesis is acceptable in form and content and that a satisfactory knowledge of the field covered by the thesis was demonstrated by the candidate\ through an oral examination.  They recommend this thesis to the School of Graduate and Postdoctoral Studies for acceptance.}
-%
-%\vspace{0.2cm}
-%\noindent
-%{\textbf{Examining Committee:}}
-%
-%\vspace{0.2cm}
-%{\setlength{\parindent}{0cm}\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \tab Dr. Jing Ren \tab \tab Chair of Examining Committee}
-%
-%\vspace{0.2cm}
-%{\setlength{\parindent}{0cm}\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \tab Dr. Mikael Eklund \tab \tab Research Supervisor}
-%
-%\vspace{0.2cm}
-%{\setlength{\parindent}{0cm}\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \tab Dr. Khalil El-Khatib \tab \tab Examining Committee Member}
-%
-%\vspace{0.2cm}
-%{\setlength{\parindent}{0cm}\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \tab Dr. Patrick Hung \tab \tab Thesis Examiner}
-%
-%%%%%%%%%%%%%%%%%%%%% Table No: 2 starts here %%%%%%%%%%%%%%%%%%%%
-%
-%\begin{table}[H]
-%	\centering
-%	\begin{tabular}{p{6in}}
-%		\hline
-%		%row no:1
-%		\multicolumn{1}{|p{6in}|}{\begin{itemize}
-%				\item {As research supervisor for the above student, the thesis was rendered acceptable without revisions.}\tab {\setlength{\parindent}{0cm}\ \ \ \ \ \ \ \ \ \ \ \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  Dr. First Name Last Name} \item {As research supervisor for the above student, I read and approved the changes required by the final examiners and recommend the thesis for acceptance:}{\setlength{\parindent}{0cm}\ \ \ \ \ \ \ \ \  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ Dr. First Name Last Name}
-%			\end{itemize}} \\
-%		\hhline{-}
-%	\end{tabular}
-%\end{table}
-%
-%%%%%%%%%%%%%%%%%%%%% Table No: 2 ends here %%%%%%%%%%%%%%%%%%%%
+\begin{center}
+	
+{\textbf{THESIS EXAMINATION INFORMATION}}
+
+\vspace{0.1cm}
+{Submitted by: \textbf{\authorname}}
+
+\vspace{\baselineskip}
+{\textbf{\degreename} in \textbf{\subjectname}}
+
+\vspace{0.1cm}
+
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%% Table No: 1 starts here %%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{p{6in}}
+		\hline
+		%row no:1
+		\multicolumn{1}{|p{5.5in}|}{{Thesis\ title: \textbf{\ttitle}}} \\
+		\hhline{-}
+	\end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%% Table No: 1 ends here %%%%%%%%%%%%%%%%%%%%
+
+\vspace{0.1cm}
+\noindent
+{An oral defense of this thesis took place on January 16, 2020 in front of the following examining committee:}
+
+\vspace{\baselineskip}
+\noindent
+{\textbf{Examining Committee:}}
+\vspace{\baselineskip}
+
+\vspace{0.2cm}
+{\setlength{\parindent}{0cm}Chair of Examining Committee \tab Dr. Jing Ren}
+
+\vspace{0.2cm}
+{\setlength{\parindent}{0cm}Research Supervisor \tab Dr. Mikael Eklund}
+
+\vspace{0.2cm}
+{\setlength{\parindent}{0cm}Examining Committee Member \tab Dr. Khalil El-Khatib}
+
+\vspace{0.2cm}
+{\setlength{\parindent}{0cm}Thesis Examiner \tab Dr. Patrick Hung}
+
+\vspace{\baselineskip}
+\noindent
+The above committee determined that the thesis is acceptable in form and content and that a satisfactory knowledge of the field covered by the thesis was demonstrated by the candidate during an oral examination. A signed copy of the Certificate of Approval is available from the School of Graduate and Postdoctoral Studies.
 
 \cleardoublepage
 
@@ -80,7 +68,7 @@
 \begin{abstract}
 \addchaptertocentry{\abstractname} % Add the abstract to the table of contents
 
-There exists a need for sharing user health data, especially with institutes for research purposes. The need to maintain the privacy and security of this user data continues to present itself.  This is especially true in the case of a system that includes a third party storage service such as cloud computing, which limits the amount of control that the data owner has. The use of encryption for secure data storage has continued to evolve in order to meet the need for flexible and fine grained access control. This evolution has led to the development of Attribute Based Encryption (ABE) . The use of ABE to ensure the security and privacy of health data has been explored with multiple solutions proposed. This thesis presents an ABE based framework which allows for the secure outsourcing of the more computationally intensive processes for data decryption to the cloud servers. This reduces the amount of time needed for decryption to occur at the user end and also reduce the amount of computational power needed by users who require access to the data stored in the cloud in its encrypted form.
+There exists a need for sharing user health data, especially with institutes for research purposes, in a secure fashion. This is especially true in the case of a system that includes a third party storage service, such as cloud computing, which limits the control of the data owner. The use of encryption for secure data storage continues to evolve to meet the need for flexible and fine-grained access control. This evolution has led to the development of Attribute Based Encryption (ABE). The use of ABE to ensure the security and privacy of health data has been explored. This thesis presents an ABE based framework which allows for the secure outsourcing of the more computationally intensive processes for data decryption to the cloud servers. This reduces the time needed for decryption to occur at the user end and reduces the amount of computational power needed by users to access data.
 
 %There exists a need for sharing user health data, especially with institutes for research purposes. The need to protect this user data from malicious and unauthorized access continues to present itself. This is especially true in the case of a system that includes a third party storage service, which limits the amount of control that the data owner has. The use of encryption for secure data storage has continued to evolve in order to meet the need for flexible and fine grained access control. This evolution has led to the development of Attribute Based Encryption (ABE) based on the concept of Identity Based Encryption (IBE), an extension of public key cryptography. ABE gives more control to the data owner and its application enables users make use of the technological advancements available to them.
 %
@@ -106,20 +94,20 @@ There exists a need for sharing user health data, especially with institutes for
 %----------------------------------------------------------------------------------------
 \begin{declaration}
 \addchaptertocentry{\authorshipname} % Add the declaration to the table of contents
-\noindent I, \authorname, declare that this thesis titled, \enquote{\ttitle} and the work presented in it are my own. I confirm that:
 
-\begin{itemize} 
-\item I hereby declare that this thesis consists of original work of which I have authored. This is a true copy of the thesis, including any required final revisions, as accepted by my examiners.
-\item I authorize the University of Ontario Institute of Technology to lend this thesis to other institutions or individuals for the purpose of scholarly research. I further authorize University of Ontario Institute of Technology to reproduce this thesis by photocopying or by other means, in total or in part, at the request of other institutions or individuals for the purpose of scholarly research. I understand that my thesis will be made electronically available to the public.\\
-\end{itemize}
+I hereby declare that this thesis consists of original work of which I have authored. This is a true copy of the thesis, including any required final revisions, as accepted by my examiners.
 
+I authorize the University of Ontario Institute of Technology to lend this thesis to other institutions or individuals for the purpose of scholarly research. I further authorize University of Ontario Institute of Technology to reproduce this thesis by photocopying or by other means, in total or in part, at the request of other institutions or individuals for the purpose of scholarly research. I understand that my thesis will be made electronically available to the public.\\
+
+\vspace{\baselineskip}
+{\setlength{\parindent}{0cm}\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \ \tab \authorname}
 %If your research need ethics approval this goes here. 
  
-\noindent Signed:\\
-\rule[0.5em]{25em}{0.5pt} % This prints a line for the signature
- 
-\noindent Date:\\
-\rule[0.5em]{25em}{0.5pt} % This prints a line to write the date
+%\noindent
+%\rule[0.5em]{20em}{0.5pt} \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ {\authorname}
+%
+%\noindent Date:\\
+%\rule[0.5em]{25em}{0.5pt} % This prints a line to write the date
 \end{declaration}
 
 
@@ -129,14 +117,12 @@ There exists a need for sharing user health data, especially with institutes for
 %%	STATEMENT OF CONTRIBUTIONS
 %%----------------------------------------------------------------------------------------
 %
-%\begin{contributions}
-%\addchaptertocentry{\contributionsname} 
+\begin{contributions}
+\addchaptertocentry{\contributionsname} 
 
-%This section must include any contributing people or funding for the Thesis, talk with supervisor to ensure you have the correct statements. If you have published the work IT MUST be noted here, if you have not there is a sentence you can copy+paste into here from UOIT template.
+I hereby certify that I am the sole author of this thesis and that no part of this thesis has been published or submitted for publication. I have used standard referencing practices to acknowledge ideas, research techniques, or other materials that belong to others.  Furthermore, I hereby certify that I am the sole source of the creative works and/or inventive knowledge described in this thesis.
 
-%From the Guidelines: In the case where a thesis includes papers co-authored by the candidate and others, the thesis must state explicitly who contributed to such work and the nature and extent of this contribution. The Supervisor(s) must attest to the accuracy of such statements about co-authorship at the oral examination.
-
-%\end{contributions}
+\end{contributions}
 
 %----------------------------------------------------------------------------------------
 %	DEDICATION
