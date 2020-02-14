@@ -5,7 +5,7 @@
 
 This section provides a description of the concepts of security and privacy, two key features of the framework described in this thesis. They are both important features of any system that involves the flow of data among multiple parties or entities.
 
-\subsection{Security}\label{sec}
+\subsection*{Security}\label{sec}
 
 Security according to the National Institute of Standards and Technology (NIST) \cite{Kissel2013} is defined as any condition that leads to the creation and maintenance of defensive measures to ensure than an information technology infrastructure continues to perform it basic or critical functions irrespective of the risks posed by the threats to its normal operation.
 
@@ -48,7 +48,7 @@ Attacks on cryptographic systems aimed at recovering the plaintext from the ciph
 
 Note that some of the attack types described above are mutually exclusive (for instance, an attack cannot be both chosen plaintext and known plaintext). And also the chosen plaintext/ciphertext attacks are somewhat exclusive to the modern era of cryptography.
 
-\subsection{Privacy}\label{priv}
+\subsection*{Privacy}\label{priv}
 
 Privacy is commonly equated with the concept of confidentiality although they are both distinct. While confidentiality is mainly concerned with ensuring that only users who are authorized have access to data which is being stored, processed or transferred within a system. Privacy, on the other hand, is concerned with ensuring that users have more control over the collection, use and storage of information that is related to them. Therefore, while maintaining the confidentiality of a system aids in preserving privacy, confidentiality does not completely ensure privacy as an authorized user may abuse that privilege by violating the privacy of user information \cite{pearsonprivacy}.
 
@@ -151,21 +151,19 @@ Access policies based on monotone access structures could be represented in two 
 
 Secret sharing schemes which was first created by Shamir in \cite{Shamir1979} allows for the division of data among multiple parties in such a way that the original data can only be reconstructed if a party is in possession of at least a fixed number of division, usually the threshold, and possession of a number of pieces less than the threshold reveals no information about the original data. Other earlier works in secret sharing include works by Barkley \cite{Blakley1979}, Benaloh \cite{Benaloh1988} and Ito, Saito and Nishizeki \cite{Ito1989}. LSSS are secret sharing schemes in which the reconstruction of the original secret is done using a linear function of the available pieces \cite{Beimel1996}.
 
-\subsection{Linear Secret Sharing Schemes}
-
 \begin{definition}{\textbf{(Linear Secret Sharing Schemes \cite{Beimel1996, Waters2011})}}
 	A secret sharing scheme $ \prod $ over a set of parties $ \mathcal{P} $ is called linear (over $ Z_{p} $) if
 	\begin{enumerate}
-		\item The shared for each party form a vector over $ Z_{p} $.
+		\item The shares for each party form a vector over $ Z_{p} $.
 		
-		\item There exists a matrix $ M $ with $ \ell $ rows and $ n $ columns called the share-generating matrix for $ \prod $. For all $ i = 1,/ldots,\ell $, with $ M_{i} $ representing the $i$'th row of $ M $. The function $ \rho $ is defined as the party labelling row $ i $ as $ \rho(i) $. Consider a column vector $ \vec{v} = (s, r_{2},\ldots,r_{n}) $ where $ s \in Z_{p} $ is the secret to be shared and $ r_{2},\ldots,r_{n} \in Z_{p} $ are chosen randomly, then $ M_{v} $ is can be described as the vector $ \ell $ shares of the secret $ s $ according to $ \prod $. The share $ (M_{v})_{i} $ belongs to party $ \rho(i) $.
+		\item There exists a matrix $ M $ with $ \ell $ rows and $ n $ columns called the share-generating matrix for $ \prod $. For all $ i = 1,\ldots,\ell $, with $ M_{i} $ representing the $i$'th row of $ M $. The function $ \rho $ is defined as the party labelling row $ i $ as $ \rho(i) $. Consider a column vector $ \vec{v} = (s, r_{2},\ldots,r_{n}) $ where $ s \in Z_{p} $ is the secret to be shared and $ r_{2},\ldots,r_{n} \in Z_{p} $ are chosen randomly, then $ M_{v} $ can be described as the vector $ \ell $ shares of the secret $ s $ according to $ \prod $. The share $ (M_{v})_{i} $ belongs to party $ \rho(i) $.
 		
 	\end{enumerate}
 \end{definition}
 
 The linear reconstruction property as described in \cite{Beimel1996} shows that suppose that $ \prod $ is an LSSS for an access structure $ \mathbb{A} $. Let $ S \in \mathbb{A} $ be any authorized set, and let $ I \subset {1,\ldots,\ell} $ be defined as $ I = {i : \rho(i) \in S} $. Then there exits constants $ {w_{i} \in Z_{p}}_{i \in I} $ such that, if $ {\rho_{i}} $ are shares of the secret $ s $ according to $ \prod $, then $ \sum_{i \in I} w_{i}\lambda_{i} = s $.
 
-Note that access structures represented as boolean formulas which are typically represented by binary trees can be converted into a LSSS form using the techniques described in \cite{Lewko2011b} with the number of rows in the corresponding matrix equal to the number of leaf nodes in the access tree.
+Note that access structures represented as boolean formulas, which are typically represented by binary trees, can be converted into a LSSS form using the techniques described in \cite{Lewko2011b} with the number of rows in the corresponding matrix equal to the number of leaf nodes in the access tree.
 
 
 \subsection{Cryptographic Complexity Assumptions}\label{cryphard}

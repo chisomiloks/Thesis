@@ -108,7 +108,7 @@ We also adopt the security assumptions of the original  scheme \cite{Yang2014}. 
 		&GPK_{uid} = g^{u_{uid}}, \\ &GPK'_{uid} = g^{\frac{1}{u'_{uid}}}
 		\end{split}
 		\end{align}
-		The CA generates a $ Certificate{uid} $ for each user $ uid $ and send $ (GPK_{uid}, GSK'_{uid}, \\ Cerificate(uid)) $ to the user.
+		The CA generates a $ Certificate(uid) $ for each user $ uid $ and sends $ (GPK_{uid}, \\GSK'_{uid}, Cerificate(uid)) $ to the user.
 		
 		\item Attribute Authority (AA) Registration - The CA assigns a globally unique authority identity $ aid $ to each AA and sends $ (GPK'_{uid}, GSK_{uid}) $ for all registered users to $ AA_{aid} $. The CA also sends the verification key $ vk_{CA} $ to $ AA_{aid} $ for verifying the $ Certificate(uid) $ assigned to each user.
 		
